@@ -1,31 +1,72 @@
 import { format, parseISO } from 'date-fns';
 import { getMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts } from '@/contentlayer/generated';
+import Link from 'next/link';
+
+type Props = {
+  params: {
+    slug: string;
+  };
+};
+
+const PostPage = ({ params }: Props) => {
+  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+
+  // 현재 글의 인덱스
+  const currentIndex = allPosts.findIndex((post) => post._raw.flattenedPath === params.slug);
+  // 이전 글과 다음 글의 인덱스
+  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+  const Content = getMDXComponent(post?.body.code as string);
+
+  // const postRef = useRef(null);
+  // const { headings, activeId, handleHeadingClick } = usePostToc({
+  //   postId: post!._id,
+  //   postElement: postRef.current,
+  //   disable: false,
+  // });
+
+  return (
+    <>
+      <article className="py-8 mx-auto max-w-xl">
+        <div className="mb-8 text-center">
+          <time dateTime={post?.date} className="mb-1 text-xs text-gray-600">
+            {format(parseISO(post?.date as string), 'LLLL d, yyyy')}
+          </time>
+          <h1>{post?.title}</h1>
+        </div>
+        <Content />
+      </article>
+      <div>
+        {prevPost && (
+          <Link href={prevPost.url} className="mr-4">
+            ← {prevPost.title}
+          </Link>
+        )}
+        {nextPost && <Link href={nextPost.url}>{nextPost.title} →</Link>}
+      </div>
+      {/*<div className="sidebar">*/}
+      {/*  {headings.map((heading) => (*/}
+      {/*    <div*/}
+      {/*      key={heading.id}*/}
+      {/*      className={heading.id === activeId ? 'active' : ''}*/}
+      {/*      onClick={() => handleHeadingClick(heading.id)}*/}
+      {/*    >*/}
+      {/*      {heading.text}*/}
+      {/*    </div>*/}
+      {/*  ))}*/}
+      {/*</div>*/}
+    </>
+  );
+};
+
+export default PostPage;
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
 
-export const generateMetadata = ({ params }: any) => {
+export const generateMetadata = ({ params }: Props) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   return { title: post?.title };
 };
-
-const PostLayout = ({ params }: { params: { slug: string } }) => {
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-
-  const Content = getMDXComponent(post?.body.code as string);
-
-  return (
-    <article className="py-8 mx-auto max-w-xl">
-      <div className="mb-8 text-center">
-        <time dateTime={post?.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(post?.date as string), 'LLLL d, yyyy')}
-        </time>
-        <h1>{post?.title}</h1>
-      </div>
-      <Content />
-    </article>
-  );
-};
-
-export default PostLayout;
