@@ -6,7 +6,8 @@ globalStyle(`*`, {
 });
 
 globalStyle(`html, body`, {
-  height: `100%`,
+  height: `300%`,
+  backgroundColor: '#002323',
 });
 
 globalStyle(`body`, {
