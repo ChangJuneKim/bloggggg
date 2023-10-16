@@ -1,4 +1,16 @@
 import { style } from '@vanilla-extract/css';
+import { pseudoSelectors } from '@/styles/selectors';
+import { vars } from '@/styles/themes/contract.css';
+import { navigation } from '@/styles/tokens/space';
+
+export const logoStyle = style({
+  transform: `scale(1)`,
+  selectors: {
+    [pseudoSelectors.hover]: {
+      transform: `scale(1.1)`,
+    },
+  },
+});
 
 export const header = style({
   display: 'flex',
@@ -9,6 +21,7 @@ export const header = style({
   top: '0',
   zIndex: '1000',
   backgroundColor: 'transparent',
+  height: `${navigation.navigationHeight}`,
 });
 
 export const headerContent = style({
@@ -23,10 +36,24 @@ export const scrolledHeader = style({
 });
 
 export const title = style({
-  color: '#fff',
+  color: vars.color.text,
 });
-export const linkStyle = style({
-  color: '#fff',
+
+export const navi = style({
+  display: 'flex',
+  listStyle: 'none',
+  height: '100%',
+});
+
+export const linkItem = style({
+  height: '100%',
+});
+
+export const link = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  color: vars.color.text,
   textDecoration: 'none',
   margin: '0 8px',
+  height: '100%',
 });

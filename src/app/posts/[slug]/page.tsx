@@ -3,11 +3,11 @@ import { getMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts } from '@/contentlayer/generated';
 import Link from 'next/link';
 
-type Props = {
+interface Props {
   params: {
     slug: string;
   };
-};
+}
 
 const PostPage = ({ params }: Props) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
