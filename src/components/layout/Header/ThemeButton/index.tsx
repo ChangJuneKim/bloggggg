@@ -1,6 +1,6 @@
 'use client';
 import { DEFAULT_THEME } from '@/constants/themes';
-import { themeButton } from '@/components/ThemeButton.css';
+import { themeButton } from '@/components/layout/Header/ThemeButton/index.css';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 

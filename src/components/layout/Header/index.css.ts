@@ -53,11 +53,10 @@ export const linkItem = style({
   height: space.full,
 });
 
-export const link = style({
+export const headerLink = style({
   display: 'inline-flex',
   alignItems: 'center',
   color: vars.color.text,
-  textDecoration: 'none',
   margin: '0 8px',
   height: space.full,
 });

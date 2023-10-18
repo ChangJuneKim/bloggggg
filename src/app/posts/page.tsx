@@ -1,14 +1,14 @@
 import { allPosts } from '@/contentlayer/generated';
-import Link from 'next/link';
+import { MyLink } from '@/components/base/MyLink';
 
 export default function PostsPage() {
   return (
     <div>
       포스트 페이지다요
       {allPosts.map((post) => (
-        <Link href={post.url} key={post._id}>
+        <MyLink href={post.url} key={post._id} mx="2">
           {post.title}
-        </Link>
+        </MyLink>
       ))}
     </div>
   );

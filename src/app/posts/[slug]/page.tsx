@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { getMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts } from '@/contentlayer/generated';
-import Link from 'next/link';
+import { MyLink } from '@/components/base/MyLink';
 
 interface Props {
   params: {
@@ -29,9 +29,9 @@ const PostPage = ({ params }: Props) => {
 
   return (
     <>
-      <article className="py-8 mx-auto max-w-xl">
-        <div className="mb-8 text-center">
-          <time dateTime={post?.date} className="mb-1 text-xs text-gray-600">
+      <article>
+        <div>
+          <time dateTime={post?.date}>
             {format(parseISO(post?.date as string), 'LLLL d, yyyy')}
           </time>
           <h1>{post?.title}</h1>
@@ -39,12 +39,8 @@ const PostPage = ({ params }: Props) => {
         <Content />
       </article>
       <div>
-        {prevPost && (
-          <Link href={prevPost.url} className="mr-4">
-            ← {prevPost.title}
-          </Link>
-        )}
-        {nextPost && <Link href={nextPost.url}>{nextPost.title} →</Link>}
+        {prevPost && <MyLink href={prevPost.url}>← {prevPost.title}</MyLink>}
+        {nextPost && <MyLink href={nextPost.url}>{nextPost.title} →</MyLink>}
       </div>
       {/*<div className="sidebar">*/}
       {/*  {headings.map((heading) => (*/}

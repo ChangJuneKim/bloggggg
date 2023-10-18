@@ -1,9 +1,9 @@
 import '../styles/reset.css';
 import '../styles/globalStyles.css';
 import type { Metadata } from 'next';
-import Header from '@/components/layout/Header';
 import localFont from 'next/font/local';
 import Providers from '@/app/providers';
+import Header from '@/components/layout/Header';
 
 export const metadata: Metadata = {
   title: '김창준의 블로그',
@@ -19,10 +19,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={pretendard.className}>
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
+        <Header />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
