@@ -1,12 +1,26 @@
-import { breakpointNames, minMediaQuery } from './tokens/breakpoints';
-import { responsiveProperties, unresponsiveProperties } from './atomic-properties';
-import { lightThemeClass } from './themes/light.css';
-import { darkThemeClass } from './themes/dark.css';
-import { vars } from './themes/contract.css';
-import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles';
+import { lightThemeClass } from '@/styles/themes/light.css';
+import { darkThemeClass } from '@/styles/themes/dark.css';
+import { createRainbowSprinkles, defineProperties } from 'rainbow-sprinkles';
+import { zIndices } from '@/styles/tokens/z-indices';
+import { vars } from '@/styles/themes/contract.css';
+import { minMediaQuery } from '@/styles/tokens/breakpoints';
 
 const unresponsiveAtomicProperties = defineProperties({
-  properties: unresponsiveProperties,
+  dynamicProperties: {
+    position: true,
+    border: true,
+    textAlign: true,
+    zIndex: zIndices,
+    fontWeight: vars.fontWeight,
+    gap: vars.space,
+    borderRadius: vars.borderRadius,
+  },
+  staticProperties: {
+    position: [`relative`, `absolute`, `sticky`],
+    opacity: [0, 0.1, 0.5, 1],
+    border: [`none`],
+    textAlign: [`left`, `center`, `right`],
+  },
 });
 
 export const themesSelectors = {
@@ -19,8 +33,8 @@ const colorAtomicProperties = defineProperties({
     light: { selector: themesSelectors.light },
     dark: { selector: themesSelectors.dark },
   },
-  defaultCondition: ['light', 'dark'],
-  properties: {
+  defaultCondition: 'dark',
+  dynamicProperties: {
     color: vars.color,
     background: vars.color,
   },
@@ -30,7 +44,6 @@ const colorAtomicProperties = defineProperties({
 });
 
 const responsiveAtomicProperties = defineProperties({
-  defaultCondition: 'mobile',
   conditions: {
     mobile: {},
     sm: {
@@ -49,8 +62,33 @@ const responsiveAtomicProperties = defineProperties({
       '@media': minMediaQuery('2xl'),
     },
   },
-  responsiveArray: breakpointNames,
-  properties: responsiveProperties,
+  defaultCondition: 'mobile',
+  dynamicProperties: {
+    display: true,
+    alignItems: true,
+    justifyContent: true,
+    flexDirection: true,
+    flexWrap: true,
+    fontSize: vars.fontSize,
+    marginTop: vars.space,
+    marginBottom: vars.space,
+    marginRight: vars.space,
+    marginLeft: vars.space,
+    paddingTop: vars.space,
+    paddingBottom: vars.space,
+    paddingRight: vars.space,
+    paddingLeft: vars.space,
+    height: vars.space,
+    width: vars.space,
+    minWidth: vars.space,
+    minHeight: vars.space,
+  },
+  staticProperties: {
+    display: [`block`, `inline-block`, `flex`, `inline-flex`],
+    alignItems: [`center`],
+    justifyContent: [`center`, `space-between`],
+    flexDirection: [`row`, `column`],
+  },
   shorthands: {
     m: ['marginBottom', 'marginTop', 'marginLeft', 'marginRight'],
     mx: ['marginLeft', 'marginRight'],
@@ -61,7 +99,7 @@ const responsiveAtomicProperties = defineProperties({
   },
 });
 
-export const atoms = createSprinkles(
+export const atoms = createRainbowSprinkles(
   unresponsiveAtomicProperties,
   colorAtomicProperties,
   responsiveAtomicProperties

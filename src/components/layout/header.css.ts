@@ -1,16 +1,8 @@
 import { style } from '@vanilla-extract/css';
 import { pseudoSelectors } from '@/styles/selectors';
 import { vars } from '@/styles/themes/contract.css';
-import { navigation } from '@/styles/tokens/space';
-
-export const logoStyle = style({
-  transform: `scale(1)`,
-  selectors: {
-    [pseudoSelectors.hover]: {
-      transform: `scale(1.1)`,
-    },
-  },
-});
+import { baseSizes, navigation, space } from '@/styles/tokens/space';
+import { fontSizes } from '@/styles/tokens/typography';
 
 export const header = style({
   display: 'flex',
@@ -35,18 +27,30 @@ export const scrolledHeader = style({
   backgroundColor: 'rgba(0, 23, 23, 0.8)', // 반투명한 검은색 배경
 });
 
+export const logoContainer = style({
+  selectors: {
+    [pseudoSelectors.hover]: {
+      transform: `scale(1.1)`,
+    },
+  },
+  transform: `scale(1)`,
+  transition: `transform 0.3s ease-in`,
+});
+
 export const title = style({
   color: vars.color.text,
+  marginLeft: baseSizes[2],
+  fontSize: fontSizes.xl,
 });
 
 export const navi = style({
   display: 'flex',
   listStyle: 'none',
-  height: '100%',
+  height: space.full,
 });
 
 export const linkItem = style({
-  height: '100%',
+  height: space.full,
 });
 
 export const link = style({
@@ -55,5 +59,5 @@ export const link = style({
   color: vars.color.text,
   textDecoration: 'none',
   margin: '0 8px',
-  height: '100%',
+  height: space.full,
 });

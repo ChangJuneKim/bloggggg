@@ -6,12 +6,13 @@ import {
   headerContent,
   link,
   linkItem,
+  logoContainer,
   navi,
   scrolledHeader,
-  title,
 } from '@/components/layout/header.css';
 import { useEffect, useState } from 'react';
 import ThemeButton from '@/components/ThemeButton';
+import Image from 'next/image';
 
 const links = [
   { label: 'Resume', href: '/resume' },
@@ -40,7 +41,9 @@ export default function Header() {
   return (
     <header className={`${header} ${isScrolled ? scrolledHeader : ''}`}>
       <div className={headerContent}>
-        <h1 className={title}>블로긔</h1>
+        <div className={logoContainer}>
+          <Image src="/assets/images/logo.png" width={42} height={42} alt="로고" />
+        </div>
         <nav className={navi}>
           <ul className={navi}>
             {links.map((l) => (
