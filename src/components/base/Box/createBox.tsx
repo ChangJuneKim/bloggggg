@@ -3,7 +3,7 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import React, { createElement, forwardRef } from 'react';
+import React, { createElement, ElementType, forwardRef, ReactNode } from 'react';
 
 export function composeClassNames(...classNames: Array<string | undefined>) {
   const classes = classNames
@@ -57,8 +57,8 @@ export function createBox<AtomsFn extends IAtomsFnBase>({
 }: CreateBoxParams<AtomsFn>) {
   type Tokens = Parameters<AtomsFn>[0];
   type BoxProps = {
-    as?: React.ElementType;
-    children?: React.ReactNode;
+    as?: ElementType;
+    children?: ReactNode;
     className?: string;
     style?: Record<string, any>;
   } & Tokens &
