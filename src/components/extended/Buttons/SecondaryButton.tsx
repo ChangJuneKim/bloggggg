@@ -1,6 +1,5 @@
-import Button from '@/components/base/Button';
 import { arrowAnimationStyle, subtleButtonStyle } from '@/components/base/Button/index.css';
-import { SVGIcon } from '@/components/base/SVGIcon';
+import { Button, SVGIcon } from '@/components/base';
 import { PrimaryButtonProps } from '@/components/extended/Buttons/PrimaryButton';
 import { composeClassNames } from '@/components/base/Box/createBox';
 

@@ -1,24 +1,12 @@
 'use client';
 
-import {
-  header,
-  headerContent,
-  headerLink,
-  linkItem,
-  logoContainer,
-  navi,
-  scrolledHeader,
-} from '@/components/layout/Header/index.css';
+import { header } from '@/components/layout/Header/index.css';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import ThemeButton from './ThemeButton';
-import { MyLink } from '@/components/base/MyLink';
+import { Box } from '@/components/base';
+import Logo from '@/components/layout/Header/Logo';
+import { FullWidthContainer } from '@/components/layout';
+import { Navigation } from '@/components/layout/Header/Navigation';
 
-const links = [
-  { label: 'Resume', href: '/resume' },
-  { label: 'Posts', href: '/posts' },
-  { label: 'Portfolio', href: '/portfolio' },
-];
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -39,24 +27,23 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`${header} ${isScrolled ? scrolledHeader : ''}`}>
-      <div className={headerContent}>
-        <div className={logoContainer}>
-          <Image src="/assets/images/logo.png" width={42} height={42} alt="로고" priority />
-        </div>
-        <nav className={navi}>
-          <ul className={navi}>
-            {links.map((l) => (
-              <li key={l.label} className={linkItem}>
-                <MyLink href={l.href} className={headerLink}>
-                  {l.label}
-                </MyLink>
-              </li>
-            ))}
-          </ul>
-          <ThemeButton />
-        </nav>
-      </div>
-    </header>
+    <>
+      <FullWidthContainer
+        variant="navigation"
+        height={'navigationHeight'}
+        data-variant-name={'navigation'}
+      >
+        <Box
+          display={'flex'}
+          as={'header'}
+          color={'heading'}
+          alignItems={'center'}
+          className={header}
+        >
+          <Logo />
+          <Navigation />
+        </Box>
+      </FullWidthContainer>
+    </>
   );
 }

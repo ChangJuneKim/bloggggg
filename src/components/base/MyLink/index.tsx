@@ -1,7 +1,8 @@
-import { Box, BoxProps } from '@/components/base/Box';
 import Link from 'next/link';
 import { composeClassNames } from '@/components/base/Box/createBox';
 import { link } from '@/components/base/MyLink/index.css';
+import { Box } from '@/components/base';
+import { BoxProps } from '@/components/base/Box';
 
 interface ILinkProps extends BoxProps {
   href: string;

@@ -3,7 +3,8 @@ import '../styles/globalStyles.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Providers from '@/app/providers';
-import Header from '@/components/layout/Header';
+import { SkipNavContent, SkipNavLink } from '@/components/a11y/SkipNav';
+import { Footer, Header } from '../components/layout';
 
 export const metadata: Metadata = {
   title: '김창준의 블로그',
@@ -19,8 +20,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={pretendard.className}>
-        <Header />
-        <Providers>{children}</Providers>
+        <SkipNavLink />
+        <Providers>
+          <Header />
+          <SkipNavContent>{children}</SkipNavContent>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

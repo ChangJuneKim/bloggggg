@@ -1,7 +1,6 @@
 'use client';
 
-import Button from '@/components/base/Button';
-import { SVGIcon } from '@/components/base/SVGIcon';
+import { Button, SVGIcon } from '@/components/base';
 import { VariantNames } from '@/components/base/Button/index.css';
 
 interface ShareAnywhereButtonProps {

@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode, useRef } from 'react';
-import { Box, BoxProps } from '@/components/base/Box';
 import { useButton } from 'react-aria';
 import Link from 'next/link';
 import { composeClassNames } from '@/components/base/Box/createBox';
@@ -12,6 +11,8 @@ import {
   VariantNames,
 } from '@/components/base/Button/index.css';
 import ButtonIcon from '@/components/base/Button/ButtonIcon';
+import { Box } from '@/components/base';
+import { BoxProps } from '@/components/base/Box';
 
 export type ButtonKind = 'button' | 'internal' | 'external';
 

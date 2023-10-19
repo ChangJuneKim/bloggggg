@@ -1,3 +1,3 @@
 export default function PortfolioPage() {
-  return <div></div>;
+  return <>포폴 페이지</>;
 }

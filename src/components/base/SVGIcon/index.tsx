@@ -39,8 +39,10 @@ type SVGIconProps = {
   [x: string]: any;
 };
 
-export const SVGIcon = ({ id, ...props }: SVGIconProps) => (
-  <svg aria-hidden focusable="false" {...props}>
-    <use href={`/assets/icons.svg#${id}`} />
-  </svg>
-);
+export default function SVGIcon({ id, ...props }: SVGIconProps) {
+  return (
+    <svg aria-hidden focusable="false" {...props}>
+      <use href={`/assets/icons.svg#${id}`} />
+    </svg>
+  );
+}

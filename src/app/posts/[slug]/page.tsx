@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { getMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts } from '@/contentlayer/generated';
-import { MyLink } from '@/components/base/MyLink';
+import { MyLink } from '@/components/base';
 
 interface Props {
   params: {
@@ -20,13 +20,6 @@ const PostPage = ({ params }: Props) => {
 
   const Content = getMDXComponent(post?.body.code as string);
 
-  // const postRef = useRef(null);
-  // const { headings, activeId, handleHeadingClick } = usePostToc({
-  //   postId: post!._id,
-  //   postElement: postRef.current,
-  //   disable: false,
-  // });
-
   return (
     <>
       <article>
@@ -42,17 +35,6 @@ const PostPage = ({ params }: Props) => {
         {prevPost && <MyLink href={prevPost.url}>← {prevPost.title}</MyLink>}
         {nextPost && <MyLink href={nextPost.url}>{nextPost.title} →</MyLink>}
       </div>
-      {/*<div className="sidebar">*/}
-      {/*  {headings.map((heading) => (*/}
-      {/*    <div*/}
-      {/*      key={heading.id}*/}
-      {/*      className={heading.id === activeId ? 'active' : ''}*/}
-      {/*      onClick={() => handleHeadingClick(heading.id)}*/}
-      {/*    >*/}
-      {/*      {heading.text}*/}
-      {/*    </div>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
     </>
   );
 };

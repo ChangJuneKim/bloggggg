@@ -1,7 +1,7 @@
-import Button, { ButtonKind } from '@/components/base/Button';
 import { ReactNode } from 'react';
 import { arrowAnimationStyle } from '@/components/base/Button/index.css';
-import { SVGIcon } from '@/components/base/SVGIcon';
+import { Button, SVGIcon } from '@/components/base';
+import { ButtonKind } from '@/components/base/Button';
 
 export interface PrimaryButtonProps {
   to: string;
