@@ -1,6 +1,7 @@
 import { FullWidthContainer } from '@/components/layout';
 import { Box, ExternalLink, MyLink, Spacer } from '@/components/base';
 import { Fragment } from 'react';
+import { borderTop } from '@/components/layout/Footer/index.css';
 
 const footerNavigation = [
   {
@@ -20,7 +21,7 @@ const footerNavigation = [
 
 export default function Footer() {
   return (
-    <FullWidthContainer variant="dark">
+    <FullWidthContainer variant={'dark'} className={borderTop}>
       <Box as="footer" py="16" role="contentinfo">
         <Box display="flex" flexDirection="column">
           <Box

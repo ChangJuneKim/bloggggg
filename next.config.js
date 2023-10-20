@@ -3,6 +3,10 @@ const { withContentlayer } = require('next-contentlayer');
 const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    scrollRestoration: true,
+  },
+};
 
 module.exports = withVanillaExtract(withContentlayer(nextConfig));

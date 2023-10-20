@@ -15,14 +15,13 @@ export const header = style({
   height: `${navigation.navigationHeight}`,
 });
 
-export const headerContent = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+export const showHeaderShadow = style({
+  boxShadow: `0px 1px 3px rgba(59, 130, 246, 0.1), 0px 1px 2px rgba(59, 130, 246, 0.06)`,
+  transition: 'box-shadow 0.4s ease',
 });
 
-export const scrolledHeader = style({
-  backgroundColor: 'rgba(0, 23, 23, 0.8)', // 반투명한 검은색 배경
+export const hideHeaderShadow = style({
+  transition: 'box-shadow 1.5s ease',
 });
 
 export const title = style({
@@ -34,17 +33,5 @@ export const title = style({
 export const navi = style({
   display: 'flex',
   listStyle: 'none',
-  height: space.full,
-});
-
-export const linkItem = style({
-  height: space.full,
-});
-
-export const headerLink = style({
-  display: 'inline-flex',
-  alignItems: 'center',
-  color: vars.color.text,
-  margin: '0 8px',
   height: space.full,
 });

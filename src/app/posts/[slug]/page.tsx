@@ -1,13 +1,18 @@
 import { format, parseISO } from 'date-fns';
-import { getMDXComponent } from 'next-contentlayer/hooks';
+import { useMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts } from '@/contentlayer/generated';
 import { MyLink } from '@/components/base';
+import { MDXComponents } from 'mdx/types';
+import Link from 'next/link';
 
 interface Props {
   params: {
     slug: string;
   };
 }
+const mdxComponents: MDXComponents = {
+  a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
+};
 
 const PostPage = ({ params }: Props) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
@@ -18,18 +23,18 @@ const PostPage = ({ params }: Props) => {
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
-  const Content = getMDXComponent(post?.body.code as string);
+  const Content = useMDXComponent(post?.body.code || '');
 
   return (
     <>
       <article>
         <div>
-          <time dateTime={post?.date}>
-            {format(parseISO(post?.date as string), 'LLLL d, yyyy')}
+          <time dateTime={post?.createdAt}>
+            {format(parseISO(post?.createdAt as string), 'LLLL d, yyyy')}
           </time>
           <h1>{post?.title}</h1>
         </div>
-        <Content />
+        <Content components={mdxComponents} />
       </article>
       <div>
         {prevPost && <MyLink href={prevPost.url}>← {prevPost.title}</MyLink>}

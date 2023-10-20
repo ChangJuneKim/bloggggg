@@ -23,7 +23,7 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     background: vars.color.bg,
     selectors: {
       [themesSelectors.dark]: {
-        background: tlg(colorPalette.blueGray[950], vars.color.bg),
+        background: tlg(colorPalette.blueGray[900], vars.color.bg),
       },
     },
   },
@@ -36,10 +36,10 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     },
   },
   dark: {
-    background: colorPalette.blueGray[700],
+    background: tlg(colorPalette.blue[700], colorPalette.blue[500]),
     selectors: {
       [themesSelectors.dark]: {
-        background: tlg(colorPalette.blueGray[900], colorPalette.blueGray[950]),
+        background: tlg(colorPalette.blueGray[950], colorPalette.blueGray[900]),
       },
     },
   },

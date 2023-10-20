@@ -15,6 +15,9 @@ const containerBaseStyle = style({
       paddingLeft: vars.space[6],
       paddingRight: vars.space[6],
     },
+    [minMediaQuery(`2xl`)]: {
+      maxWidth: `1200px`,
+    },
   },
 });
 

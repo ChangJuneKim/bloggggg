@@ -1,6 +1,6 @@
-import { transparentize } from '../../utils/color';
+import { transparentize } from '@/utils/color';
 
-const navBgTransparency = 0.85;
+const navBgTransparency = 0.9;
 
 /**
  * Tailwind CSS Color Palette
@@ -48,18 +48,6 @@ export const colorPalette = {
     700: '#a21caf',
     800: '#86198f',
     900: '#701a75',
-  },
-  lightBlue: {
-    50: '#f0f9ff',
-    100: '#e0f2fe',
-    200: '#bae6fd',
-    300: '#7dd3fc',
-    400: '#38bdf8',
-    500: '#0ea5e9',
-    600: '#0284c7',
-    700: '#0369a1',
-    800: '#075985',
-    900: '#0c4a6e',
   },
   emerald: {
     50: '#ecfdf5',
@@ -122,6 +110,18 @@ export const colorPalette = {
     900: '#111827',
   },
   */
+  lightBlue: {
+    50: '#f7fcff',
+    100: '#e0f2fe',
+    200: '#bae6fd',
+    300: '#7dd3fc',
+    400: '#38bdf8',
+    500: '#0ea5e9',
+    600: '#0284c7',
+    700: '#0369a1',
+    800: '#075985',
+    900: '#0c4a6e',
+  },
   purple: {
     50: '#faf5ff',
     100: '#f3e8ff',
@@ -302,15 +302,16 @@ export const nullColors = {
   navigationBg: '',
   ghostBg: '',
   copyButtonBg: '',
+  borderColor: '',
 };
 
 export type Colors = keyof typeof nullColors;
 
 export const lightThemeColors: typeof nullColors = {
-  primary: colorPalette.blue[600],
-  primaryHover: colorPalette.blue[700],
-  primaryAsBg: colorPalette.blue[600],
-  bg: colorPalette.white,
+  primary: colorPalette.blue[500],
+  primaryHover: colorPalette.blue[600],
+  primaryAsBg: colorPalette.blue[500],
+  bg: colorPalette.lightBlue[50],
   text: colorPalette.blueGray[800],
   textMuted: colorPalette.blueGray[700],
   mutedAsBg: colorPalette.blueGray[100],
@@ -324,16 +325,17 @@ export const lightThemeColors: typeof nullColors = {
   bgHover: colorPalette.blueGray[100],
   cardBg: colorPalette.white,
   inherit: 'inherit',
-  navigationBg: transparentize(colorPalette.white, navBgTransparency),
-  ghostBg: transparentize(colorPalette.blueGray[900], 0.1),
+  navigationBg: transparentize(colorPalette.lightBlue[50], navBgTransparency),
+  ghostBg: transparentize(colorPalette.blueGray[100], 0.1),
   copyButtonBg: colorPalette.white,
+  borderColor: colorPalette.gray[300],
 };
 
 export const darkThemeColors: typeof nullColors = {
   primary: colorPalette.orange[600],
   primaryHover: colorPalette.orange[700],
   primaryAsBg: colorPalette.blue[900],
-  bg: colorPalette.blueGray[900],
+  bg: colorPalette.blueGray[950],
   text: colorPalette.blueGray[300],
   textMuted: colorPalette.blueGray[400],
   mutedAsBg: colorPalette.blueGray[800],
@@ -347,7 +349,8 @@ export const darkThemeColors: typeof nullColors = {
   bgHover: colorPalette.blueGray[800],
   cardBg: colorPalette.blueGray[800],
   inherit: 'inherit',
-  navigationBg: transparentize(colorPalette.blueGray[900], navBgTransparency),
+  navigationBg: transparentize(colorPalette.blueGray[950], navBgTransparency),
   ghostBg: transparentize(colorPalette.white, 0.1),
   copyButtonBg: transparentize(colorPalette.blue[600], 0.4),
+  borderColor: colorPalette.gray[700],
 };

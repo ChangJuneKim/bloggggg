@@ -1,6 +1,6 @@
 'use client';
 
-import { header } from '@/components/layout/Header/index.css';
+import { header, hideHeaderShadow, showHeaderShadow } from '@/components/layout/Header/index.css';
 import { useEffect, useState } from 'react';
 import { Box } from '@/components/base';
 import Logo from '@/components/layout/Header/Logo';
@@ -9,18 +9,18 @@ import { Navigation } from '@/components/layout/Header/Navigation';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -32,6 +32,7 @@ export default function Header() {
         variant="navigation"
         height={'navigationHeight'}
         data-variant-name={'navigation'}
+        className={isScrolled ? showHeaderShadow : hideHeaderShadow}
       >
         <Box
           display={'flex'}
