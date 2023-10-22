@@ -25,6 +25,7 @@ export const anchorStyle = style([
     selectors: {
       [pseudoSelectors.hover]: {
         opacity: 1,
+        color: vars.color.primary,
       },
     },
     '@media': {
@@ -34,9 +35,6 @@ export const anchorStyle = style([
       [minMediaQuery(`lg`)]: {
         left: `calc(${vars.space[10]} * -1)`,
       },
-      // [minMediaQuery(`xl`)]: {
-      //   left: `calc(${vars.space[10]} * -1)`,
-      // },
     },
   },
 ]);
