@@ -303,6 +303,8 @@ export const nullColors = {
   ghostBg: '',
   copyButtonBg: '',
   borderColor: '',
+  lineHighlight: '',
+  wordHighlight: '',
 };
 
 export type Colors = keyof typeof nullColors;
@@ -329,6 +331,8 @@ export const lightThemeColors: typeof nullColors = {
   ghostBg: transparentize(colorPalette.blueGray[100], 0.1),
   copyButtonBg: colorPalette.white,
   borderColor: colorPalette.gray[300],
+  lineHighlight: `linear-gradient(90deg, rgb(140, 175, 255) 0% .3%, rgb(243, 242, 248) .3% 100%)`,
+  wordHighlight: transparentize(colorPalette.lightBlue['400'], 0.3),
 };
 
 export const darkThemeColors: typeof nullColors = {
@@ -353,4 +357,6 @@ export const darkThemeColors: typeof nullColors = {
   ghostBg: transparentize(colorPalette.white, 0.1),
   copyButtonBg: transparentize(colorPalette.blue[600], 0.4),
   borderColor: colorPalette.gray[700],
+  lineHighlight: `linear-gradient(90deg, rgb(11, 142, 215) 0% .3%, rgb(3, 46, 67) .3% 100%)`,
+  wordHighlight: transparentize(colorPalette.cyan['500'], 0.3),
 };

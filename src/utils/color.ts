@@ -37,3 +37,6 @@ export const transparentizeDict = (color: string, opacity: number) => (colorPale
  */
 export const transparentize = (color: string, opacity: number) =>
   new TinyColor(color).setAlpha(opacity).toRgbString();
+
+export const topToBottomGradient = (bottomColor: string, topColor: string) =>
+  `linear-gradient(to top, ${bottomColor} 0%, ${topColor} 100%)`;

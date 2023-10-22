@@ -4,11 +4,9 @@ import { themesSelectors } from '@/styles/atoms.css';
 import { ContainerVariants } from '@/components/base/Container/index.css';
 import { colorPalette } from '@/styles/tokens/colors';
 import { zIndices } from '@/styles/tokens/z-indices';
+import { topToBottomGradient } from '@/utils/color';
 
 export type FullWidthContainerVariants = Exclude<ContainerVariants, 'proseRoot'>;
-
-const tlg = (bottomColor: string, topColor: string) =>
-  `linear-gradient(to top, ${bottomColor} 0%, ${topColor} 100%)`;
 
 const fwcBaseStyle = style({
   width: vars.space.full,
@@ -23,7 +21,7 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     background: vars.color.bg,
     selectors: {
       [themesSelectors.dark]: {
-        background: tlg(colorPalette.blueGray[900], vars.color.bg),
+        background: topToBottomGradient(colorPalette.blueGray[900], vars.color.bg),
       },
     },
   },
@@ -31,15 +29,15 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     background: colorPalette.blueGray[50],
     selectors: {
       [themesSelectors.dark]: {
-        background: tlg(vars.color.bg, colorPalette.blueGray[800]),
+        background: topToBottomGradient(vars.color.bg, colorPalette.blueGray[800]),
       },
     },
   },
   dark: {
-    background: tlg(colorPalette.blue[700], colorPalette.blue[500]),
+    background: topToBottomGradient(colorPalette.blue[700], colorPalette.blue[500]),
     selectors: {
       [themesSelectors.dark]: {
-        background: tlg(colorPalette.blueGray[950], colorPalette.blueGray[900]),
+        background: topToBottomGradient(colorPalette.blueGray[950], colorPalette.blueGray[900]),
       },
     },
   },

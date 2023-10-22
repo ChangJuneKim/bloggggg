@@ -16,7 +16,7 @@ export default function Image({ src, alt, height }: ImageProps) {
     alt,
   };
   return (
-    <Box as="span" display="flex" justifyContent="center">
+    <Box as="span" display="flex" justifyContent="center" borderRadius={'md'}>
       <NextImage
         src={src}
         alt="Picture of the author"
