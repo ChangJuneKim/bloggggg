@@ -7,47 +7,49 @@ const containerBaseStyle = style({
   width: vars.space.full,
   marginLeft: vars.space.auto,
   marginRight: vars.space.auto,
-  maxWidth: `1024px`,
-  paddingLeft: vars.space[4],
-  paddingRight: vars.space[4],
+  maxWidth: `800px`,
+  paddingLeft: vars.space[8],
+  paddingRight: vars.space[8],
   '@media': {
-    [minMediaQuery(`sm`)]: {
-      paddingLeft: vars.space[6],
-      paddingRight: vars.space[6],
+    [minMediaQuery(`lg`)]: {
+      maxWidth: `1024px`,
+      marginLeft: 0,
+      marginRight: vars.space.auto,
+      paddingLeft: vars.space[12],
+      paddingRight: vars.space[12],
     },
     [minMediaQuery(`2xl`)]: {
+      marginLeft: vars.space.auto,
       maxWidth: `1200px`,
+      paddingLeft: vars.space[0],
+      paddingRight: vars.space[0],
     },
   },
 });
 
-export type ContainerVariants =
-  | 'default'
-  | 'hero'
-  | 'light'
-  | 'dark'
-  | 'navigation'
-  | 'fullBleed'
-  | 'proseRoot';
+export type ContainerVariants = 'default' | 'hero' | 'light' | 'dark' | 'navigation' | 'fullBleed';
 
 const containers: Record<ContainerVariants, StyleRule> = {
   default: {},
-  hero: {},
+  hero: {
+    marginLeft: vars.space.auto,
+    marginRight: vars.space.auto,
+    '@media': {
+      [minMediaQuery(`lg`)]: {
+        maxWidth: `1024px`,
+        marginLeft: vars.space.auto,
+        marginRight: vars.space.auto,
+        paddingLeft: vars.space[12],
+        paddingRight: vars.space[12],
+      },
+    },
+  },
   light: {},
   dark: {
     color: colorPalette.blueGray[300],
   },
   navigation: {},
   fullBleed: {},
-  proseRoot: {
-    paddingTop: vars.space[16],
-    paddingBottom: vars.space[20],
-    '@media': {
-      [minMediaQuery(`lg`)]: {
-        paddingBottom: vars.space[24],
-      },
-    },
-  },
 };
 
 export const containerVariants = styleVariants(containers, (container) => [

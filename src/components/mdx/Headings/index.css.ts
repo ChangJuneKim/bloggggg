@@ -17,8 +17,7 @@ globalStyle(`${headingStyle}:hover a`, {
 
 export const anchorStyle = style([
   {
-    left: `calc(${vars.space[10]} * -1)`,
-    // transition: `all 0.3s ease-in-out`,
+    left: `calc(${vars.space[5]} * -1)`,
     transitionDuration: transition.duration.normal,
     visibility: `hidden`,
     textDecoration: `none !important`,
@@ -27,6 +26,17 @@ export const anchorStyle = style([
       [pseudoSelectors.hover]: {
         opacity: 1,
       },
+    },
+    '@media': {
+      [minMediaQuery(`sm`)]: {
+        left: `calc(${vars.space[7]} * -1)`,
+      },
+      [minMediaQuery(`lg`)]: {
+        left: `calc(${vars.space[10]} * -1)`,
+      },
+      // [minMediaQuery(`xl`)]: {
+      //   left: `calc(${vars.space[10]} * -1)`,
+      // },
     },
   },
 ]);

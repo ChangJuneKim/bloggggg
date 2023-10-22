@@ -5,6 +5,7 @@ import { MyLink } from '@/components/base';
 import { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import { components } from '@/components/mdx';
+import { SkipNavContent } from '@/components/a11y/SkipNav';
 
 interface Props {
   params: {
@@ -28,7 +29,7 @@ const PostPage = ({ params }: Props) => {
   const Content = useMDXComponent(post?.body.code || '');
 
   return (
-    <>
+    <SkipNavContent>
       <article>
         <div>
           <time dateTime={post?.createdAt}>
@@ -42,7 +43,7 @@ const PostPage = ({ params }: Props) => {
         {prevPost && <MyLink href={prevPost.url}>← {prevPost.title}</MyLink>}
         {nextPost && <MyLink href={nextPost.url}>{nextPost.title} →</MyLink>}
       </div>
-    </>
+    </SkipNavContent>
   );
 };
 

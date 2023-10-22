@@ -6,6 +6,7 @@ import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis';
 import rehypeHighlight from 'rehype-highlight';
 import { Pluggable } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
+import { visit } from 'unist-util-visit';
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -63,11 +64,37 @@ export default makeSource({
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
+      () => (tree) => {
+        visit(tree, (node) => {
+          if (node?.type === 'element' && node?.tagName === 'pre') {
+            const [codeEl] = node.children;
+
+            if (codeEl.tagName !== 'code') return;
+
+            node.raw = codeEl.children?.[0].value;
+          }
+        });
+      },
       [rehypePrettyCode, rehypeOptions],
       [rehypeExternalLinks, rehypeExternalLinksOptions],
       rehypeSlug,
       rehypeAccessibleEmojis,
       rehypeHighlight as Pluggable,
+      () => (tree) => {
+        visit(tree, (node) => {
+          if (node?.type === 'element' && node?.tagName === 'div') {
+            if (!('data-rehype-pretty-code-fragment' in node.properties)) {
+              return;
+            }
+
+            for (const child of node.children) {
+              if (child.tagName === 'pre') {
+                child.properties['raw'] = node.raw;
+              }
+            }
+          }
+        });
+      },
     ],
   },
 });
