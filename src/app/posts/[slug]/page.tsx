@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts } from '@/contentlayer/generated';
-import { MyLink } from '@/components/base';
+import { Button, Image, MyLink } from '@/components/base';
 import { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 
@@ -11,6 +11,8 @@ interface Props {
   };
 }
 const mdxComponents: MDXComponents = {
+  Button,
+  Image,
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
 };
 

@@ -41,6 +41,7 @@ export const space = {
   full: '100%',
   unset: 'unset',
   auto: 'auto',
+  content: 'fit-content',
   ...navigation,
   ...negativeNavigation,
 };
