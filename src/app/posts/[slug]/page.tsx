@@ -37,6 +37,13 @@ const PostPage = ({ params }: Props) => {
           </time>
           <h1>{post?.title}</h1>
         </div>
+        <p>
+          읽는 시간:
+          {post?.readingTime.time >= 60000
+            ? ` ${Math.round(post?.readingTime.time / (60 * 1000))}분`
+            : ' 1분 미만'}
+        </p>
+
         <Content components={mdxComponents} />
       </article>
       <div>

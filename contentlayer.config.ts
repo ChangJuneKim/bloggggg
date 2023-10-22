@@ -7,6 +7,7 @@ import rehypeHighlight from 'rehype-highlight';
 import { Pluggable } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
 import { visit } from 'unist-util-visit';
+import readingTime from 'reading-time';
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -42,6 +43,10 @@ export const Post = defineDocumentType(() => ({
     url: {
       type: 'string',
       resolve: (doc) => `/posts/${doc._raw.flattenedPath}`,
+    },
+    readingTime: {
+      type: 'json',
+      resolve: (doc) => readingTime(doc.body.raw),
     },
   },
 }));
