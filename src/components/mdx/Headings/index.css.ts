@@ -2,6 +2,7 @@ import { globalStyle, style, StyleRule, styleVariants } from '@vanilla-extract/c
 import { vars } from '@/styles/themes/contract.css';
 import { pseudoSelectors } from '@/styles/selectors';
 import { minMediaQuery } from '@/styles/tokens/breakpoints';
+import { transition } from '@/styles/tokens/motion';
 
 export const introductionStyle = style({
   marginTop: `0 !important`,
@@ -17,7 +18,8 @@ globalStyle(`${headingStyle}:hover a`, {
 export const anchorStyle = style([
   {
     left: `calc(${vars.space[10]} * -1)`,
-    transition: `all 0.3s ease-in-out`,
+    // transition: `all 0.3s ease-in-out`,
+    transitionDuration: transition.duration.normal,
     visibility: `hidden`,
     textDecoration: `none !important`,
     opacity: 0.3,
