@@ -1,6 +1,7 @@
 import NextImage from 'next/image';
 import { Box } from '@/components/base';
-import { imageStyle } from '@/components/mdx/Image/index.css';
+import { figcaptionItalic, imageStyle } from '@/components/mdx/Image/index.css';
+import { ReactNode } from 'react';
 
 interface ImageProps {
   src: string;
@@ -8,13 +9,10 @@ interface ImageProps {
   height: number;
   width: number;
   layout: 'responsive';
+  children: ReactNode;
 }
 
-export default function Image({ src, alt }: ImageProps) {
-  const imageProps = {
-    src,
-    alt,
-  };
+export default function Image({ src, alt, children }: ImageProps) {
   return (
     <Box
       as="figure"
@@ -24,14 +22,24 @@ export default function Image({ src, alt }: ImageProps) {
       alignItems="center"
       borderRadius={'md'}
     >
-      <NextImage
-        src={src}
-        alt="Picture of the author"
+      <Box
+        as="a"
+        href={src}
+        target="_blank"
+        rel="noopener noreferrer"
+        display="flex"
         className={imageStyle}
-        width={1000}
-        height={1000}
-      />
-      <figcaption>{alt}</figcaption>
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <NextImage src={src} alt={alt} width={1000} height={1000} />
+      </Box>
+      {children ? (
+        <figcaption className={figcaptionItalic}>{children}</figcaption>
+      ) : (
+        <figcaption className={figcaptionItalic}>{alt}</figcaption>
+      )}
     </Box>
   );
 }

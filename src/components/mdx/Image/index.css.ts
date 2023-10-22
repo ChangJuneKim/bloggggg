@@ -18,3 +18,7 @@ export const imageStyle = style({
     },
   },
 });
+
+export const figcaptionItalic = style({
+  fontStyle: 'italic',
+});
