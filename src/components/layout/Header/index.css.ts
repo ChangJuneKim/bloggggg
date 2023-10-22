@@ -21,7 +21,7 @@ export const showHeaderShadow = style({
 });
 
 export const hideHeaderShadow = style({
-  transition: 'box-shadow 1.5s ease',
+  transition: 'box-shadow 1s ease-in-out',
 });
 
 export const title = style({

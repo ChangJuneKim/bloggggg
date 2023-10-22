@@ -7,14 +7,20 @@ globalStyle(`div[data-rehype-pretty-code-fragment]`, {
 });
 
 globalStyle(
-  `html[class^='dark'] div[data-rehype-pretty-code-fragment] pre[data-theme='light'], html[class^='dark'] div[data-rehype-pretty-code-fragment] code[data-theme='light'], html[class^='dark'] div[data-rehype-pretty-code-fragment] div[data-theme='light']`,
+  `html[class^='dark'] div[data-rehype-pretty-code-fragment] pre[data-theme='light'],
+   html[class^='dark'] div[data-rehype-pretty-code-fragment] code[data-theme='light'],
+   html[class^='dark'] span[data-rehype-pretty-code-fragment] code[data-theme='light'],
+    html[class^='dark'] div[data-rehype-pretty-code-fragment] div[data-theme='light']`,
   {
     display: 'none',
   }
 );
 
 globalStyle(
-  `html[class^='light'] div[data-rehype-pretty-code-fragment] pre[data-theme='dark'], html[class^='light'] div[data-rehype-pretty-code-fragment] code[data-theme='dark'], html[class^='light'] div[data-rehype-pretty-code-fragment] div[data-theme='dark']`,
+  `html[class^='light'] div[data-rehype-pretty-code-fragment] pre[data-theme='dark'],
+   html[class^='light'] div[data-rehype-pretty-code-fragment] code[data-theme='dark'],
+   html[class^='light'] span[data-rehype-pretty-code-fragment] code[data-theme='dark'],
+    html[class^='light'] div[data-rehype-pretty-code-fragment] div[data-theme='dark']`,
   {
     display: 'none',
   }

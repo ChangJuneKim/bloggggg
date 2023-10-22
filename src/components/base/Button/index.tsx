@@ -24,23 +24,6 @@ interface ButtonProps extends BoxProps {
   rightIcon?: ReactNode;
 }
 
-// interface ToggleButtonProps extends AriaToggleButtonProps {
-//   className?: string
-// }
-//
-// interface UnstyledButtonProps extends AriaButtonProps<"button"> {
-//   className?: string
-//   style?: CSSProperties
-// }
-//
-// interface IconButtonProps extends AriaButtonProps<"button"> {
-//   className?: string
-//   title: string
-//   description: string
-//   children: ReactNode
-//   style?: CSSProperties
-// }
-
 export default function Button(props: ButtonProps) {
   const ref = useRef<Element>(null);
 

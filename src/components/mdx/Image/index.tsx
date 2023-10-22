@@ -1,6 +1,6 @@
 import NextImage from 'next/image';
 import { Box } from '@/components/base';
-import { imageStyle } from '@/components/base/Image/index.css';
+import { imageStyle } from '@/components/mdx/Image/index.css';
 
 interface ImageProps {
   src: string;
@@ -10,13 +10,20 @@ interface ImageProps {
   layout: 'responsive';
 }
 
-export default function Image({ src, alt, height }: ImageProps) {
+export default function Image({ src, alt }: ImageProps) {
   const imageProps = {
     src,
     alt,
   };
   return (
-    <Box as="span" display="flex" justifyContent="center" borderRadius={'md'}>
+    <Box
+      as="figure"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      borderRadius={'md'}
+    >
       <NextImage
         src={src}
         alt="Picture of the author"
@@ -24,6 +31,7 @@ export default function Image({ src, alt, height }: ImageProps) {
         width={1000}
         height={1000}
       />
+      <figcaption>{alt}</figcaption>
     </Box>
   );
 }

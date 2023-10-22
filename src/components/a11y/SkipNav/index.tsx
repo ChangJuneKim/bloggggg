@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { mainStyle, skipNavLinkStyle } from '@/components/a11y/SkipNav/index.css';
 import { FullWidthContainer } from '@/components/layout';
+import { Box } from '@/components/base';
 
 const defaultId = `skip-to-content`;
 
@@ -35,9 +36,9 @@ export const SkipNavContent = ({ children, id: idProp, ...props }: SkipNavConten
 
   return (
     <FullWidthContainer className={mainStyle}>
-      <main {...props} id={id}>
+      <Box as="main" {...props} id={id} marginTop="5">
         {children}
-      </main>
+      </Box>
     </FullWidthContainer>
   );
 };
