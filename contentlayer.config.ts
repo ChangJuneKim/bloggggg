@@ -1,4 +1,4 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -8,6 +8,13 @@ import { Pluggable } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
 import { visit } from 'unist-util-visit';
 import readingTime from 'reading-time';
+
+const Tag = defineNestedType(() => ({
+  name: 'Tag',
+  fields: {
+    title: { type: 'string' },
+  },
+}));
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -30,6 +37,10 @@ export const Post = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    tags: {
+      type: 'list',
+      of: Tag,
+    },
     createdAt: {
       type: 'date',
       required: true,
@@ -46,7 +57,16 @@ export const Post = defineDocumentType(() => ({
     },
     readingTime: {
       type: 'json',
-      resolve: (doc) => readingTime(doc.body.raw),
+      resolve: (doc) => {
+        const readingTimeObj = readingTime(doc.body.raw);
+        return {
+          ...readingTimeObj,
+          _readingTime:
+            Math.round(readingTimeObj.minutes) === 0
+              ? '1분 미만'
+              : `읽는 시간 ${Math.round(readingTimeObj.minutes)}분`,
+        };
+      },
     },
   },
 }));

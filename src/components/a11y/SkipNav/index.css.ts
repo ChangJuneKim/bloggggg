@@ -31,4 +31,5 @@ export const skipNavLinkStyle = style({
 export const mainStyle = style({
   paddingTop: navigation.navigationHeight,
   minHeight: '100%',
+  paddingBottom: vars.space['4'],
 });

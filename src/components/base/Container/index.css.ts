@@ -48,7 +48,19 @@ const containers: Record<ContainerVariants, StyleRule> = {
   dark: {
     color: colorPalette.blueGray[300],
   },
-  navigation: {},
+  navigation: {
+    marginLeft: vars.space.auto,
+    marginRight: vars.space.auto,
+    '@media': {
+      [minMediaQuery(`lg`)]: {
+        maxWidth: `1024px`,
+        marginLeft: vars.space.auto,
+        marginRight: vars.space.auto,
+        paddingLeft: vars.space[12],
+        paddingRight: vars.space[12],
+      },
+    },
+  },
   fullBleed: {},
 };
 

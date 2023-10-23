@@ -4,7 +4,7 @@ import '../styles/rehype.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Providers from '@/app/providers';
-import { SkipNavLink } from '@/components/a11y/SkipNav';
+import { SkipNavLink } from '@/components/a11y';
 import { Footer, Header } from '../components/layout';
 import { ReactNode } from 'react';
 

@@ -13,5 +13,11 @@ export const MyLink = ({ className = undefined, ...props }: ILinkProps) => (
 );
 
 export const ExternalLink = ({ className = undefined, ...rest }: BoxProps) => (
-  <Box as="a" className={composeClassNames(link, className)} {...rest} />
+  <Box
+    as="a"
+    className={composeClassNames(link, className)}
+    rel={'noreferrer noopener'}
+    target={'_blank'}
+    {...rest}
+  />
 );

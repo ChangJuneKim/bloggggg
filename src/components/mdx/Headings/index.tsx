@@ -6,7 +6,7 @@ import {
   introductionStyle,
 } from '@/components/mdx/Headings/index.css';
 import { ReactNode } from 'react';
-import ScreenOnly from '@/components/a11y/ScreenOnly';
+import { ScreenOnly } from '@/components/a11y';
 import { composeClassNames } from '@/components/base/Box/createBox';
 
 type HeadingProps = {

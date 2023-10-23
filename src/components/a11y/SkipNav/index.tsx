@@ -3,6 +3,7 @@ import { mainStyle, skipNavLinkStyle } from '@/components/a11y/SkipNav/index.css
 import { FullWidthContainer } from '@/components/layout';
 import { Box } from '@/components/base';
 import { FullWidthContainerVariants } from '@/components/layout/FullWidthContainer/index.css';
+import { composeClassNames } from '@/components/base/Box/createBox';
 
 const defaultId = `skip-to-content`;
 
@@ -14,6 +15,7 @@ interface SkipNavLinkProps {
 interface SkipNavContentProps extends SkipNavLinkProps {
   id?: string;
   variant?: FullWidthContainerVariants;
+  className?: string;
 }
 
 export const SkipNavLink = ({
@@ -37,13 +39,14 @@ export const SkipNavContent = ({
   children,
   id: idProp,
   variant = 'default',
+  className,
   ...props
 }: SkipNavContentProps) => {
   const id = idProp || defaultId;
 
   return (
-    <FullWidthContainer className={mainStyle} variant={variant}>
-      <Box as="main" {...props} id={id} marginTop="8" marginBottom={'8'}>
+    <FullWidthContainer className={composeClassNames(mainStyle)} variant={variant}>
+      <Box as="main" {...props} id={id} marginTop="8">
         {children}
       </Box>
     </FullWidthContainer>

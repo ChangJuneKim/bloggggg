@@ -5,7 +5,8 @@ import { MyLink } from '@/components/base';
 import { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import { components } from '@/components/mdx';
-import { SkipNavContent } from '@/components/a11y/SkipNav';
+import { SkipNavContent } from '@/components/a11y';
+import { mdxSection } from '@/app/posts/layout.css';
 
 interface Props {
   params: {
@@ -30,7 +31,7 @@ const PostPage = ({ params }: Props) => {
 
   return (
     <SkipNavContent>
-      <article>
+      <section className={mdxSection}>
         <div>
           <time dateTime={post?.createdAt}>
             {format(parseISO(post?.createdAt as string), 'LLLL d, yyyy')}
@@ -39,13 +40,11 @@ const PostPage = ({ params }: Props) => {
         </div>
         <p>
           읽는 시간:
-          {post?.readingTime.time >= 60000
-            ? ` ${Math.round(post?.readingTime.time / (60 * 1000))}분`
-            : ' 1분 미만'}
+          {post?.readingTime._readingTime}
         </p>
 
         <Content components={mdxComponents} />
-      </article>
+      </section>
       <div>
         {prevPost && <MyLink href={prevPost.url}>← {prevPost.title}</MyLink>}
         {nextPost && <MyLink href={nextPost.url}>{nextPost.title} →</MyLink>}

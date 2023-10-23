@@ -1,6 +1,9 @@
+'use client';
+
 import { Box, MyLink } from '@/components/base';
 import ThemeButton from '@/components/layout/Header/ThemeButton';
 import { navi } from '@/components/layout/Header/index.css';
+import { usePathname } from 'next/navigation';
 
 /**
  * Navigation component containing the primary links + Darkmode toggle
@@ -11,6 +14,7 @@ const links = [
   { name: 'Portfolio', link: '/portfolio' },
 ];
 export const Navigation = () => {
+  const pathname = usePathname();
   return (
     <Box display="flex" alignItems="center" flexDirection="row">
       <nav aria-label="Primary navigation">
@@ -21,6 +25,7 @@ export const Navigation = () => {
             return (
               <li key={item.link}>
                 <MyLink
+                  className={`${pathname === item.link ? 'active' : ''}`}
                   href={item.link}
                   fontSize={[`md`, null, null, `lg`]}
                   marginRight={notLastItem ? [`2`, `4`] : undefined}
