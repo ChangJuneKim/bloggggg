@@ -42,6 +42,7 @@ export const anchorStyle = style([
 const headingBaseStyle = style({
   fontWeight: vars.fontWeight.bold,
   color: vars.color.heading,
+  scrollMarginTop: '70px',
 });
 
 export type Headings = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
