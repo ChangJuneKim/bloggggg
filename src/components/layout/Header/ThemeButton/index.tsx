@@ -1,14 +1,16 @@
 'use client';
 
 import { DEFAULT_THEME } from '@/constants/themes';
-import { themeButton } from '@/components/layout/Header/ThemeButton/index.css';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { themeButton } from '@/components/layout/Header/ThemeButton/index.css';
+import { Box, SVGIcon } from '@/components/base';
+import { vars } from '@/styles/themes/contract.css';
 
 const THEMES_ICONS_MAP: any = {
-  [DEFAULT_THEME]: '시스템',
-  light: '라이트',
-  dark: '다크',
+  [DEFAULT_THEME]: <SVGIcon id={'system'} />,
+  light: <SVGIcon id={'sun'} width={'100%'} height={'100%'} />,
+  dark: <SVGIcon id={'moon'} width={'100%'} height={'100%'} />,
 };
 
 export default function ThemeButton() {
@@ -18,7 +20,13 @@ export default function ThemeButton() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return <button className={themeButton}></button>;
+    return (
+      <button className={themeButton}>
+        <Box as={'span'} width={'4'} height={'4'}>
+          <SVGIcon id={'system'} width={'100%'} height={'100%'} color={vars.color.primary} />
+        </Box>
+      </button>
+    );
   }
 
   return (
@@ -28,7 +36,9 @@ export default function ThemeButton() {
         setTheme(resolvedTheme === 'dark' || resolvedTheme === 'system' ? 'light' : 'dark')
       }
     >
-      {THEMES_ICONS_MAP[resolvedTheme as string]}
+      <Box as={'span'} width={'4'} height={'4'}>
+        {THEMES_ICONS_MAP[resolvedTheme as string]}
+      </Box>
     </button>
   );
 }

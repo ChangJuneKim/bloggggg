@@ -15,7 +15,6 @@ export default function Providers({ children }: Props) {
       attribute="class"
       defaultTheme={DEFAULT_THEME}
       storageKey={STORAGE_KEY}
-      disableTransitionOnChange
       value={{
         light: lightThemeClass,
         dark: darkThemeClass,

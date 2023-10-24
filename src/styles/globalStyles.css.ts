@@ -10,11 +10,12 @@ globalStyle('body', {
   color: vars.color.text,
   background: vars.color.bg,
   lineHeight: vars.lineHeight.base,
-  transitionProperty: 'background-color, color',
+  transitionProperty: 'background-color',
   transitionDuration: '0.3s',
   position: 'relative',
   minHeight: vars.space.full,
   fontFeatureSettings: 'kern',
+  cursor: 'url(/assets/images/cursor.png), auto',
 });
 
 globalStyle('*', {

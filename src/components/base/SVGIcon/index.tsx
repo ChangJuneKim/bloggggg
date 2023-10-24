@@ -33,7 +33,10 @@ export type SVGIconNames =
   | 'rightDouble'
   | 'shovel'
   | 'life'
-  | 'clock';
+  | 'clock'
+  | 'sun'
+  | 'moon'
+  | 'system';
 
 export type SVGIconProps = {
   id: SVGIconNames;
