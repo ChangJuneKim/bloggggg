@@ -1,4 +1,4 @@
-import { Container, ExternalLink, SVGIcon } from '@/components/base';
+import { Box, Container, ExternalLink, SVGIcon } from '@/components/base';
 import { iconContainer, iconGrid, label } from '@/components/mdx/Contacts/index.css';
 import { SVGIconNames } from '@/components/base/SVGIcon';
 import { links } from '@/constants/links';
@@ -24,7 +24,9 @@ export default function Contacts() {
         return (
           <ExternalLink className={iconContainer} key={contact.svgId} href={contact.link}>
             <SVGIcon id={contact.svgId} />
-            <span className={label}>{contact.label}</span>
+            <Box as="span" className={label}>
+              {contact.label}
+            </Box>
           </ExternalLink>
         );
       })}

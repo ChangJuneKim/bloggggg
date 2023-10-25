@@ -31,9 +31,11 @@ export const postsSection = style({
   minHeight: calc.subtract('100vh', vars.space.navigationHeight, '250px'),
 });
 
-// globalStyle(`${postsSection} h4,${postsSection} p`, {
-//   margin: 0,
-// });
+globalStyle(`${postsSection} h3`, {
+  fontSize: vars.fontSize['2xl'],
+  fontWeight: vars.fontWeight.bold,
+  marginBottom: vars.space['8'],
+});
 
 globalStyle(`${postsSection} li`, {
   listStyle: 'none',

@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { pseudoSelectors } from '@/styles/selectors';
 import { vars } from '@/styles/themes/contract.css';
 import { zIndices } from '@/styles/tokens/z-indices';
-import { navigation } from '@/styles/tokens/space';
 
 export const skipNavLinkStyle = style({
   border: 0,
@@ -29,7 +28,7 @@ export const skipNavLinkStyle = style({
 });
 
 export const mainStyle = style({
-  paddingTop: navigation.navigationHeight,
+  paddingTop: vars.space.navigationHeight,
   minHeight: '100%',
   paddingBottom: vars.space['4'],
 });

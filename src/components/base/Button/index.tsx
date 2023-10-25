@@ -60,8 +60,9 @@ export default function Button(props: ButtonProps) {
     <Box
       // @ts-ignore
       as={as}
-      to={buttonType === `internal` ? to : undefined}
-      href={buttonType === `external` ? to : undefined}
+      href={buttonType === `internal` || buttonType === `external` ? to : undefined}
+      rel={buttonType === 'external' ? 'noopener noreferrer' : undefined}
+      target={buttonType === 'external' ? '_blank' : undefined}
       className={composeClassNames(buttonVariants[variant], sizesVariants[size], className)}
       {...buttonProps}
       {...rest}

@@ -2,20 +2,19 @@ import { globalStyle, style } from '@vanilla-extract/css';
 import { vars } from '@/styles/themes/contract.css';
 import { pseudoSelectors } from '@/styles/selectors';
 import { calc } from '@vanilla-extract/css-utils';
-import { leftToRightGradient } from '@/utils/color';
 
 export const list = style({
   [pseudoSelectors.notFirst]: {
     borderTop: '1px solid',
     borderColor: vars.color.borderColor,
   },
-  padding: vars.space['3'],
   paddingBottom: 0,
 });
 export const link = style({});
 
-globalStyle(`${link}:hover h4`, {
+globalStyle(`${link}:hover h4, ${link}:hover p`, {
   color: vars.color.primary,
+  opacity: 0.8,
 });
 
 export const article = style({
@@ -29,11 +28,11 @@ export const article = style({
       position: 'absolute',
       width: vars.space['1'],
       height: vars.space.full,
-      background: leftToRightGradient(vars.color.primary, vars.color.navigationBg),
+      background: vars.color.primary,
       borderRadius: vars.borderRadius.base,
       opacity: 0,
       transform: 'translateX(0px)',
-      left: calc.negate(vars.space['6']),
+      left: calc.negate(vars.space['0']),
       transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
     },
   },
@@ -42,6 +41,7 @@ export const article = style({
   marginTop: '0.5rem',
   marginBottom: '0.5rem',
   padding: vars.space['1'],
+  paddingLeft: vars.space['3'],
   position: 'relative',
   transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
 
@@ -55,7 +55,7 @@ export const article = style({
 });
 
 globalStyle(`${article}:hover:before`, {
-  opacity: 1,
+  opacity: 0.6,
 });
 
 export const titleStyle = style({
@@ -65,11 +65,6 @@ export const titleStyle = style({
 });
 
 export const descStyle = style({
-  selectors: {
-    [pseudoSelectors.hover]: {
-      color: vars.color.text,
-    },
-  },
   fontSize: vars.fontSize['md'],
   fontWeight: '400',
   marginBottom: vars.space['2'],

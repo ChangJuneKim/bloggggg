@@ -11,7 +11,6 @@ import { usePathname } from 'next/navigation';
 const links = [
   { name: 'Resume', link: '/resume' },
   { name: 'Posts', link: '/posts' },
-  { name: 'Portfolio', link: '/portfolio' },
 ];
 export const Navigation = () => {
   const pathname = usePathname();

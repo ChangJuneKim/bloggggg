@@ -42,8 +42,8 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     },
   },
   navigation: {
-    background: vars.color.navigationBg,
-    backdropFilter: `blur(8px)`,
+    background: 'transparent',
+    backdropFilter: `blur(0)`,
     position: `fixed`,
     display: `flex`,
     zIndex: zIndices.sticky,

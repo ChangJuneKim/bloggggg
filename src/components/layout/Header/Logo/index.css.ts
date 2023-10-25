@@ -9,4 +9,6 @@ export const logoContainer = style({
   },
   transform: `scale(1)`,
   transition: `transform 0.3s ease-in`,
+  minWidth: '2rem',
+  marginRight: '0.5rem',
 });

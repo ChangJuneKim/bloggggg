@@ -46,7 +46,7 @@ export const SkipNavContent = ({
 
   return (
     <FullWidthContainer className={composeClassNames(mainStyle)} variant={variant}>
-      <Box as="main" {...props} id={id} marginTop="8">
+      <Box as="main" {...props} id={id}>
         {children}
       </Box>
     </FullWidthContainer>
