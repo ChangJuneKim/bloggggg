@@ -9,9 +9,12 @@ globalStyle(`${mdxSection} p`, {
   textIndent: vars.space['3'],
 });
 
-globalStyle(`${mdxSection} h1, h2, h3, h4, h5, h6, p`, {
-  marginTop: vars.space['8'],
-});
+globalStyle(
+  `${mdxSection} h1, ${mdxSection} h2, ${mdxSection} h3, ${mdxSection} h4, ${mdxSection} h5, ${mdxSection} h6, ${mdxSection}p`,
+  {
+    marginTop: vars.space['8'],
+  }
+);
 
 globalStyle(`${mdxSection} a`, {
   textDecoration: 'underline dashed',
@@ -28,9 +31,9 @@ export const postsSection = style({
   minHeight: calc.subtract('100vh', vars.space.navigationHeight, '250px'),
 });
 
-globalStyle(`${postsSection} h4,${postsSection} p`, {
-  margin: 0,
-});
+// globalStyle(`${postsSection} h4,${postsSection} p`, {
+//   margin: 0,
+// });
 
 globalStyle(`${postsSection} li`, {
   listStyle: 'none',

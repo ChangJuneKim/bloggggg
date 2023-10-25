@@ -13,7 +13,7 @@ export default function PostsSection({ chunkedPosts }: { chunkedPosts: Array<Arr
     <Box as={'section'} className={postsSection}>
       <Box as={'ul'}>
         {(chunkedPosts[currentPage - 1] || []).map((post) => {
-          const { category, title, description, url, createdAt, readingTime } = post;
+          const { category, title, description, url, createdAt, readingTime, thumbnail } = post;
           return (
             <PostCard
               key={title}
@@ -22,6 +22,7 @@ export default function PostsSection({ chunkedPosts }: { chunkedPosts: Array<Arr
               desc={description}
               createdAt={format(new Date(createdAt), 'yyyy년 MM월 dd일')}
               readingTime={readingTime._readingTime}
+              thumbnail={thumbnail}
               url={url}
             />
           );

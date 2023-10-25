@@ -6,15 +6,15 @@ import { leftToRightGradient } from '@/utils/color';
 
 export const list = style({
   [pseudoSelectors.notFirst]: {
-    marginTop: vars.space['4'],
     borderTop: '1px solid',
     borderColor: vars.color.borderColor,
   },
   padding: vars.space['3'],
+  paddingBottom: 0,
 });
 export const link = style({});
 
-globalStyle(`${link}:hover h3, ${link}:hover p`, {
+globalStyle(`${link}:hover h4`, {
   color: vars.color.primary,
 });
 
@@ -37,9 +37,21 @@ export const article = style({
       transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
     },
   },
+
+  overflow: 'hidden',
+  marginTop: '0.5rem',
+  marginBottom: '0.5rem',
   padding: vars.space['1'],
   position: 'relative',
   transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
+
+  '@media': {
+    '(min-width: 640px)': {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(5, 1fr)',
+      gap: '1rem',
+    },
+  },
 });
 
 globalStyle(`${article}:hover:before`, {
@@ -47,11 +59,42 @@ globalStyle(`${article}:hover:before`, {
 });
 
 export const titleStyle = style({
-  fontSize: vars.fontSize['2xl'],
-  fontWeight: vars.fontWeight.medium,
+  fontSize: vars.fontSize['xl'],
+  fontWeight: vars.fontWeight.semibold,
+  marginBottom: vars.space['2'],
 });
 
 export const descStyle = style({
-  fontSize: vars.fontSize['lgx'],
-  fontWeight: vars.fontWeight.normal,
+  selectors: {
+    [pseudoSelectors.hover]: {
+      color: vars.color.text,
+    },
+  },
+  fontSize: vars.fontSize['md'],
+  fontWeight: '400',
+  marginBottom: vars.space['2'],
+});
+
+export const readingTimeStyle = style({
+  fontSize: '0.75rem',
+});
+
+export const imageContainer = style({
+  width: 'fit-content',
+  height: 'fit-content',
+  gridColumn: 'span 1/span 1',
+  '@media': {
+    '(max-width: 640px)': {
+      display: 'none',
+    },
+  },
+});
+
+export const content = style({
+  gridColumn: 'span 4/span 4',
+  '@media': {
+    '(max-width: 640px)': {
+      width: '100%',
+    },
+  },
 });

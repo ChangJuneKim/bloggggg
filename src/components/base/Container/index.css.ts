@@ -12,15 +12,13 @@ const containerBaseStyle = style({
   paddingRight: vars.space[8],
   '@media': {
     [minMediaQuery(`lg`)]: {
-      maxWidth: `1024px`,
       marginLeft: 0,
       marginRight: vars.space.auto,
-      paddingLeft: vars.space[12],
-      paddingRight: vars.space[12],
+      paddingLeft: vars.space[8],
+      paddingRight: vars.space[8],
     },
     [minMediaQuery(`2xl`)]: {
       marginLeft: vars.space.auto,
-      maxWidth: `1200px`,
       paddingLeft: vars.space[0],
       paddingRight: vars.space[0],
     },
@@ -36,11 +34,10 @@ const containers: Record<ContainerVariants, StyleRule> = {
     marginRight: vars.space.auto,
     '@media': {
       [minMediaQuery(`lg`)]: {
-        maxWidth: `1024px`,
         marginLeft: vars.space.auto,
         marginRight: vars.space.auto,
-        paddingLeft: vars.space[12],
-        paddingRight: vars.space[12],
+        paddingLeft: vars.space[8],
+        paddingRight: vars.space[8],
       },
     },
   },
@@ -53,11 +50,10 @@ const containers: Record<ContainerVariants, StyleRule> = {
     marginRight: vars.space.auto,
     '@media': {
       [minMediaQuery(`lg`)]: {
-        maxWidth: `1024px`,
         marginLeft: vars.space.auto,
         marginRight: vars.space.auto,
-        paddingLeft: vars.space[12],
-        paddingRight: vars.space[12],
+        paddingLeft: vars.space[8],
+        paddingRight: vars.space[8],
       },
     },
   },

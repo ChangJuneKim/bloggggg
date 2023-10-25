@@ -6,7 +6,6 @@ import { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import { components } from '@/components/mdx';
 import { SkipNavContent } from '@/components/a11y';
-import { mdxSection } from '@/app/posts/layout.css';
 
 interface Props {
   params: {
@@ -31,7 +30,7 @@ const PostPage = ({ params }: Props) => {
 
   return (
     <SkipNavContent>
-      <section className={mdxSection}>
+      <section className={`mdxSection`}>
         <div>
           <time dateTime={post?.createdAt}>
             {format(parseISO(post?.createdAt as string), 'LLLL d, yyyy')}
