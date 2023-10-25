@@ -12,6 +12,11 @@ export default function ResumePage() {
         <br />
         저는 <b>김창준입니다</b>
       </Heading>
+      <Alert>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet, assumenda, corporis,
+        dolorum enim explicabo impedit in nam nemo nostrum provident quasi quos tenetur! Accusamus
+        aspernatur molestias rem repellat soluta!
+      </Alert>
       <Alert title={'우우'} status={'info'}>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet, assumenda, corporis,
         dolorum enim explicabo impedit in nam nemo nostrum provident quasi quos tenetur! Accusamus

@@ -9,8 +9,8 @@ import {
 import { Box, SVGIcon } from '@/components/base';
 
 interface AlertProps {
-  title: string;
-  status: AlertStatus;
+  title?: string;
+  status?: AlertStatus;
   children: ReactNode;
 }
 
@@ -19,9 +19,10 @@ const iconMap = {
   warning: `warning`,
   success: `check`,
   error: `warning`,
+  default: 'lightbulb',
 } as const;
 
-export default function Alert({ title, status, children }: AlertProps) {
+export default function Alert({ title, status = 'default', children }: AlertProps) {
   return (
     <Box
       borderRadius="lg"
@@ -34,10 +35,17 @@ export default function Alert({ title, status, children }: AlertProps) {
       data-testid={`alert-${status}`}
       className={alertVariants[status]}
     >
-      <Box display="flex" flexDirection="row" alignItems="center" marginBottom="4">
-        <Box className={alertIconStyle}>
-          <SVGIcon id={iconMap[status]} />
-        </Box>
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        marginBottom={`${status === 'default' && title === undefined ? '0' : '4'}`}
+      >
+        {status !== 'default' && (
+          <Box className={alertIconStyle}>
+            <SVGIcon id={iconMap[status]} />
+          </Box>
+        )}
         <Box fontWeight="bold" className={alertTitleStyle}>
           {title}
         </Box>

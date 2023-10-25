@@ -4,6 +4,7 @@ import { Button, ExternalLink } from '@/components/base';
 import headings from '@/components/mdx/Headings';
 import Pre from '@/components/mdx/Pre';
 import Contacts from '@/components/mdx/Contacts';
+import Collapsible from '@/components/mdx/Collapsible';
 
 export const components = {
   Alert,
@@ -11,6 +12,7 @@ export const components = {
   Button,
   ExternalLink,
   Contacts,
+  Collapsible,
   pre: Pre,
   ...(headings as any),
 };

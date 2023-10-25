@@ -6,7 +6,7 @@ import { em } from '@/utils/css';
 import { themesSelectors } from '@/styles/atoms.css';
 import { transparentize } from '@/utils/color';
 
-export type AlertStatus = 'info' | 'warning' | 'error' | 'success';
+export type AlertStatus = 'info' | 'warning' | 'error' | 'success' | 'default';
 
 const bgVar = createVar();
 const colorVar = createVar();
@@ -38,7 +38,7 @@ export const alertTitleStyle = style({
 export const alertIconStyle = style({
   width: `20px`,
   height: `20px`,
-  marginRight: vars.space[3],
+  marginRight: vars.space[2],
   display: `inherit`,
   flexShrink: 0,
   lineHeight: vars.lineHeight.md,
@@ -60,6 +60,7 @@ const colorMap = {
   warning: `orange`,
   success: `green`,
   error: `red`,
+  default: 'yellow',
 } as const;
 
 const darkBgOpacity = 0.15;
@@ -101,6 +102,22 @@ globalStyle(`${alertBaseStyle} p:last-of-type`, {
 });
 
 const alerts: Record<AlertStatus, StyleRule> = {
+  default: {
+    vars: {
+      [bgVar]: colorPalette[colorMap.info][bg],
+      [colorVar]: transparentize(colorPalette[colorMap.default][400], 0.6),
+      [linkDecorationVar]: colorPalette[colorMap.default][300],
+    },
+    selectors: {
+      [themesSelectors.dark]: {
+        vars: {
+          [bgVar]: transparentize(colorPalette[colorMap.info][darkBg], darkBgOpacity),
+          [colorVar]: colorPalette[colorMap.default][darkColor],
+          [linkDecorationVar]: colorPalette[colorMap.default][500],
+        },
+      },
+    },
+  },
   info: {
     vars: {
       [bgVar]: colorPalette[colorMap.info][bg],

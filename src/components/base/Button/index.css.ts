@@ -168,6 +168,11 @@ globalStyle(`${arrowAnimationStyle}:hover > span`, {
 });
 
 export const subtleButtonStyle = style({
+  selectors: {
+    [pseudoSelectors.hover]: {
+      color: `${vars.color.primary} !important`,
+    },
+  },
   letterSpacing: vars.letterSpacing.wider,
   textTransform: `uppercase`,
   fontWeight: vars.fontWeight.medium,

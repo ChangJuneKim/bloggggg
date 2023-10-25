@@ -25,7 +25,7 @@ export default function CopyButton({ text }: CopyButtonProps) {
       onClick={copy}
       style={{ transform: 'translate(0, -28px)' }}
     >
-      {isCopied ? 'Copied!' : 'Copy'}
+      {isCopied ? '복사됨!' : '복사'}
     </Box>
   );
 }
