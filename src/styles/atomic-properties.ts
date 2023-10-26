@@ -1,18 +1,18 @@
-import { vars } from "./themes/contract.css"
-import { zIndices } from "./tokens/z-indices"
+import { vars } from './themes/contract.css';
+import { zIndices } from './tokens/z-indices';
 
 export const unresponsiveProperties = {
   position: [`relative`, `absolute`, `sticky`],
-  opacity: [0, 0.1, 0.5, 1],
+  opacity: [0, 0.1, 0.5, 0.8, 1],
   zIndex: zIndices,
   fontWeight: vars.fontWeight,
   border: [`none`],
   gap: vars.space,
   borderRadius: vars.borderRadius,
   textAlign: [`left`, `center`, `right`],
-} as const
+} as const;
 
-export type UnresponsiveProperties = keyof typeof unresponsiveProperties
+export type UnresponsiveProperties = keyof typeof unresponsiveProperties;
 
 export const responsiveProperties = {
   display: [`block`, `inline-block`, `flex`, `inline-flex`],
@@ -33,6 +33,6 @@ export const responsiveProperties = {
   width: vars.space,
   minWidth: vars.space,
   minHeight: vars.space,
-} as const
+} as const;
 
-export type ResponsiveProperties = keyof typeof responsiveProperties
+export type ResponsiveProperties = keyof typeof responsiveProperties;

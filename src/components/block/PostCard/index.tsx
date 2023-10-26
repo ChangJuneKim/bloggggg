@@ -37,7 +37,7 @@ export default function PostCard({
       <Link href={url} className={link}>
         <Box as={'article'} className={article} display={'flex'}>
           <Box background={'wordHighlight'} borderRadius={'2xl'} className={imageContainer}>
-            <Image src={thumbnail} alt={'sdsd'} width={140} height={140} />
+            <Image src={thumbnail} alt={title} width={140} height={140} />
           </Box>
           <Box className={content}>
             <Category category={category} />

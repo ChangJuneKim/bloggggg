@@ -4,8 +4,8 @@ export type SVGIconNames =
   | 'cli'
   | 'javascript'
   | 'mdx'
-  | 'python'
   | 'react'
+  | 'nextjs'
   | 'typescript'
   | 'pause'
   | 'play'
@@ -36,7 +36,8 @@ export type SVGIconNames =
   | 'clock'
   | 'sun'
   | 'moon'
-  | 'system';
+  | 'system'
+  | 'tryCatch';
 
 export type SVGIconProps = {
   id: SVGIconNames;

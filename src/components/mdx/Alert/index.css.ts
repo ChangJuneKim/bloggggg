@@ -10,6 +10,7 @@ export type AlertStatus = 'info' | 'warning' | 'error' | 'success' | 'default';
 
 const bgVar = createVar();
 const colorVar = createVar();
+const subColorVar = createVar();
 const linkDecorationVar = createVar();
 
 const alertBaseStyle = style({
@@ -21,6 +22,7 @@ const alertBaseStyle = style({
   marginRight: vars.space[0],
   marginLeft: vars.space[0],
   background: bgVar,
+  borderLeft: `8px solid ${subColorVar}`,
   overflow: `hidden`,
   '@media': {
     [minMediaQuery(`lg`)]: {
@@ -106,6 +108,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
     vars: {
       [bgVar]: colorPalette[colorMap.info][bg],
       [colorVar]: transparentize(colorPalette[colorMap.default][400], 0.6),
+      [subColorVar]: transparentize(colorPalette[colorMap.info][color], 0.6),
       [linkDecorationVar]: colorPalette[colorMap.default][300],
     },
     selectors: {
@@ -113,6 +116,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
         vars: {
           [bgVar]: transparentize(colorPalette[colorMap.info][darkBg], darkBgOpacity),
           [colorVar]: colorPalette[colorMap.default][darkColor],
+          [subColorVar]: colorPalette[colorMap.info][darkColor],
           [linkDecorationVar]: colorPalette[colorMap.default][500],
         },
       },
@@ -122,6 +126,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
     vars: {
       [bgVar]: colorPalette[colorMap.info][bg],
       [colorVar]: colorPalette[colorMap.info][color],
+      [subColorVar]: colorPalette[colorMap.info][color],
       [linkDecorationVar]: colorPalette[colorMap.info][300],
     },
     selectors: {
@@ -129,6 +134,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
         vars: {
           [bgVar]: transparentize(colorPalette[colorMap.info][darkBg], darkBgOpacity),
           [colorVar]: colorPalette[colorMap.info][darkColor],
+          [subColorVar]: colorPalette[colorMap.info][darkColor],
           [linkDecorationVar]: colorPalette[colorMap.info][500],
         },
       },
@@ -138,6 +144,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
     vars: {
       [bgVar]: colorPalette[colorMap.warning][bg],
       [colorVar]: colorPalette[colorMap.warning][color],
+      [subColorVar]: colorPalette[colorMap.warning][color],
       [linkDecorationVar]: colorPalette[colorMap.warning][300],
     },
     selectors: {
@@ -145,6 +152,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
         vars: {
           [bgVar]: transparentize(colorPalette[colorMap.warning][darkBg], darkBgOpacity),
           [colorVar]: colorPalette[colorMap.warning][darkColor],
+          [subColorVar]: colorPalette[colorMap.warning][darkColor],
           [linkDecorationVar]: colorPalette[colorMap.warning][400],
         },
       },
@@ -154,6 +162,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
     vars: {
       [bgVar]: colorPalette[colorMap.success][bg],
       [colorVar]: colorPalette[colorMap.success][color],
+      [subColorVar]: colorPalette[colorMap.success][color],
       [linkDecorationVar]: colorPalette[colorMap.success][400],
     },
     selectors: {
@@ -161,6 +170,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
         vars: {
           [bgVar]: transparentize(colorPalette[colorMap.success][darkBg], darkBgOpacity),
           [colorVar]: colorPalette[colorMap.success][darkColor],
+          [subColorVar]: colorPalette[colorMap.success][darkColor],
           [linkDecorationVar]: colorPalette[colorMap.success][500],
         },
       },
@@ -170,6 +180,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
     vars: {
       [bgVar]: colorPalette[colorMap.error][bg],
       [colorVar]: colorPalette[colorMap.error][color],
+      [subColorVar]: colorPalette[colorMap.error][color],
       [linkDecorationVar]: colorPalette[colorMap.error][300],
     },
     selectors: {
@@ -177,6 +188,7 @@ const alerts: Record<AlertStatus, StyleRule> = {
         vars: {
           [bgVar]: transparentize(colorPalette[colorMap.error][darkBg], darkBgOpacity),
           [colorVar]: colorPalette[colorMap.error][darkColor],
+          [subColorVar]: colorPalette[colorMap.error][darkColor],
           [linkDecorationVar]: colorPalette[colorMap.error][500],
         },
       },

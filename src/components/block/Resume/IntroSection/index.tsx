@@ -13,7 +13,7 @@ export default function IntroSection() {
         </Box>
         <br />
         <Box as={'span'} fontWeight={'normal'}>
-          저는 <b>김창준</b>입니다
+          저는 <b>김창준</b>입니다.
         </Box>
       </Heading>
       <Alert>
