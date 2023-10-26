@@ -11,13 +11,11 @@ interface FlexBasisLayoutProps {
   rightContent: ReactNode;
 }
 
-const FlexBasisLayout: React.FC<FlexBasisLayoutProps> = ({ leftContent, rightContent }) => {
+export default function FlexBasisLayout({ leftContent, rightContent }: FlexBasisLayoutProps) {
   return (
     <Box display="flex" className={flexBasisContainer}>
       <Box className={flexBasisContainerLeft}>{leftContent}</Box>
       <Box className={flexBasisContainerRight}>{rightContent}</Box>
     </Box>
   );
-};
-
-export default FlexBasisLayout;
+}

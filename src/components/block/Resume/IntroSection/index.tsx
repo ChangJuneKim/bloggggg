@@ -6,8 +6,8 @@ import headings from '@/components/mdx/Headings';
 const Heading = headings.h1;
 export default function IntroSection() {
   return (
-    <>
-      <Heading id={'h1'}>
+    <Box as={'section'}>
+      <Heading id={'intro'}>
         <Box as={'span'} fontWeight={'normal'}>
           안녕하세요
         </Box>
@@ -42,6 +42,6 @@ export default function IntroSection() {
         marginLeft={'auto'}
         marginRight={'auto'}
       />
-    </>
+    </Box>
   );
 }

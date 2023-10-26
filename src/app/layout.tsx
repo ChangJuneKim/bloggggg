@@ -25,7 +25,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SkipNavLink />
         <Providers>
           <Header />
-          {/*<SkipNavContent>{children}</SkipNavContent>*/}
           {children}
           <Footer />
         </Providers>

@@ -11,7 +11,7 @@ const Heading = headings.h3;
 export default function ResumeSectionTitle({ title, desc }: ResumeSectionTitleProps) {
   return (
     <Box marginBottom={'8'}>
-      <Heading id={'h3'}>{title}.</Heading>
+      <Heading id={title}>{title}.</Heading>
       <Box as={'p'} color={'textMuted'} fontWeight={'semibold'} opacity={0.8}>
         {desc}
       </Box>

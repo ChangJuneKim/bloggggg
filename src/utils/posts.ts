@@ -4,7 +4,7 @@ import { compareDesc } from 'date-fns/fp';
 type PostsByCategory = Record<string, Array<Post>>;
 
 export const descAllPosts = (allPosts: Array<Post>) => {
-  return [...allPosts].sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)));
+  return [...allPosts].sort((a, b) => compareDesc(new Date(b.createdAt), new Date(a.createdAt)));
 };
 
 export const getUniqueTags = (allPosts: Array<Post>) => {

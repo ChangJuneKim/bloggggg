@@ -4,6 +4,7 @@ import { colorPalette } from './tokens/colors';
 
 globalStyle('html', {
   scrollPaddingTop: 'calc(${space.navigationHeight} + ${vars.space[4]})',
+  scrollBehavior: 'smooth',
 });
 
 globalStyle('body', {

@@ -1,4 +1,4 @@
-import { Box, ExternalLink, MyLink, SVGIcon } from '@/components/base';
+import { Box, ExternalLink, SVGIcon } from '@/components/base';
 import { ReactNode } from 'react';
 import {
   projectLeftFlexBasis,
@@ -7,6 +7,7 @@ import {
 } from '@/components/block/Resume/ProjectsSection/ProjectItem/index.css';
 import Alert from '@/components/mdx/Alert';
 import IconTextItem, { ImageProps } from '@/components/block/Resume/TechStackSection/IconTextItem';
+import Link from 'next/link';
 
 interface FlexBoxProps {
   marginTop?: string;
@@ -61,12 +62,16 @@ export default function ProjectItem({
       <FlexBox
         leftContent={
           title === '개인 블로그' ? (
-            <MyLink href={projectLink}>
-              <h3 className={projectTitle}>{title}</h3>
-            </MyLink>
+            <Link href={projectLink}>
+              <h3 id={title} className={projectTitle} style={{ scrollMarginTop: '70px' }}>
+                {title}
+              </h3>
+            </Link>
           ) : (
             <ExternalLink href={projectLink}>
-              <h3 className={projectTitle}>{title}</h3>
+              <h3 id={title} className={projectTitle} style={{ scrollMarginTop: '70px' }}>
+                {title}
+              </h3>
             </ExternalLink>
           )
         }
@@ -97,7 +102,7 @@ export default function ProjectItem({
             borderRadius={'md'}
             background={'mutedAsBg'}
             color={'primary'}
-            key={`${techStacks}`}
+            key={`${techStack}`}
           >
             {techStack}
           </Box>
@@ -113,7 +118,7 @@ export default function ProjectItem({
             {projectResults.map((result) => {
               const { type, href, title } = result;
               return type === 'github' ? (
-                <Box as={'li'} marginBottom={'1'}>
+                <Box as={'li'} marginBottom={'1'} key={title}>
                   <ExternalLink href={href} key={title}>
                     <Box
                       as={'span'}
@@ -127,7 +132,7 @@ export default function ProjectItem({
                   </ExternalLink>
                 </Box>
               ) : (
-                <Box as={'li'} marginBottom={'1'}>
+                <Box as={'li'} marginBottom={'1'} key={title}>
                   <ExternalLink href={href} key={title}>
                     <Box
                       as={'span'}
