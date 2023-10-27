@@ -27,7 +27,6 @@ export default function Alert({ title, status = 'default', children }: AlertProp
     <Box
       borderRadius="lg"
       position="relative"
-      my={[`6`, null, null, `12`]}
       px="4"
       py="4"
       width="auto"

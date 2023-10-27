@@ -71,13 +71,15 @@ export const descStyle = style({
 });
 
 export const readingTimeStyle = style({
-  fontSize: '0.75rem',
+  fontSize: '0.875rem',
+  opacity: 0.9,
 });
 
 export const imageContainer = style({
   width: 'fit-content',
   height: 'fit-content',
   gridColumn: 'span 1/span 1',
+  overflow: 'hidden',
   '@media': {
     '(max-width: 640px)': {
       display: 'none',

@@ -5,7 +5,7 @@ globalStyle(`*`, {
   margin: 0,
 });
 
-globalStyle(`html, body`, {
+globalStyle(`html`, {
   height: `100%`,
 });
 

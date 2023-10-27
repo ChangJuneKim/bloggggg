@@ -7,6 +7,7 @@ import { Box } from '@/components/base';
 
 export default function PostsPage() {
   const { allPosts, uniqueTagTitles, chunkedPosts } = usePosts();
+  const postCount = allPosts.length;
   // const searchParams = useSearchParams();
   // const currentPage = Number(searchParams.get('page')) || 1;
 

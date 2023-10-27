@@ -34,7 +34,8 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     },
   },
   dark: {
-    background: topToTopGradient(colorPalette.blue[700], colorPalette.blue[500]),
+    background: topToTopGradient(colorPalette.blue[100], colorPalette.blue[50]),
+    width: '100%',
     selectors: {
       [themesSelectors.dark]: {
         background: topToTopGradient(colorPalette.blueGray[950], colorPalette.blueGray[900]),
@@ -49,10 +50,12 @@ const fullWidthContainers: Record<FullWidthContainerVariants, StyleRule> = {
     zIndex: zIndices.sticky,
   },
   fullBleed: {
-    background: `transparent`,
-    color: `white`,
-    display: `flex`,
-    zIndex: zIndices.sticky,
+    background: vars.color.bg,
+    height: vars.space.full,
+    // background: `transparent`,
+    // color: `white`,
+    // display: `flex`,
+    // zIndex: zIndices.sticky,
   },
 };
 

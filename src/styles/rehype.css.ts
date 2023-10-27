@@ -28,19 +28,19 @@ globalStyle(
   }
 );
 
-globalStyle(`code`, {
-  counterReset: 'line',
-});
-
-globalStyle(`code > [data-line]::before`, {
-  color: 'rgb(128, 128, 128)',
-  content: 'counter(line)',
-  counterIncrement: 'line',
-  display: 'inline-block',
-  marginRight: '2rem',
-  textAlign: 'right',
-  width: '1rem',
-});
+// globalStyle(`code`, {
+//   counterReset: 'line',
+// });
+//
+// globalStyle(`code > [data-line]::before`, {
+//   color: 'rgb(128, 128, 128)',
+//   content: 'counter(line)',
+//   counterIncrement: 'line',
+//   display: 'inline-block',
+//   marginRight: '2rem',
+//   textAlign: 'right',
+//   width: '1rem',
+// });
 
 globalStyle(`code[data-line-numbers-max-digits='2'] > [data-line]::before`, {
   width: '2rem',
@@ -57,7 +57,7 @@ globalStyle(`span[data-highlighted-chars]`, {
 globalStyle(`code:not(div[data-rehype-pretty-code-fragment] code)`, {
   background: `rgba(148,163,184,.25)`,
   borderRadius: vars.borderRadius.base,
-  padding: '0.25rem 0.5rem',
+  padding: '0.1rem 0.25rem',
 });
 
 globalStyle(`code[data-line-numbers-max-digits='3'] > [data-line]::before`, {
@@ -67,6 +67,25 @@ globalStyle(`code[data-line-numbers-max-digits='3'] > [data-line]::before`, {
 globalStyle(`[data-rehype-pretty-code-fragment] pre`, {
   borderRadius: vars.borderRadius.base,
   padding: vars.space[2],
+  overflow: 'auto',
+  scrollbarWidth: 'none',
+});
+
+globalStyle(`pre::-webkit-scrollbar`, {
+  width: vars.space['1'],
+  height: vars.space['1'],
+});
+
+globalStyle(`[data-rehype-pretty-code-fragment] pre::-webkit-scrollbar-track`, {
+  background: vars.color.borderColor,
+});
+
+globalStyle(`[data-rehype-pretty-code-fragment] pre::-webkit-scrollbar-thumb`, {
+  background: vars.color.primary,
+});
+
+globalStyle(`[data-rehype-pretty-code-fragment] pre::-webkit-scrollbar:hover`, {
+  background: vars.color.primaryHover,
 });
 
 globalStyle(`div[data-rehype-pretty-code-fragment] div[data-rehype-pretty-code-title]`, {
@@ -76,7 +95,7 @@ globalStyle(`div[data-rehype-pretty-code-fragment] div[data-rehype-pretty-code-t
   paddingBottom: vars.space['1'],
   fontSize: vars.fontSize.sm,
   fontWeight: vars.fontWeight.bold,
-  backgroundColor: vars.color.ghostBg,
+  backgroundColor: vars.color.codeHeader,
   borderWidth: '1px',
   borderStyle: 'solid',
   borderBottom: 0,

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Box } from '@/components/base';
+import { VisuallyHidden } from 'react-aria';
 
 interface CopyButtonProps {
   text: string;
@@ -9,23 +10,23 @@ interface CopyButtonProps {
 export default function CopyButton({ text }: CopyButtonProps) {
   const [isCopied, setIsCopied] = useState(false);
 
-  const copy = async () => {
+  const handleCopy = async () => {
     await navigator.clipboard.writeText(text);
     setIsCopied(true);
-
     setTimeout(() => {
       setIsCopied(false);
-    }, 10000);
+    }, 5000);
   };
 
   return (
     <Box
       as="button"
       disabled={isCopied}
-      onClick={copy}
+      onClick={handleCopy}
       style={{ transform: 'translate(0, -28px)' }}
     >
       {isCopied ? '복사됨!' : '복사'}
+      <VisuallyHidden aria-roledescription="status">{isCopied ? '복사됨!' : '복사'}</VisuallyHidden>
     </Box>
   );
 }
