@@ -25,9 +25,9 @@ export default function Introduce() {
       <Box className={introduce}>
         <h3 className={myName}>김창준</h3>
         <p className={oneLiner}>
-          안녕하세요 개발자입니다. 아무튼
+          안녕하세요 웹 기술에 열정을 가진 프론트엔드 개발자입니다.
           <br />
-          반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.
+          지속적인 배움을 통해 더 나은 개발자가 되고자 합니다.
         </p>
       </Box>
     </Box>
