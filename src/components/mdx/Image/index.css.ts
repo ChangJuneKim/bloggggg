@@ -1,10 +1,13 @@
 import { style } from '@vanilla-extract/css';
 import { minMediaQuery } from '@/styles/tokens/breakpoints';
+import { vars } from '@/styles/themes/contract.css';
 
 export const base = {
   height: 'auto',
 };
 export const imageStyle = style({
+  borderRadius: vars.borderRadius.lg,
+  overflow: 'hidden',
   width: '75%',
   ...base,
   '@media': {

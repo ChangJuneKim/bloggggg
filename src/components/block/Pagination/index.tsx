@@ -64,7 +64,7 @@ const Pagination = ({ total, selectedCategory = 'ALL' }: PaginationProps) => {
   return (
     <>
       <p>
-        {currentPage} of {numPages}
+        {currentPage} of {numPages} pages
       </p>
       <nav className={pagination}>
         <button

@@ -8,7 +8,7 @@ export const codeHeader = style({
   borderRight: '1px',
   borderStyle: 'solid',
   borderColor: vars.color.borderColor,
-  background: vars.color.ghostBg,
+  background: vars.color.codeHeader,
   paddingBottom: vars.space[2],
   paddingLeft: vars.space[4],
   paddingRight: vars.space[5],

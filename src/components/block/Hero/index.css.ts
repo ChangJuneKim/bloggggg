@@ -4,7 +4,7 @@ import { vars } from '@/styles/themes/contract.css';
 
 export const heroSection = style({
   position: 'relative',
-  height: '60vh',
+  height: '55vh',
   overflow: 'hidden',
 });
 
@@ -19,12 +19,12 @@ export const imageContainer = style({
 
 const zoomInAnimation = keyframes({
   '0%': { transform: 'scale(1)' },
-  '100%': { transform: 'scale(1.15)' },
+  '100%': { transform: 'scale(1.1)' },
 });
 
 const fadeInOutAnimation = keyframes({
-  '0%': { opacity: 0.5 },
-  '100%': { opacity: 0.7 },
+  '0%': { opacity: 0.3 },
+  '100%': { opacity: 0.6 },
 });
 
 export const imageStyle = style({
@@ -33,7 +33,7 @@ export const imageStyle = style({
   width: '100%',
   inset: 0,
   objectFit: 'cover',
-  animation: `${zoomInAnimation} 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards`,
+  animation: `${zoomInAnimation} 1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards`,
 });
 
 export const backdrop = style({
@@ -60,5 +60,6 @@ globalStyle(`${welcome} h1`, {
 });
 
 globalStyle(`${welcome} p`, {
+  fontSize: vars.fontSize.lgx,
   fontWeight: vars.fontWeight.medium,
 });

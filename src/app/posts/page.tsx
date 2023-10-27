@@ -1,25 +1,38 @@
 'use client';
 
-import { Box } from '@/components/base';
 import { SkipNavContent } from '@/components/a11y';
 import usePosts from '@/hooks/usePosts';
 import { Pagination, PostsSection } from '@/components/block';
+import Hero from '@/components/block/Hero';
+import { Box } from '@/components/base';
 
 export default function PostsPage() {
   const { allPosts, uniqueTagTitles, chunkedPosts } = usePosts();
+  const postCount = allPosts.length;
   // const searchParams = useSearchParams();
   // const currentPage = Number(searchParams.get('page')) || 1;
 
   return (
-    <SkipNavContent variant={'hero'}>
-      <h2>전체 포스트 목록을 살펴보세요.</h2>
-      <Box>
-        {uniqueTagTitles.map((tag) => (
-          <span key={tag}>{tag}태그 </span>
-        ))}
-      </Box>
-      <PostsSection chunkedPosts={chunkedPosts} />
-      <Pagination total={allPosts.length} />
-    </SkipNavContent>
+    <>
+      <Hero
+        title={'📃 Posts'}
+        desc={['개발 글 만이 아닌 다양한 주제의 글이 게시될 예정입니다.', '재밌게 봐주세요.']}
+        image={{ alt: '포스트 페이지 배경', filename: 'posts.webp' }}
+      />
+      <SkipNavContent variant={'hero'}>
+        {/*<Box>*/}
+        {/*  {uniqueTagTitles.map((tag) => (*/}
+        {/*    <span key={tag}>{tag}태그 </span>*/}
+        {/*  ))}*/}
+        {/*</Box>*/}
+        <Box>
+          <p>
+            총 <b>{postCount}개</b>의 글이 있습니다.
+          </p>
+        </Box>
+        <PostsSection chunkedPosts={chunkedPosts} />
+        <Pagination total={allPosts.length} />
+      </SkipNavContent>
+    </>
   );
 }

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <FullWidthContainer variant={'dark'} className={borderTop}>
       <Box as="footer" py="16" role="contentinfo">
-        <Box textAlign={'center'}>
+        <Box textAlign={'center'} fontSize={'sm'}>
           &copy; {new Date().getFullYear()} by ChangJuneKim. All rights reserved.
         </Box>
       </Box>

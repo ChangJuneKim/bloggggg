@@ -1,0 +1,42 @@
+---
+title: "[TIP] 웹스톰 라이브 템플릿(스니펫) 표현식 모음"
+description: 반복되는 귀찮은 작업을 IDE의 기능을 활용해서 줄여봅시다.
+category: DEV
+createdAt: 2023-10-19
+tags:
+- title: "TIP"
+thumbnail: /assets/images/tip.png
+---
+<Box borderRadius={"lg"} style={{overflow: 'hidden'}}><img src="/assets/images/tip.png" style={{ width: '100%', height: '400px' }} alt="[TIP] 웹스톰 라이브 템플릿(스니펫) 표현식 모음 글의 썸네일" fetchPriority={"high"}/></Box>
+<Alert><b>생각날 때마다 추가하고 있습니다.</b></Alert>
+
+
+## 파일 이름을 컴포넌트명으로 하고 싶을 때,
+- 이름: `$FILENAME_BASE$`
+- 표현식: `capitalize(camelCase(fileNameWithoutExtension()))`
+
+파일이름이 `button.tsx` 혹은 `Button.tsx`라면
+첫 글자를 대문자로 해서 함수명으로 해준다.
+
+```js title="템플릿 텍스트"
+export default function $FILENAME_BASE$(){
+  return (
+    $1$
+  );
+}
+```
+<Divider/>
+
+## 부모 폴더는 컴포넌트명으로 하고 싶을 때
+- 이름: `$PARENT_DIR$`
+- 표현식: `capitalize(camelCase(groovyScript("new File(_1).parentFile.name", filePath())))`
+
+폴더이름을 `Button` 으로 하고 파일이름은 `index.tsx`로 할때 폴더 명을 함수 명으로 해준다.
+
+```js title="템플릿 텍스트"
+export default function $PARENT_DIR$(){
+  return (
+    $1$
+  );
+}
+```

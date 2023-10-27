@@ -9,11 +9,12 @@ import { usePathname } from 'next/navigation';
  * Navigation component containing the primary links + Darkmode toggle
  */
 const links = [
-  { name: 'Resume', link: '/resume' },
   { name: 'Posts', link: '/posts' },
+  { name: 'Resume', link: '/resume' },
 ];
 export const Navigation = () => {
   const pathname = usePathname();
+
   return (
     <Box display="flex" alignItems="center" flexDirection="row">
       <nav aria-label="Primary navigation">

@@ -1,5 +1,5 @@
 import Category from '@/components/block/PostCard/Category';
-import { Box, SVGIcon } from '@/components/base';
+import { Box } from '@/components/base';
 import Link from 'next/link';
 import {
   article,
@@ -12,6 +12,7 @@ import {
   titleStyle,
 } from '@/components/block/PostCard/index.css';
 import Image from 'next/image';
+import IconSpan from '@/components/extended/IconSpan';
 
 interface PostCardProps {
   category: 'DEV' | 'LIFE' | 'FIRE';
@@ -47,18 +48,9 @@ export default function PostCard({
               <Box as={'time'} color={'textMuted'} className={readingTimeStyle}>
                 {createdAt}
               </Box>
-              <Box
-                as={'span'}
-                display={'flex'}
-                alignItems={'center'}
-                color={'textMuted'}
-                className={readingTimeStyle}
-              >
-                <Box as={'span'} width={'4'} height={'4'} marginRight={'1'}>
-                  <SVGIcon id={'clock'} width={'100%'} height={'100%'} />
-                </Box>
+              <IconSpan iconId={'clock'} className={readingTimeStyle}>
                 {readingTime}
-              </Box>
+              </IconSpan>
             </Box>
           </Box>
         </Box>

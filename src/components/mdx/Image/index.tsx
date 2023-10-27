@@ -21,6 +21,8 @@ export default function Image({ src, alt, children }: ImageProps) {
       justifyContent="center"
       alignItems="center"
       borderRadius={'md'}
+      width={'full'}
+      __height={'400px'}
     >
       <Box
         as="a"
@@ -32,8 +34,15 @@ export default function Image({ src, alt, children }: ImageProps) {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
+        __width={'100%'}
       >
-        <NextImage src={src} alt={alt} width={1000} height={1000} />
+        <NextImage
+          src={src}
+          alt={alt}
+          width={1000}
+          height={1000}
+          style={{ width: '100%', height: '400px' }}
+        />
       </Box>
       {children ? (
         <figcaption className={figcaptionItalic}>{children}</figcaption>

@@ -3,7 +3,7 @@ import { vars } from './themes/contract.css';
 import { colorPalette } from './tokens/colors';
 
 globalStyle('html', {
-  scrollPaddingTop: 'calc(${space.navigationHeight} + ${vars.space[4]})',
+  // scrollPaddingTop: `calc(${space.navigationHeight} + ${vars.space[4]})`,
   scrollBehavior: 'smooth',
 });
 

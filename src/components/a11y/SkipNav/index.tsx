@@ -43,10 +43,9 @@ export const SkipNavContent = ({
   ...props
 }: SkipNavContentProps) => {
   const id = idProp || defaultId;
-
   return (
-    <FullWidthContainer className={composeClassNames(mainStyle)} variant={variant}>
-      <Box as="main" {...props} id={id}>
+    <FullWidthContainer variant={variant}>
+      <Box as="main" {...props} id={id} className={composeClassNames(mainStyle)}>
         {children}
       </Box>
     </FullWidthContainer>
