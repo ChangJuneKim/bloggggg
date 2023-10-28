@@ -1,0 +1,70 @@
+---
+title: '[삽질] Next13, Vanilla Extract, 윈도우 이슈'
+description: NextJS 13버전과 바닐라 익스트랙트를 이용해서 공부를 해보려다 만난 이슈
+category: FIRE
+createdAt: 2023-08-24
+tags:
+- title: "JavaScript"
+thumbnail: /assets/images/thumbnails/fire.png
+---
+
+<Thumbnail filename={"fire.png"} alt={'[삽질] Next13, Vanilla Extract, 윈도우 이슈'} background={"#FAFBE4"}/>
+
+<Divider />
+
+# NextJS 13버전, 바닐라 익스트랙트를 이용해서 공부를 해보려다 만난 이슈
+
+## 요약
+
+`23.08.24 기준` 윈도우 환경에서 서버컴포넌트에 바닐라 익스트랙트로 css가 적용되지 않는 이슈가 있어서
+wsl2로 개발환경을 변경해서 해결함
+
+## 나의 개발 환경
+```json
+  "@vanilla-extract/css": "^1.13.0",
+  "next": "13.4.19",
+
+  "devDependencies": {
+      "@vanilla-extract/next-plugin": "^2.3.0"
+  }
+```
+
+dev로 실행해봐도 build && start로 실행해봐도 클라이언트 컴포넌트에는 css가 적용이 잘 되지만
+
+서버 컴포넌트에는 아예 css 자체가 생성되지 않는 문제가 있었다. ?? 제로 런타임이라면서요..
+
+그래서 구글링을 해본 결과
+
+현재 버전에서는 **윈도우에서 발생하는 이슈**라고 한다. dev 명령어로 로컬에서 프로젝트를 실행하면 적용되지 않지만 vercel에 배포하면 또 css가 적용이 잘 되어 있다고도 한다.
+
+공식문서에도 설명을 모호하게 해놔서 진짜 안되는건줄 알았다.
+
+
+
+<Alert>
+  [Next 공식문서](https://nextjs.org/docs/app/building-your-application/styling/css-in-js)
+  <Collapsible summary={"문서 내용"}>
+    Warning: CSS-in-JS libraries which require runtime JavaScript are not currently supported in Server Components. Using CSS-in-JS with newer React features like Server Components and Streaming requires library authors to support the latest version of React, including concurrent rendering.
+    We're working with the React team on upstream APIs to handle CSS and JavaScript assets with support for React Server Components and streaming architecture.
+
+    The following libraries are supported in Client Components in the app directory (alphabetical):
+    다음 라이브러리들은 앱 디렉터리의 클라이언트 컴포넌트에서 지원됩니다.
+    - kuma-ui
+    - @mui/material
+    - pandacss
+    - styled-jsx
+    - styled-components
+    - style9
+    - tamagui
+    - tss-react
+    - `vanilla-extract` 여기
+  </Collapsible>
+
+</Alert>
+
+이거 때문에 서버 컴포넌트에서는 안되는 줄 알았다. ㅡㅡ
+
+## 참고한 것들
+
+- [Next.js 13 の App Routerでvanilla-extractを動作させる (zenn.dev)](https://zenn.dev/keitakn/scraps/b872604237472e)
+- [윈도우 이슈](https://github.com/vanilla-extract-css/vanilla-extract/issues/1086#issuecomment-1666973987)

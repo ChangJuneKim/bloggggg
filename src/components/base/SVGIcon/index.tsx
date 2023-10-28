@@ -16,6 +16,7 @@ export type SVGIconNames =
   | 'lightbulb'
   | 'star'
   | 'arrow-right'
+  | 'arrow-left'
   | 'share'
   | 'refresh'
   | 'export'

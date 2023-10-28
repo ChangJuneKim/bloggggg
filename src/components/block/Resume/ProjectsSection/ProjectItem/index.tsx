@@ -8,6 +8,7 @@ import {
 import Alert from '@/components/mdx/Alert';
 import IconTextItem, { ImageProps } from '@/components/block/Resume/TechStackSection/IconTextItem';
 import Link from 'next/link';
+import Tag from '@/components/base/Tag';
 
 interface FlexBoxProps {
   marginTop?: string;
@@ -92,20 +93,7 @@ export default function ProjectItem({
       />
       <Box marginTop={'4'}>
         {techStacks.map((techStack) => (
-          <Box
-            as={'span'}
-            display={'inline-block'}
-            marginBottom={'1'}
-            px={'2'}
-            py={'1'}
-            marginRight={'2'}
-            borderRadius={'md'}
-            background={'mutedAsBg'}
-            color={'primary'}
-            key={`${techStack}`}
-          >
-            {techStack}
-          </Box>
+          <Tag key={techStack} label={techStack} />
         ))}
       </Box>
       <Alert>{description}</Alert>

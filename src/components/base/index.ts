@@ -4,3 +4,4 @@ export { default as Container } from '@/components/base/Container';
 export { MyLink, ExternalLink } from '@/components/base/MyLink';
 export { Spacer } from '@/components/base/Spacer';
 export { default as SVGIcon } from '@/components/base/SVGIcon';
+export { default as Tag } from '@/components/base/Tag';

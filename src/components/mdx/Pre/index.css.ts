@@ -18,7 +18,9 @@ globalStyle(`${codeHeader} + pre`, {
   marginTop: 0,
   borderTopLeftRadius: 0,
   borderTopRightRadius: 0,
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: vars.color.borderColor,
+  borderTop: `1px solid ${vars.color.borderColor}`,
 });
+
+// globalStyle(`${codeHeader} button`, {
+//   transform: 'translate(0, -28px)',
+// });

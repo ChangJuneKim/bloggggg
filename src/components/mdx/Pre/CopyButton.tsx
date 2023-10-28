@@ -19,12 +19,7 @@ export default function CopyButton({ text }: CopyButtonProps) {
   };
 
   return (
-    <Box
-      as="button"
-      disabled={isCopied}
-      onClick={handleCopy}
-      style={{ transform: 'translate(0, -28px)' }}
-    >
+    <Box as="button" disabled={isCopied} onClick={handleCopy}>
       {isCopied ? '복사됨!' : '복사'}
       <VisuallyHidden aria-roledescription="status">{isCopied ? '복사됨!' : '복사'}</VisuallyHidden>
     </Box>

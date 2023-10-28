@@ -24,7 +24,11 @@ const blogFunctions = [
 export default function MyBlog() {
   return (
     <ProjectItem
-      imageProps={{ type: 'img', src: '/assets/images/logo.png', alt: '김창준의 블로그 프로젝트' }}
+      imageProps={{
+        type: 'img',
+        src: '/assets/images/resume/logo.png',
+        alt: '김창준의 블로그 프로젝트',
+      }}
       title={'개인 블로그'}
       projectLink={links.myBlog.website}
       members={'개인'}

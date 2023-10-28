@@ -1,3 +1,5 @@
+'use client';
+
 import { postsSection } from '@/app/posts/layout.css';
 import { Box } from '@/components/base';
 import { PostCard } from '@/components/block';

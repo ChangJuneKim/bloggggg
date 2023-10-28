@@ -6,6 +6,7 @@ import Pre from '@/components/mdx/Pre';
 import Contacts from '@/components/mdx/Contacts';
 import Collapsible from '@/components/mdx/Collapsible';
 import Divider from '@/components/extended/Divider';
+import Thumbnail from '@/components/mdx/Thumbnail';
 
 export const components = {
   Alert,
@@ -15,6 +16,7 @@ export const components = {
   Contacts,
   Collapsible,
   Divider,
+  Thumbnail,
   Box,
   pre: Pre,
   ...(headings as any),

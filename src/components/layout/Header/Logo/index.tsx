@@ -10,7 +10,7 @@ export default function Logo() {
       className={logoContainer}
       minWidth={'6'}
     >
-      <Image src="/assets/images/logo.png" width={42} height={42} alt="로고" priority />
+      <Image src="/assets/images/resume/logo.png" width={42} height={42} alt="로고" priority />
     </MyLink>
   );
 }
