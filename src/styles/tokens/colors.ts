@@ -333,7 +333,7 @@ export const lightThemeColors: typeof nullColors = {
   ghostBg: transparentize(colorPalette.blue[400], 0.8),
   codeHeader: transparentize(colorPalette.blue[100], 0.7),
   copyButtonBg: colorPalette.white,
-  borderColor: colorPalette.gray[300],
+  borderColor: colorPalette.blueGray[200],
   lineHighlight: `linear-gradient(90deg, rgb(140, 175, 255) 0% .3%, rgb(243, 242, 248) .3% 100%)`,
   wordHighlight: transparentize(colorPalette.lightBlue['400'], 0.3),
 };

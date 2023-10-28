@@ -18,6 +18,5 @@ export const themeButton = style({
   aspectRatio: '1',
   alignItems: 'center',
   justifyContent: 'center',
-  background: 'red',
   backgroundColor: 'transparent',
 });

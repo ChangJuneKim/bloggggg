@@ -12,6 +12,12 @@ const containerBaseStyle = style({
   paddingLeft: vars.space[8],
   paddingRight: vars.space[8],
   '@media': {
+    [minMediaQuery(`sm`)]: {
+      // marginLeft: vars.space.auto,
+      // marginRight: vars.space.auto,
+      paddingLeft: vars.space[8],
+      paddingRight: vars.space[8],
+    },
     [minMediaQuery(`lg`)]: {
       // marginLeft: vars.space.auto,
       // marginRight: vars.space.auto,

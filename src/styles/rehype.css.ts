@@ -2,6 +2,7 @@ import { globalStyle } from '@vanilla-extract/css';
 import { vars } from '@/styles/themes/contract.css';
 import { darkThemeClass } from '@/styles/themes/dark.css';
 import { lightThemeClass } from '@/styles/themes/light.css';
+import { codeHeader } from '@/components/mdx/Pre/index.css';
 
 globalStyle(`div[data-rehype-pretty-code-fragment]`, {
   marginTop: vars.space[5],
@@ -42,9 +43,9 @@ globalStyle(
 //   width: '1rem',
 // });
 
-globalStyle(`code[data-line-numbers-max-digits='2'] > [data-line]::before`, {
-  width: '2rem',
-});
+// globalStyle(`code[data-line-numbers-max-digits='2'] > [data-line]::before`, {
+//   width: '2rem',
+// });
 
 globalStyle(`span[data-highlighted-line]`, {
   background: vars.color.lineHighlight,
@@ -96,10 +97,10 @@ globalStyle(`div[data-rehype-pretty-code-fragment] div[data-rehype-pretty-code-t
   fontSize: vars.fontSize.sm,
   fontWeight: vars.fontWeight.bold,
   backgroundColor: vars.color.codeHeader,
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderBottom: 0,
-  borderColor: vars.color.borderColor,
+  // borderWidth: '1px',
+  // borderStyle: 'solid',
+  // borderBottom: 0,
+  // borderColor: vars.color.borderColor,
   borderTopLeftRadius: vars.borderRadius.base,
   borderTopRightRadius: vars.borderRadius.base,
 });
@@ -108,7 +109,36 @@ globalStyle(`div[data-rehype-pretty-code-fragment] div[data-rehype-pretty-code-t
   marginTop: 0,
   borderTopLeftRadius: 0,
   borderTopRightRadius: 0,
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: vars.color.borderColor,
+  border: 'none',
+  // borderWidth: '1px',
+  // borderStyle: 'solid',
+  // borderColor: vars.color.borderColor,
+});
+
+globalStyle(
+  `div[data-rehype-pretty-code-fragment] div[data-rehype-pretty-code-title] + div.${codeHeader}`,
+  {
+    marginTop: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    // borderWidth: '1px',
+    // borderStyle: 'solid',
+    // borderColor: vars.color.borderColor,
+  }
+);
+
+globalStyle(`div[data-rehype-pretty-code-fragment] > div.${codeHeader}`, {
+  display: 'flex',
+  justifyContent: 'space-between',
+  borderTopLeftRadius: vars.borderRadius.base,
+  borderTopRightRadius: vars.borderRadius.base,
+  border: 'none',
+  paddingTop: vars.space[2],
+  paddingBottom: vars.space[2],
+  paddingLeft: vars.space[4],
+  paddingRight: vars.space[5],
+});
+
+globalStyle(`div[data-rehype-pretty-code-fragment] > div.${codeHeader} button`, {
+  transform: `translate(0)`,
 });

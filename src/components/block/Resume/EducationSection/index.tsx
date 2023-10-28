@@ -7,7 +7,7 @@ export default function EducationSection() {
     <Box as={'section'} marginTop={'8'}>
       <ResumeSectionTitle title={'🎓 Educations'} desc={'교육'} />
       <IconTextItem
-        imageProps={{ type: 'img', alt: 'ssafy', src: '/assets/images/ssafy.png' }}
+        imageProps={{ type: 'img', alt: 'ssafy', src: '/assets/images/resume/ssafy.png' }}
         size={136}
       >
         <Box>
@@ -16,7 +16,7 @@ export default function EducationSection() {
         </Box>
       </IconTextItem>
       <IconTextItem
-        imageProps={{ type: 'img', alt: '인제대학교', src: '/assets/images/inje.jpg' }}
+        imageProps={{ type: 'img', alt: '인제대학교', src: '/assets/images/resume/inje.jpg' }}
         size={136}
       >
         <Box>

@@ -6,17 +6,18 @@ export const base = {
   height: 'auto',
 };
 export const imageStyle = style({
-  borderRadius: vars.borderRadius.lg,
+  borderRadius: vars.borderRadius.md,
   overflow: 'hidden',
-  width: '75%',
+  marginBottom: '0.25rem',
+  width: '90%',
   ...base,
   '@media': {
     [minMediaQuery(`lg`)]: {
-      width: '60%',
+      width: '80%',
       ...base,
     },
     [minMediaQuery(`2xl`)]: {
-      width: '40%',
+      width: '75%',
       ...base,
     },
   },

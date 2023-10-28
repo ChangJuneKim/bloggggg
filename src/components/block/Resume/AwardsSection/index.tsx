@@ -8,7 +8,11 @@ export default function AwardsSection() {
     <Box as={'section'} my={'8'}>
       <ResumeSectionTitle title={'🏆 Awards'} desc={'수상 및 자격증'} />
       <IconTextItem
-        imageProps={{ type: 'img', alt: '자율 프로젝트 상장', src: '/assets/images/자율.png' }}
+        imageProps={{
+          type: 'img',
+          alt: '자율 프로젝트 상장',
+          src: '/assets/images/resume/자율.png',
+        }}
         size={150}
       >
         <Box>
@@ -20,7 +24,11 @@ export default function AwardsSection() {
         </Box>
       </IconTextItem>
       <IconTextItem
-        imageProps={{ type: 'img', alt: '공통 프로젝트 상장', src: '/assets/images/공통.png' }}
+        imageProps={{
+          type: 'img',
+          alt: '공통 프로젝트 상장',
+          src: '/assets/images/resume/공통.png',
+        }}
         size={150}
       >
         <Box>

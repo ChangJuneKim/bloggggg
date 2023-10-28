@@ -1,5 +1,3 @@
-'use client';
-
 import { SkipNavContent } from '@/components/a11y';
 import usePosts from '@/hooks/usePosts';
 import { Pagination, PostsSection } from '@/components/block';
@@ -7,10 +5,8 @@ import Hero from '@/components/block/Hero';
 import { Box } from '@/components/base';
 
 export default function PostsPage() {
-  const { allPosts, uniqueTagTitles, chunkedPosts } = usePosts();
+  const { allPosts, chunkedPosts } = usePosts();
   const postCount = allPosts.length;
-  // const searchParams = useSearchParams();
-  // const currentPage = Number(searchParams.get('page')) || 1;
 
   return (
     <>
@@ -20,11 +16,6 @@ export default function PostsPage() {
         image={{ alt: '포스트 페이지 배경', filename: 'posts.webp' }}
       />
       <SkipNavContent variant={'hero'}>
-        {/*<Box>*/}
-        {/*  {uniqueTagTitles.map((tag) => (*/}
-        {/*    <span key={tag}>{tag}태그 </span>*/}
-        {/*  ))}*/}
-        {/*</Box>*/}
         <Box>
           <p>
             총 <b>{postCount}개</b>의 글이 있습니다.

@@ -12,7 +12,31 @@ export const mdxSection = style({
   paddingTop: vars.space['24'],
   '@media': {
     [minMediaQuery('xl')]: {
-      gridTemplateColumns: '2fr 800px 3fr', // 중앙에 800px 고정크기
+      gridTemplateColumns: '3fr 800px 4fr', // 중앙에 800px 고정크기
+      paddingLeft: vars.space['20'],
+      paddingRight: vars.space['20'],
+    },
+  },
+});
+
+export const tagsAside = style({});
+
+export const tagsAsideSticky = style({
+  position: 'sticky',
+  top: '10%',
+  padding: vars.space['3'],
+  borderRight: `2px solid ${vars.color.borderColor}`,
+});
+
+globalStyle(`${mdxSection} ${tagsAside} a`, {
+  textDecoration: 'none',
+});
+
+globalStyle(`${mdxSection} ${tagsAside}`, {
+  '@media': {
+    [minMediaQuery('xl')]: {
+      gridColumn: '1',
+      display: 'block',
     },
   },
 });

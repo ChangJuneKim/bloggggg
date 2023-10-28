@@ -18,11 +18,11 @@ export default function Image({ src, alt, children }: ImageProps) {
       as="figure"
       display="flex"
       flexDirection="column"
-      justifyContent="center"
+      marginTop={'8'}
+      __marginBottom={'8'}
+      __justifyContent={'space-evenly'}
       alignItems="center"
-      borderRadius={'md'}
       width={'full'}
-      __height={'400px'}
     >
       <Box
         as="a"
@@ -34,15 +34,8 @@ export default function Image({ src, alt, children }: ImageProps) {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        __width={'100%'}
       >
-        <NextImage
-          src={src}
-          alt={alt}
-          width={1000}
-          height={1000}
-          style={{ width: '100%', height: '400px' }}
-        />
+        <NextImage src={src} alt={alt} width={1000} height={1000} />
       </Box>
       {children ? (
         <figcaption className={figcaptionItalic}>{children}</figcaption>

@@ -37,7 +37,7 @@ const zippyFunctions = [
 export default function ZippyZiggy() {
   return (
     <ProjectItem
-      imageProps={{ type: 'img', src: '/assets/images/zippy.png', alt: '지피지기 프로젝트' }}
+      imageProps={{ type: 'img', src: '/assets/images/resume/zippy.png', alt: '지피지기 프로젝트' }}
       title={'지피지기'}
       projectLink={links.zippy.projectNotion}
       members={'6명 (프론트3 / 백3)'}

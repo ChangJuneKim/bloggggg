@@ -87,6 +87,11 @@ export const imageContainer = style({
   },
 });
 
+globalStyle(`${imageContainer} img`, {
+  aspectRatio: '1/1',
+  objectFit: 'cover',
+});
+
 export const content = style({
   gridColumn: 'span 4/span 4',
   '@media': {

@@ -9,11 +9,20 @@ import {
 interface FlexBasisLayoutProps {
   leftContent: ReactNode;
   rightContent: ReactNode;
+  reverse?: boolean;
 }
 
-export default function FlexBasisLayout({ leftContent, rightContent }: FlexBasisLayoutProps) {
+export default function FlexBasisLayout({
+  leftContent,
+  rightContent,
+  reverse = false,
+}: FlexBasisLayoutProps) {
   return (
-    <Box display="flex" className={flexBasisContainer}>
+    <Box
+      display="flex"
+      className={flexBasisContainer}
+      flexDirection={reverse ? 'column-reverse' : undefined}
+    >
       <Box className={flexBasisContainerLeft}>{leftContent}</Box>
       <Box className={flexBasisContainerRight}>{rightContent}</Box>
     </Box>
