@@ -31,6 +31,7 @@ export default function IntroSection() {
           프로젝트에 효과적으로 적용하는 것을 즐기며, 이를 통해 지속적인 성장을 추구합니다.
         </p>
       </Alert>
+      <br />
       <Contacts />
       <Spacer
         size={'20'}

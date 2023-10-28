@@ -84,7 +84,7 @@ const PostPage = ({ params }: Props) => {
             </Box>
             <Box textAlign={'right'} marginRight={'4'}>
               <Link href={'/posts'}>
-                포스트 목록으로
+                목록으로
                 <Box
                   as={'span'}
                   display={'inline-block'}
