@@ -80,7 +80,7 @@ export const Post = defineDocumentType(() => ({
 
           return {
             level: flag?.length,
-            text: content,
+            text: content.replaceAll('`', ''),
             slug: content ? slugger.slug(content) : undefined,
           };
         });
