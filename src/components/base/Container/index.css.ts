@@ -50,10 +50,15 @@ const containers: Record<ContainerVariants, StyleRule> = {
   },
   light: {},
   dark: {
-    color: colorPalette.blueGray[900],
-    selectors: {
-      [themesSelectors.dark]: {
-        color: colorPalette.blueGray[300],
+    marginLeft: vars.space.auto,
+    marginRight: vars.space.auto,
+    color: colorPalette.blueGray[300],
+    '@media': {
+      [minMediaQuery(`lg`)]: {
+        marginLeft: vars.space.auto,
+        marginRight: vars.space.auto,
+        paddingLeft: vars.space[8],
+        paddingRight: vars.space[8],
       },
     },
   },

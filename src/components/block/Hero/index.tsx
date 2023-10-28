@@ -22,7 +22,7 @@ export default function Hero({ title, desc, image }: HeroProps) {
     <Box as={'section'} className={heroSection}>
       <Box className={imageContainer}>
         <Image
-          src={`/assets/images/${image.filename}`}
+          src={`/assets/images/banner/${image.filename}`}
           alt={image.alt}
           className={imageStyle}
           priority={true}
@@ -31,13 +31,10 @@ export default function Hero({ title, desc, image }: HeroProps) {
       </Box>
       <Box className={backdrop}></Box>
       <Box className={welcome}>
-        {/*<h1>👨🏼‍💻 김창준의 블로그</h1>*/}
         <h1>{title}</h1>
         {desc.map((d, index) => (
           <p key={index}>{d}</p>
         ))}
-        {/*<p>저의 블로그에 오신 것을 환영합니다! 🎉</p>*/}
-        {/*<p>학습하는 개발자, 함께 성장하는 공간입니다.</p>*/}
       </Box>
     </Box>
   );

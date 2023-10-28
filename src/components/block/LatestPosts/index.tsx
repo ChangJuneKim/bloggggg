@@ -1,9 +1,9 @@
 import { Box } from '@/components/base';
-import { postsSection } from '@/app/posts/layout.css';
 import usePosts from '@/hooks/usePosts';
+import { PrimaryButton } from '@/components/extended';
 import { PostCard } from '@/components/block';
 import { format } from 'date-fns';
-import { SecondaryButton } from '@/components/extended';
+import { postsSection } from '@/app/posts/layout.css';
 
 export default function LatestPosts() {
   const { allPosts } = usePosts();
@@ -28,7 +28,7 @@ export default function LatestPosts() {
         })}
       </Box>
       <Box display={'flex'} justifyContent={'flex-end'} marginTop={'8'} marginBottom={'8'}>
-        <SecondaryButton to={'/posts'}>All Posts</SecondaryButton>
+        <PrimaryButton to={'/posts'}>All Posts</PrimaryButton>
       </Box>
     </Box>
   );

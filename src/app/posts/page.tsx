@@ -1,8 +1,8 @@
 import { SkipNavContent } from '@/components/a11y';
 import usePosts from '@/hooks/usePosts';
+import { Box } from '@/components/base';
 import { Pagination, PostsSection } from '@/components/block';
 import Hero from '@/components/block/Hero';
-import { Box } from '@/components/base';
 
 export default function PostsPage() {
   const { allPosts, chunkedPosts } = usePosts();
