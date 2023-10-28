@@ -36,7 +36,7 @@ export default function Thumbnail({ filename, background = 'transparent', alt }:
         width={1000}
         height={1000}
         alt={`${alt} 글의 썸네일"`}
-        fetchPriority={'high'}
+        priority
       />
     </Box>
   );
