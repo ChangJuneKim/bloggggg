@@ -1,6 +1,6 @@
-import '../styles/reset.css';
-import '../styles/globalStyles.css';
-import '../styles/rehype.css';
+import '@/styles/reset.css';
+import '@/styles/globalStyles.css';
+import '@/styles/rehype.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Providers from '@/app/providers';

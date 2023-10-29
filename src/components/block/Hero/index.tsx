@@ -25,6 +25,8 @@ export default function Hero({ title, desc, image }: HeroProps) {
           src={`/assets/images/banner/${image.filename}`}
           alt={image.alt}
           className={imageStyle}
+          placeholder={'blur'}
+          blurDataURL={`/assets/images/banner/${image.filename}`}
           priority={true}
           fill
         />

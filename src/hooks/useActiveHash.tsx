@@ -18,7 +18,6 @@ export default function useActiveHash(slugs: Slugs, options: Options = {}) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          console.log(entry.target.id, entry.isIntersecting, entry.intersectionRatio);
           if (entry.intersectionRatio > 0) {
             setActiveHash(entry.target.id);
           }

@@ -2,6 +2,7 @@ import { globalStyle, style } from '@vanilla-extract/css';
 import { vars } from '@/styles/themes/contract.css';
 import { pseudoSelectors } from '@/styles/selectors';
 import { calc } from '@vanilla-extract/css-utils';
+import { minMediaQuery } from '@/styles/tokens/breakpoints';
 
 export const list = style({
   [pseudoSelectors.notFirst]: {
@@ -41,15 +42,16 @@ export const article = style({
   marginTop: '0.5rem',
   marginBottom: '0.5rem',
   padding: vars.space['1'],
-  paddingLeft: vars.space['3'],
+  paddingLeft: vars.space['0'],
   position: 'relative',
   transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
 
   '@media': {
-    '(min-width: 640px)': {
+    [minMediaQuery('sm')]: {
       display: 'grid',
       gridTemplateColumns: 'repeat(5, 1fr)',
       gap: '1rem',
+      paddingLeft: vars.space['3'],
     },
   },
 });
@@ -93,10 +95,11 @@ globalStyle(`${imageContainer} img`, {
 });
 
 export const content = style({
-  gridColumn: 'span 4/span 4',
+  width: '100%',
+  paddingLeft: vars.space['3'],
   '@media': {
-    '(max-width: 640px)': {
-      width: '100%',
+    [minMediaQuery('sm')]: {
+      gridColumn: 'span 4/span 4',
     },
   },
 });
