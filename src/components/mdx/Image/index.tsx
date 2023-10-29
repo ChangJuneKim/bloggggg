@@ -22,8 +22,11 @@ export default function Image({ src, alt, children, width, height }: ImageProps)
       __marginBottom={'8'}
       __justifyContent={'space-evenly'}
       alignItems="center"
-      __width={width ? `${width}px` : 'full'}
+      // __width={width ? `${width}px` : 'full'}
       mx={'auto'}
+      style={{
+        maxWidth: width ? `${width}px` : 'full',
+      }}
     >
       <Box
         as="a"
