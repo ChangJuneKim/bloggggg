@@ -1,7 +1,11 @@
+'use client';
+
 import { Box, MyLink } from '@/components/base';
 import { TocStyle } from '@/components/block/Toc/index.css';
+import useActiveHash from '@/hooks/useActiveHash';
+import { useEffect } from 'react';
 
-type heading = {
+export type heading = {
   level: number;
   text: string;
   slug: string;
@@ -14,6 +18,13 @@ interface TocProps {
 export default function Toc({ headings = [] }: TocProps) {
   let level2Counter = 0; // Level 2의 카운터
   let level3Counter = 0; // Level 3의 카운터
+  const slugs = headings.map((heading) => heading.slug);
+
+  const activeHash = useActiveHash(slugs);
+
+  useEffect(() => {
+    console.log(activeHash);
+  }, [activeHash]);
 
   return (
     <Box as={'aside'}>
@@ -32,9 +43,16 @@ export default function Toc({ headings = [] }: TocProps) {
             }
 
             const marginLeft = (heading.level - 1) * 12; // Level에 따른 마진
+
+            const isActive = activeHash === heading.slug;
+
             return (
               <li key={heading.slug} style={{ marginLeft: `${marginLeft}px` }}>
-                <MyLink href={`#${heading.slug}`}>
+                <MyLink
+                  href={`#${heading.slug}`}
+                  color={isActive ? 'primary' : 'inherit'}
+                  fontWeight={isActive ? 'medium' : 'normal'}
+                >
                   {label}. {heading.text}
                 </MyLink>
               </li>
