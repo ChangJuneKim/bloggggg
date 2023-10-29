@@ -10,6 +10,7 @@ export const mdxSection = style({
   gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
   gap: vars.space['8'],
   paddingTop: vars.space['24'],
+  marginBottom: vars.space['24'],
   '@media': {
     [minMediaQuery('xl')]: {
       gridTemplateColumns: '3fr 800px 4fr', // 중앙에 800px 고정크기

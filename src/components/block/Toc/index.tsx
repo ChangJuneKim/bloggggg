@@ -3,7 +3,6 @@
 import { Box, MyLink } from '@/components/base';
 import { TocStyle } from '@/components/block/Toc/index.css';
 import useActiveHash from '@/hooks/useActiveHash';
-import { useEffect } from 'react';
 
 export type heading = {
   level: number;
@@ -21,10 +20,6 @@ export default function Toc({ headings = [] }: TocProps) {
   const slugs = headings.map((heading) => heading.slug);
 
   const activeHash = useActiveHash(slugs);
-
-  useEffect(() => {
-    console.log(activeHash);
-  }, [activeHash]);
 
   return (
     <Box as={'aside'}>

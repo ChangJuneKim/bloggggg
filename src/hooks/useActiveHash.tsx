@@ -18,12 +18,13 @@ export default function useActiveHash(slugs: Slugs, options: Options = {}) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          console.log(entry.target.id, entry.isIntersecting, entry.intersectionRatio);
+          if (entry.intersectionRatio > 0) {
             setActiveHash(entry.target.id);
           }
         });
       },
-      { rootMargin: `0% 0% -80% 0%`, ...options }
+      { rootMargin: `-20% 0px -60% 0px`, threshold: 1, ...options }
     );
 
     const existingElements = slugs.map((id) => document.getElementById(id)).filter(Boolean);
