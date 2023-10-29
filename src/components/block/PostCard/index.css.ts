@@ -90,7 +90,7 @@ export const imageContainer = style({
 });
 
 globalStyle(`${imageContainer} img`, {
-  aspectRatio: '1/1',
+  aspectRatio: '1 / 1',
   objectFit: 'cover',
 });
 

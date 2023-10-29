@@ -14,12 +14,7 @@ export default function Introduce() {
     <Box as={'section'} className={introduceSection}>
       <Box className={profileContainer}>
         <Box className={profileImage}>
-          <Image
-            src={'/assets/images/77381154.jfif'}
-            alt={'프로필 사진'}
-            width={100}
-            height={100}
-          />
+          <Image src={'/assets/images/profile.jpg'} alt={'프로필 사진'} width={100} height={100} />
         </Box>
       </Box>
       <Box className={introduce}>
