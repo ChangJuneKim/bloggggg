@@ -25,7 +25,7 @@ const usePosts = ({ slug, category }: Props = {}) => {
     [sortedPosts]
   );
   const filterPosts = category ? postsByCategory[category] : sortedPosts;
-  const postBySlug = useMemo(() => getPostBySlug(sortedPosts, slug || ''), [slug]);
+  const postBySlug = useMemo(() => getPostBySlug(sortedPosts, slug || ''), [slug, sortedPosts]);
 
   const currentIndex = useMemo<number>(
     () => getCurrentIndex(sortedPosts, slug || ''),
