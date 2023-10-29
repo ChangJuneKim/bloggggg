@@ -1,5 +1,5 @@
 # 개인 블로그 리드미 (README.md)
-
+![image](https://github.com/ChangJuneKim/bloggggg/assets/77381154/4e3d4c4f-cf5f-4de8-a15a-af4ffb35edfe)
 ----------------------------
 
 ### 프로젝트 소개
