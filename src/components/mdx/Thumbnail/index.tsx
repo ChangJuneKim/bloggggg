@@ -14,10 +14,13 @@ export default function Thumbnail({ filename, background = 'transparent', alt }:
   switch (filename.split('.')[0]) {
     case 'js':
       backg = '#F7E018';
+      break;
     case 'tip':
       backg = '#C8EAEF';
+      break;
     case 'fire':
       backg = '#FAFBE4';
+      break;
     default:
       backg = null;
   }

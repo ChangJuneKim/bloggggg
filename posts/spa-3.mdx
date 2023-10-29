@@ -1,0 +1,344 @@
+---
+title: '[JS] 프레임워크 없이 SPA 만들기 - 3 (dynamic-route)'
+description: 바닐라 자바스크립트로 SPA 만들기 세 번째 - 동적라우트
+category: DEV
+createdAt: 2023-09-14
+tags:
+- title: "JavaScript"
+thumbnail: /assets/images/thumbnails/js.png
+---
+<Thumbnail filename={"js.png"} alt={'[JS] 프레임워크 없이 SPA 만들기 - 3 (dynamic-route)'} />
+
+<Divider />
+
+#### 소스코드
+
+<p><ExternalLink href={'https://github.com/ChangJuneKim/vaniila-spa/tree/view-1'}>ChangJuneKim/vaniila-spa at view-1 (github.com) 이전 글까지 소스코드</ExternalLink></p>
+<p><ExternalLink href={'https://github.com/ChangJuneKim/vaniila-spa/tree/dynamic-route'}>ChangJuneKim/vaniila-spa at dynamic-route (github.com) 현재 글 까지 소스코드</ExternalLink></p>
+
+이번 포스팅에서는 동적라우팅 구현과, `index.html`의 네비게이션 부분을 `layout.js`로 추출해보겠다.
+
+<br/>
+
+## 동적 라우팅 구현 (feat. 정규 표현식)
+
+js 폴더에 `utils.js` 파일을 생성해주자. `utils.js` 에는 **path를 정규표현식으로 변경하는 함수**`(pathToRegex)`와 **주어진 match 객체에서 다이나믹 라우트의 값을 추출해 객체 형태로 반환하는 함수**`(``getParams)` 를 작성할 것이다.
+
+그전에 `router.js` 를 조금 수정해보자.
+
+<br/>
+
+### `router.js 수정하기`
+
+```js title="router.js"
+// 이전 코드들 ...
+export const router = async () => {
+  const routes = [
+	// .. 다른 path
+    // 1)
+    { path: "/posts/:id", view: postsDetail },
+  ];
+
+  const matchingResults = routes.map((route) => {
+    return {
+      ...route,
+      // isMatch: location.pathname === route.path,
+      // 2)
+      routerResult: location.pathname.match(pathToRegex(route.path))),
+    };
+  });
+
+  // let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
+  // 2)
+  let match = matchingResults.find(
+    (matchingResult) => matchingResult.routerResult !== null
+  );
+
+  if (!match) {
+    match = {
+      path: routes.at(-1).path,
+      view: routes.at(-1).view,
+      //isMatch: true,
+      // 3)
+      routerResult: [location.pathname]
+    };
+  }
+
+  // 4)
+  const { getHTML } = match.view(getParams(match));
+  const page = await getHTML();
+
+  // 나머지 코드...
+};
+```
+
+<br/>
+
+1. 동적 라우트를 정의 (`:id` 부분이 변경될 수 있으므로 일치 시키기 위해서 정규식을 사용해야함)
+2. 기존에는 정확하게 일치만 하면 `true` 아니면 `false` 였지만 이제는 `posts/1,` `posts/abc` 등 다양한 라우트도 매치가 되어야하기 때문에 `boolean` 값이 아니라, l`ocation.pathname.match`(정규식)의 결과 값을 리턴 받도록 변경함
+    1. `String.prototype.match`는 주어진 정규식과 문자열이 일치하는지 확인한 후 일치 정보를 배열로 반환한다. 일치하지 않으면 `null`을 반환한다.
+    2. `potentialMatches`라는 변수명은 이제 오해가 생길 것 같아서 `matchingResults` (각 라우트와의 일치 여부에 대한 결과들) 으로 변수명을 수정했다.
+3. `routerResult`는 이제 `boolean`이 아닌 일치 정보를 배열로 반환하기 때문에 배열에 현재 입력한 `pathname`을 넣어주었다. (404페이지를 처리하기 위한 코드라서 `["/not-found"]` 라고 해도 되지만, 잘못된 들어간 경로 그 자체를 넣어주었다.)
+4. view 함수를 출력할때 매개변수를 넘겨줬다. `getParams` 함수는 입력된 url에서 parameter를 얻어온다.
+    1. 라우트에서 `posts/:id` 로 라우트를 정의하고 `match`된 url이 `posts/123` 이라면 `{ id: 123 }` 형태의 객체를 받는다.
+    2. `posts/:id/:another` 의 형태라면 `{id: 123, another: 어떤값 }` 의 형태로 `params` 객체를 생성해서 리턴한다.
+
+<br/>
+
+`router.js`에서 해야할 작업은 끝났다. 이제 `utils.js` 파일에 정규식과 관련된 함수를 작성해보자.
+
+<br/>
+
+### `utils.js 작성`
+
+```js
+export const pathToRegex = (path) => {
+  const slashPattern = /\//g; // 모든 슬래시(/)를 찾기 위한 패턴
+  const escapedSlash = "\\/"; // 슬래시를 이스케이프하기 위한 문자열
+
+  const pathVariablePattern = /:\w+/g; // 모든 ':<변수명>' 형태의 경로 변수를 찾기 위한 패턴
+  const pathVariableReplacement = "([^/]+)"; // 경로 변수를 캡쳐하기 위한 정규 표현식 그룹
+
+  // 예: path = "/posts/:id"
+  const regexPath = path
+    .replace(slashPattern, escapedSlash) // 첫 번째 replace 후: "\/posts\/:id"
+    .replace(pathVariablePattern, pathVariableReplacement); // 두 번째 replace 후: "\/posts\/([^/]+)"
+
+  // 결과: regexPath는 \/posts\/([^/]+) 형태의 스트링이 되고
+  // new RegExp 의 결과로 /^\/posts\/([^/]+)$/ 정규식이 만들어져서 리턴된다.
+  return new RegExp(`^${regexPath}$`);
+};
+
+export const getParams = (match) => {
+  // 경로에서 추출한 파라미터 값들
+  const pathParameterValues = match.routerResult.slice(1);
+  // match.routerResult 에는 location.pathname.match(정규식) 의 결과 값이 들어있다.
+  // 첫번째 값은 매칭된 문자열 전체이기 때문에 필요없고 그 뒤의 배열만 필요하다. pathToRegex 함수의 pathVariableReplacement를 보면
+  // 괄호로 감싸져있는데 그 캡처 그룹에 매칭되는 것들이 배열의 1번 인덱스부터 존재한다.
+  console.log(pathParameterValues, match.routerResult); // url에 posts/1이라고 입력했다면['1'] , ['/posts/1', '1'] 각각 이런 형태
+
+  // 경로에서 파라미터의 이름들 (예: ":id", ":username" 등) 추출
+  const pathParameterKeys = [...match.path.matchAll(/:(\w+)/g)].map(
+    (result) => {
+      return result[1];
+    }
+  );
+
+  const paramsObj = pathParameterKeys.reduce((obj, key, index) => {
+    obj[key] = pathParameterValues[index];
+    return obj;
+  }, {});
+
+  return paramsObj;
+};
+```
+
+여기서 사용된 `String.prototype.matchAll` 메서드는 MDN을 참고해보자..
+
+이제 `postsDetail.js`를 작성하고 동적 라우팅이 잘 되는지 확인해보자.
+
+<br/>
+
+```js title="postsDetail.js"
+import { createView } from "./createView.js";
+
+const createPostsDetailContent = () => {
+  const fragment = document.createDocumentFragment();
+
+  const title = document.createElement("h1");
+  title.textContent = `포스트 디테일`;
+  fragment.appendChild(title);
+
+
+  return fragment;
+};
+
+export const postsDetail = createView("상세 페이지", createPostsDetailContent);
+```
+
+<Image src={`/assets/images/posts/spa-3/1.png`} alt={"아."} />
+<Image src={`/assets/images/posts/spa-3/2.png`} alt={""} width={400}/>
+
+뭐 때문인지 모르겠어서 서버에 요청이 들어오는걸 콘솔에 추가해봤다.
+
+```js title="server.js"
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+// 요청 URL을 콘솔에 출력하는 미들웨어
+app.use((req, res, next) => {
+  console.log("Request URL:", req.originalUrl);
+  next();
+});
+
+// 이전 코드들 ...
+```
+<br/>
+
+posts 페이지를 요청했을 땐 우리가 필요한 파일을 알맞은 경로로 잘 찾아갔지만
+
+<Image src={`/assets/images/posts/spa-3/3.png`} alt={"http://localhost:3000/posts 페이지 요청"} />
+
+<br/>
+문제가 됐던 `posts/1` 페이지로 요청을 했더니 이유를 알 수 있었다.
+
+<Image src={`/assets/images/posts/spa-3/4.png`} alt={"http://localhost:3000/posts/1 페이지 요청"} />
+<br/>
+
+`/static/js` 가 아닌 `/posts/static/js` 로 요청이 가는 걸 보니 html에서 js를 요청할때 상대경로로 요청한 것 같다. 절대 경로로 바꿔주자!
+
+```html
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+<!--    <link href="static/css/style.css" rel="stylesheet">-->
+<!--    <script src="static/js/index.js" type="module"></script> -->
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="/static/js/index.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="nav">
+        <a class="nav__link" data-link="" href="/">홈</a>
+        <a class="nav__link" data-link="" href="/posts">게시글</a>
+        <a class="nav__link" data-link="" href="/settings">설정</a>
+      </nav>
+    </header>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+<Image src={`/assets/images/posts/spa-3/5.png`} alt={""} />
+
+<Image src={`/assets/images/posts/spa-3/6.png`} alt={"편안"} width={400}/>
+
+`posts/:id` 에 대한 경로도 잘 동작하는걸 확인했으니 우리가 `route.js`에서 매치된 view 함수를 호출할 때 매개변수로 `getParmas(match)` 의 결과값인 `paramsObj`를 넘겨줬었다. 이제 그걸 활용해서, 상세페이지마다 다른 `params`를 사용해보자.
+
+`posts/:id` 경로일때 `match.view(getParmas(match))` 를 호출하면 `postsDetail(paramsObj)`가 실행된다.
+
+`postsDetail.js` 의 코드에서 `paramsObj`를 받게 수정해주자
+
+```js
+import { createView } from "./createView.js";
+
+const createPostsDetailContent = (params) => {
+  const fragment = document.createDocumentFragment();
+
+  const title = document.createElement("h1");
+  title.textContent = `포스트 디테일 | ${params.id}`;
+  // 나머지 코드...
+
+  return fragment;
+};
+
+export const postsDetail = createView(
+  '포스트 상세 페이지'
+  createPostsDetailContent
+);
+```
+
+<br/>
+
+그리고 `createView.js`에 콜백을 넘기기 때문에 `createView.js`에도 매개변수를 추가해줘야한다. 브라우저의 title에도 params를 사용하기 위해서 코드를 약간 수정했다.
+
+```js
+                                               // 1)
+export const createView = (title, content) => (params) => {
+  document.title =
+    Object.keys(params).length > 0 ? `${title} | ${params.id}` : title;
+
+  const getHTML = async () => content(params); // 2)
+
+  return {
+    getHTML,
+  };
+};
+```
+
+<br/>
+<br/>
+
+<Image src={`/assets/images/posts/spa-3/8.gif`} alt={"다이나믹 라우팅이 잘 동작하는 모습 posts/:id/:another 에 대한 경로는 없어서 404가 나온다"} />
+
+## 마치며
+
+드디어 바닐라JS만을 이용해서 간단한 SPA를 만들어보는 프로젝트? 가 마무리 됐다. 1, 2편과는 다르게 익숙하지 않은 정규표현식이 튀어나와서 머리가 좀 아팠지만 그냥 프론트엔드 개발을 하면서 그냥 필요해서 가져다 쓰기만했던 라우팅 부분을 직접 구현해보면서 많은 것을 배웠다.
+
+처음에 유튜브 영상을 봤을 땐 조금 헷갈렸는데, 최대한 의미 있는 변수를 사용하는 등 내가 이해한 만큼 풀어쓰려고 노력했다. 이 포스팅이 다른 사람들에게도 도움이 됐으면 한다. 솔직히.. class 기반의 코드를 내 입맛대로 그냥 함수형으로 쓰고싶어서 이게 맞는지 틀린건지도 모르고 작성한 코드라 올바른 방법인지는 모르겠지만, 잘 돌아간다는 것에 만족하면서 바닐라JS로 SPA 만들기를 마무리한다.
+
+<Collapsible summary={"레이아웃 뽑아보기"}>
+  현재 `index.html` 에는 `nav`가 직접 박혀있는데.. 이게 불-편 해서 layout으로 뽑아보려고한다. 리액트 프로젝트를 만들었을 때 처럼 html에는 root div만 남겨놓고 싶기도하고..
+
+  `view` 폴더에 `layout.js` 파일을 생성해주자
+
+  ```js title="js/view/layout.js"
+  export const layout = (content) => {
+  const fragment = document.createDocumentFragment();
+
+  const header = document.createElement("header");
+  const nav = document.createElement("nav");
+
+  const paths = [
+{ href: "/", text: "홈" },
+{ href: "/posts", text: "게시글" },
+{ href: "/settings", text: "설정" },
+  ];
+
+  paths.forEach((path) => {
+  const navLink = document.createElement("a");
+  navLink.setAttribute("class", "nav__link");
+  navLink.setAttribute("data-link", "nav__link");
+  navLink.setAttribute("href", path.href);
+  navLink.textContent = path.text;
+
+  nav.appendChild(navLink);
+});
+
+  header.appendChild(nav);
+
+  fragment.appendChild(header);
+  fragment.appendChild(content);
+
+  return fragment;
+};
+  ```
+
+  <br/>
+
+  `index.html` 에서는 네비게이션 부분을 삭제해주자.
+
+  그리고 `createView.js` 에서 content를 리턴할때 layout함수로 content를 감싸주면 자동으로 네비게이션이 생성될 것이다.
+
+  ```js title="js/view/createView.js"
+  import { layout } from "./layout.js";
+
+  export const createView =
+  (title, content, useLayout = true) =>
+  (params) => {
+  document.title =
+    Object.keys(params).length > 0 ? `${title} | ${params.id}` : title;
+
+  const getHTML = async () => useLayout ? layout(content(params)) : content(params);
+
+  return {
+  getHTML,
+};
+};
+  ```
+
+  나중에 layout이 필요하지 않은 페이지도 있을 수 있으니, boolean 값을 이용해서 조건부로 적용되게 했다.
+</Collapsible>
+
+## 참고자료
+
+1) <p><ExternalLink href={'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match'}>String.prototype.match() - JavaScript | MDN (mozilla.org)</ExternalLink></p>
+3) <p><ExternalLink href={'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll'}>String.prototype.matchAll() - JavaScript | MDN (mozilla.org)</ExternalLink></p>
+2) <p><ExternalLink href={'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/RegExp'}>RegExp - JavaScript | MDN (mozilla.org)</ExternalLink></p>

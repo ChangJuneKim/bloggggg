@@ -73,6 +73,15 @@ globalStyle(`${mdxSection} aside`, {
   },
 });
 
+globalStyle(`${mdxSection} ol`, {
+  marginLeft: vars.space['6'],
+  marginBottom: vars.space['3'],
+});
+
+globalStyle(`${mdxSection} li`, {
+  marginBottom: vars.space['1'],
+});
+
 globalStyle(`${mdxSection} *:not(${headingStyle} a)`, {
   lineHeight: 1.7,
 });

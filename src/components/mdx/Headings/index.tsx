@@ -31,26 +31,28 @@ const heading =
     }
 
     return (
-      <Box
-        as={Tag}
-        id={id}
-        position="relative"
-        className={composeClassNames(headingStyle, headingVariants[Tag])}
-      >
-        {(Tag === 'h1' || (Tag === 'h2' && children !== `서론`) || Tag === 'h3') && (
-          <Box
-            as="a"
-            href={`#${id}`}
-            aria-label={`${children} permalink`}
-            display="inline-block"
-            position="absolute"
-            className={anchorStyle}
-          >
-            #
-          </Box>
-        )}
-        {children}
-      </Box>
+      <>
+        <Box
+          as={Tag}
+          id={id}
+          position="relative"
+          className={composeClassNames(headingStyle, headingVariants[Tag])}
+        >
+          {(Tag === 'h1' || (Tag === 'h2' && children !== `서론`) || Tag === 'h3') && (
+            <Box
+              as="a"
+              href={`#${id}`}
+              aria-label={`${children} permalink`}
+              display="inline-block"
+              position="absolute"
+              className={anchorStyle}
+            >
+              #
+            </Box>
+          )}
+          {children}
+        </Box>
+      </>
     );
   };
 

@@ -16,6 +16,7 @@ import { format } from 'date-fns';
 import Divider from '@/components/extended/Divider';
 import { prevNextFlex } from '@/components/block/PrevNextPost/index.css';
 import { PrevNextPost, Toc } from '@/components/block';
+import usePosts from '@/hooks/usePosts';
 
 interface Props {
   params: {
@@ -35,6 +36,7 @@ const Mdx = ({ post }: { post?: Post }) => {
 
 const PostPage = ({ params }: Props) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+  const { allPosts: sortedPosts } = usePosts();
   if (!post) {
     return (
       <SkipNavContent>
@@ -55,10 +57,10 @@ const PostPage = ({ params }: Props) => {
 
   const uniqueTags = [...new Set(post?.tags?.map((tag) => tag.title))];
   // 현재 글의 인덱스
-  const currentIndex = allPosts.findIndex((post) => post._raw.flattenedPath === params.slug);
+  const currentIndex = sortedPosts.findIndex((post) => post._raw.flattenedPath === params.slug);
   // 이전 글과 다음 글의 인덱스
-  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+  const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
   return (
     <SkipNavContent variant={'fullBleed'}>

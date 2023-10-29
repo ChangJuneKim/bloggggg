@@ -6,13 +6,13 @@ import { ReactNode } from 'react';
 interface ImageProps {
   src: string;
   alt: string;
-  height: number;
-  width: number;
+  height?: number;
+  width?: number;
   layout: 'responsive';
   children: ReactNode;
 }
 
-export default function Image({ src, alt, children }: ImageProps) {
+export default function Image({ src, alt, children, width, height }: ImageProps) {
   return (
     <Box
       as="figure"
@@ -22,7 +22,8 @@ export default function Image({ src, alt, children }: ImageProps) {
       __marginBottom={'8'}
       __justifyContent={'space-evenly'}
       alignItems="center"
-      width={'full'}
+      __width={width ? `${width}px` : 'full'}
+      mx={'auto'}
     >
       <Box
         as="a"
