@@ -1,0 +1,102 @@
+---
+title: '[JavaScript] 디바운스와 쓰로틀'
+description: 성능 최적화와 서버 리소스의 효율적인 사용을 위한 기법인 디바운스와 쓰로틀에 대해 알아보자
+category: DEV
+createdAt: 2022-02-02
+tags:
+- title: "JavaScript"
+thumbnail: /assets/images/thumbnails/js.png
+---
+<Thumbnail filename={"js.png"} alt={'[JavaScript] 디바운스와 쓰로틀'} />
+
+<Divider />
+
+## 들어가며
+
+웹 개발을 진행하면서 사용자 경험을 향상시키고 서버 자원을 효율적으로 사용하는 것은 매우 중요하다. 이를 위해 디바운스와 쓰로틀과 같은 성능 최적화 기법들을 적극 활용할 필요가 있다. 각각의 상황과 요구사항에 따라 적절한 기법을 선택하여 사용하면 웹의 반응성을 크게 향상시킬 수 있다.
+
+## 디바운스(Debounce)
+
+디바운스는 연속적으로 호출되는 이벤트 중 마지막(또는 제일 처음)만 처리하고자 할 때 사용하는 기법이다. 주로 검색 입력창 같은 곳에서 사용자의 연속적인 입력을 처리할 때 활용된다.
+
+예를 들어, 검색창에 "홍길동"을 입력할 때, 글자마다 이벤트가 발생한다면 "ㅎ", "ㅗ", "ㅇ", "ㄱ", "ㅣ", "ㄹ", "ㄷ", "ㅗ", "ㅇ" 각각에 대한 이벤트가 발생하게 된다. 이렇게 되면 서버에 불필요한 요청이 많이 발생하게 되는 문제가 생긴다.
+
+디바운스를 적용하면, 예를 들어 0.5초 동안 이벤트가 다시 발생하지 않으면 이벤트 발생이 끝난 것으로 간주하고 코드가 실행된다. 이렇게 되면 사용자가 "홍길동"을 빠르게 입력하더라도 마지막에 "동"을 입력한 후 0.5초 동안 다른 입력이 없다면 "홍길동"에 대한 검색 요청만 서버로 전송되게 된다.
+
+리액트에서는 다음과 같이 `useDebounce`라는 커스텀 훅을 만들어서 디바운스 기능을 손쉽게 사용할 수 있다.
+
+```js title="useDebounce.js"
+/**
+ * useDebounce 훅
+ * @param value 입력값
+ * @param delay 딜레이 시간 (기본값: 500)
+ * @returns 딜레이된 입력값
+ */
+const useDebounce = <T>(value: T, delay = 500): T => {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    // 이전 타이머를 제거함
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    // 새로운 타이머를 설정
+    if (value !== debouncedValue) {
+      timerRef.current = window.setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+    }
+
+    // 언마운트 시 클린업 함수 실행
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [value, delay, debouncedValue]);
+
+  return debouncedValue;
+};
+
+export default useDebounce;
+```
+위 코드는 리액트에서 디바운스 기능을 커스텀 훅으로 만든 코드이다.
+
+## 쓰로틀 (Throttle)
+쓰로틀은 일정 시간 간격으로 이벤트를 처리하는 기법을 말한다. 주로 스크롤이벤트 처럼 빈번하게 발생하는 이벤트에서 사용한다.(마지막 함수가 호출된 후 일정 시간이 지나기 전에 다시 호출되지 않도록 하는 것)
+
+사용자가 웹 페이지를 빠르게 스크롤하면 이벤트는 수백 번 발생할 수 있다. 이럴 경우 필요 이상으로 많은 처리가 발생하게 되는데, 이를 방지하기 위해 쓰로틀을 사용하면, 예로 0.1초 간격으로만 이벤트 처리를 수행하게 할 수 있다. 이 때 0.1초 동안 100번의 스크롤 이벤트가 발생하더라도 실제로 1번만 처리된다.
+
+```js title="throttle.js"
+/**
+ * Throttle 함수: 주어진 함수를 지정된 시간 내에 한 번만 호출되도록 합니다.
+ *
+ * @param {Function} fn - 쓰로틀을 적용할 함수.
+ * @param {number} delay - 함수 호출을 지연시킬 시간 (밀리초 단위).
+ * @returns {Function} 주어진 함수에 쓰로틀을 적용한 버전.
+ */
+function throttle(fn, delay) {
+  // 쓰로틀링이 활성화되어 있는지 나타내는 플래그
+  let isThrottled = false;
+
+  return function(...args) {
+    // 쓰로틀링이 활성화되어 있지 않을 경우, 함수를 실행
+    if (!isThrottled) {
+      isThrottled = true;  // 쓰로틀링 활성화
+      fn(...args);
+
+      // 지정된 지연 시간 후에 쓰로틀링 비활성화
+      setTimeout(() => {
+        isThrottled = false;
+      }, delay);
+    }
+  };
+}
+
+export default throttle;
+```
+
+## 마치며
+디바운스와 쓰로틀은 웹 성능 최적화와 서버 리소스의 효율적인 사용을 위해 필수적인 기법들이다. 사용자 경험을 향상시키고 서버 부하를 줄이기 위해 적절한 상황에서 이들 기법을 활용해보자.
