@@ -22,6 +22,7 @@ const Pagination = ({ total, selectedCategory = 'ALL' }: PaginationProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
   const [pages, setPages] = useState<InitialPages>({
     ALL: Number(searchParams.get('page')) || 1,
     DEV: Number(searchParams.get('page')) || 1,

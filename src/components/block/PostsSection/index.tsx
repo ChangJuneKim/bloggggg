@@ -1,15 +1,18 @@
-'use client';
-
 import { postsSection } from '@/app/posts/layout.css';
 import { Box } from '@/components/base';
 import { PostCard } from '@/components/block';
 import { format } from 'date-fns';
-import { useSearchParams } from 'next/navigation';
 import { Post } from '@/contentlayer/generated';
+import { PostsPageProps } from '@/app/posts/page';
 
-export default function PostsSection({ chunkedPosts }: { chunkedPosts: Array<Array<Post>> }) {
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
+interface PostsSectionProps {
+  chunkedPosts: Array<Array<Post>>;
+  searchParams: PostsPageProps['searchParams'];
+}
+export default function PostsSection({ chunkedPosts, searchParams }: PostsSectionProps) {
+  // const searchParams = useSearchParams();
+
+  const currentPage = Number(searchParams.page) || 1;
 
   return (
     <Box as={'section'} className={postsSection}>

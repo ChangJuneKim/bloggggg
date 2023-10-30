@@ -4,10 +4,14 @@ import { Box } from '@/components/base';
 import { Pagination, PostsSection } from '@/components/block';
 import Hero from '@/components/block/Hero';
 
-export default function PostsPage() {
+export interface PostsPageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+export default function PostsPage({ searchParams }: PostsPageProps) {
   const { allPosts, chunkedPosts } = usePosts();
   const postCount = allPosts.length;
 
+  console.log();
   return (
     <>
       <Hero
@@ -21,8 +25,12 @@ export default function PostsPage() {
             총 <b>{postCount}개</b>의 글이 있습니다.
           </p>
         </Box>
-        <PostsSection chunkedPosts={chunkedPosts} />
+        {/*<Suspense fallback={<Fallback />}>*/}
+        <PostsSection chunkedPosts={chunkedPosts} searchParams={searchParams} />
+        {/*</Suspense>*/}
+        {/*<Suspense fallback={<Fallback />}>*/}
         <Pagination total={allPosts.length} />
+        {/*</Suspense>*/}
       </SkipNavContent>
     </>
   );

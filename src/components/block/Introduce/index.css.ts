@@ -44,8 +44,8 @@ export const profileContainer = style({
 export const profileImage = style({
   borderRadius: vars.borderRadius.full,
   overflow: 'hidden',
-  width: '100px',
-  height: '100px',
+  width: 'auto',
+  height: 'auto',
 });
 
 globalStyle(`${profileImage} img`, {
