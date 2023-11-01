@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { components } from '@/components/mdx';
 import { SkipNavContent } from '@/components/a11y';
 import { Box, SVGIcon, Tag } from '@/components/base';
-import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/layout.css';
 import { space } from '@/styles/tokens/space';
 import Category from '@/components/block/PostCard/Category';
 import { PaginationProps } from '@/components/block/Pagination';
@@ -17,9 +16,12 @@ import Divider from '@/components/extended/Divider';
 import { prevNextFlex } from '@/components/block/PrevNextPost/index.css';
 import { PrevNextPost, Toc } from '@/components/block';
 import usePosts from '@/hooks/usePosts';
+import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/pages/[page]/layout.css';
 
-interface Props {
+interface PostPageProps {
   params: {
+    year: string;
+    month: string;
     slug: string;
   };
 }
@@ -34,8 +36,11 @@ const Mdx = ({ post }: { post?: Post }) => {
   return <Content components={mdxComponents} />;
 };
 
-const PostPage = ({ params }: Props) => {
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+const PostPage = ({ params }: PostPageProps) => {
+  const post = allPosts.find((post) => {
+    console.log(post._raw.flattenedPath, params.slug);
+    return post._raw.flattenedPath === params.slug;
+  });
   const { allPosts: sortedPosts } = usePosts();
   if (!post) {
     return (
@@ -132,10 +137,15 @@ const PostPage = ({ params }: Props) => {
 
 export default PostPage;
 
-export const generateStaticParams = async () =>
-  allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
+export const generateStaticParams = async () => {
+  return allPosts.map((post) => {
+    return {
+      slug: post._raw.flattenedPath,
+    };
+  });
+};
 
-export const generateMetadata = ({ params }: Props) => {
+export const generateMetadata = ({ params }: PostPageProps) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   return { title: post?.title };
 };
