@@ -34,3 +34,30 @@ export const getPostBySlug = (allPosts: Array<Post>, slug: string) => {
 export const getCurrentIndex = (allPosts: Array<Post>, slug: string) => {
   return allPosts.findIndex((post) => post._raw.flattenedPath === slug);
 };
+
+type Props<T> = {
+  items: T[];
+  perItems: number;
+};
+
+export const chunkArray = <T>({ items, perItems }: Props<T>): T[][] => {
+  let results: Array<Array<T>> = [];
+
+  let temps: Array<T> = [];
+
+  for (const [index, item] of items.entries()) {
+    temps.push(item);
+
+    if ((index + 1) % perItems === 0) {
+      results.push(temps);
+
+      temps = [];
+    }
+  }
+
+  if (temps.length > 0) {
+    results.push(temps);
+  }
+
+  return results;
+};

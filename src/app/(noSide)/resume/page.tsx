@@ -23,3 +23,9 @@ export default function ResumePage() {
     </Box>
   );
 }
+
+export async function generateMetadata() {
+  return {
+    title: `김창준 | Resume`,
+  };
+}

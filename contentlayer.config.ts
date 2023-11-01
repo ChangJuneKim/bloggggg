@@ -19,7 +19,7 @@ const Tag = defineNestedType(() => ({
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `**/*.mdx`,
+  filePathPattern: `**/*/*.mdx`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -54,7 +54,9 @@ export const Post = defineDocumentType(() => ({
   computedFields: {
     url: {
       type: 'string',
-      resolve: (doc) => `/posts/${doc._raw.flattenedPath}`,
+      resolve: (doc) => {
+        return `/posts/${doc._raw.flattenedPath}`;
+      },
     },
     readingTime: {
       type: 'json',

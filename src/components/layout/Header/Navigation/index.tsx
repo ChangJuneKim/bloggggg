@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
  * Navigation component containing the primary links + Darkmode toggle
  */
 const links = [
-  { name: 'Posts', link: '/posts' },
+  { name: 'Posts', link: '/posts/pages/1' },
   { name: 'Resume', link: '/resume' },
 ];
 export const Navigation = () => {

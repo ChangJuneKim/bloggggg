@@ -1,8 +1,8 @@
 import { allPosts, Post } from '@/contentlayer/generated';
 import { useMemo } from 'react';
 import { POSTS_PER_PAGE } from '@/constants/post';
-import chunkArray from '@/utils/chunkArray';
 import {
+  chunkArray,
   descAllPosts,
   getCurrentIndex,
   getPostBySlug,

@@ -8,15 +8,17 @@ import { Box, SVGIcon, Tag } from '@/components/base';
 import { space } from '@/styles/tokens/space';
 import Category from '@/components/block/PostCard/Category';
 import { PaginationProps } from '@/components/block/Pagination';
-import { postTitle } from '@/app/posts/[slug]/index.css';
+import { postTitle } from '@/app/posts/[year]/[month]/[slug]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
 import Divider from '@/components/extended/Divider';
 import { prevNextFlex } from '@/components/block/PrevNextPost/index.css';
 import { PrevNextPost, Toc } from '@/components/block';
-import usePosts from '@/hooks/usePosts';
-import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/pages/[page]/layout.css';
+import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layout.css';
+import { descAllPosts } from '@/utils/posts';
+
+export const dynamic = 'error';
 
 interface PostPageProps {
   params: {
@@ -37,11 +39,10 @@ const Mdx = ({ post }: { post?: Post }) => {
 };
 
 const PostPage = ({ params }: PostPageProps) => {
-  const post = allPosts.find((post) => {
-    console.log(post._raw.flattenedPath, params.slug);
-    return post._raw.flattenedPath === params.slug;
-  });
-  const { allPosts: sortedPosts } = usePosts();
+  const post = allPosts.find(
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+  );
+  const sortedPosts = descAllPosts(allPosts);
   if (!post) {
     return (
       <SkipNavContent>
@@ -139,8 +140,13 @@ export default PostPage;
 
 export const generateStaticParams = async () => {
   return allPosts.map((post) => {
+    const date = new Date(post.createdAt);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
     return {
-      slug: post._raw.flattenedPath,
+      year: year.toString(),
+      month: month.toString(),
+      slug: post._raw.sourceFileName.replace('.mdx', ''),
     };
   });
 };

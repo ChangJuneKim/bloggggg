@@ -1,17 +1,18 @@
 import { Box } from '@/components/base';
-import usePosts from '@/hooks/usePosts';
 import { PrimaryButton } from '@/components/extended';
 import { PostCard } from '@/components/block';
 import { format } from 'date-fns';
-import { postsSection } from '@/app/posts/layout.css';
+import { postsSection } from '@/app/posts/(posts)/layout.css';
+import { descAllPosts } from '@/utils/posts';
+import { allPosts } from '@/contentlayer/generated';
 
 export default function LatestPosts() {
-  const { allPosts } = usePosts();
+  const sortedPosts = descAllPosts(allPosts);
   return (
     <Box as={'section'} className={postsSection}>
       <h3>최신 포스트</h3>
       <Box as={'ul'}>
-        {allPosts.slice(0, 5).map((post) => {
+        {sortedPosts.slice(0, 5).map((post) => {
           const { category, title, description, url, createdAt, readingTime, thumbnail } = post;
           return (
             <PostCard
