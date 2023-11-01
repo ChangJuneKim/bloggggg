@@ -12,7 +12,7 @@ export interface PostsPageProps {
   };
 }
 export default function PostsPage({ searchParams, params: { page } }: PostsPageProps) {
-  const sortedPosts = descAllPosts(allPosts);
+  const sortedPosts = descAllPosts();
   const postCount = sortedPosts.length;
 
   const chunkedPosts = chunkArray({ items: sortedPosts, perItems: POSTS_PER_PAGE })[
@@ -30,7 +30,7 @@ export default function PostsPage({ searchParams, params: { page } }: PostsPageP
       <PostsSection chunkedPosts={chunkedPosts} searchParams={searchParams} />
       {/*</Suspense>*/}
       {/*<Suspense fallback={<Fallback />}>*/}
-      <Pagination total={sortedPosts.length} page={page} />
+      <Pagination total={postCount} page={page} />
       {/*</Suspense>*/}
     </>
   );

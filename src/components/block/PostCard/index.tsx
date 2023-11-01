@@ -1,4 +1,4 @@
-import Category from '@/components/block/PostCard/Category';
+import Category, { CategoryType } from '@/components/block/PostCard/Category';
 import { Box } from '@/components/base';
 import Link from 'next/link';
 import {
@@ -15,7 +15,7 @@ import Image from 'next/image';
 import IconSpan from '@/components/extended/IconSpan';
 
 interface PostCardProps {
-  category: 'DEV' | 'LIFE' | 'FIRE';
+  category: CategoryType;
   title: string;
   desc: string;
   createdAt: string;

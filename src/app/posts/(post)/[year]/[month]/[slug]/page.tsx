@@ -6,9 +6,8 @@ import { components } from '@/components/mdx';
 import { SkipNavContent } from '@/components/a11y';
 import { Box, SVGIcon, Tag } from '@/components/base';
 import { space } from '@/styles/tokens/space';
-import Category from '@/components/block/PostCard/Category';
-import { PaginationProps } from '@/components/block/Pagination';
-import { postTitle } from '@/app/posts/[year]/[month]/[slug]/index.css';
+import Category, { CategoryType } from '@/components/block/PostCard/Category';
+import { postTitle } from '@/app/posts/(post)/[year]/[month]/[slug]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
@@ -16,7 +15,7 @@ import Divider from '@/components/extended/Divider';
 import { prevNextFlex } from '@/components/block/PrevNextPost/index.css';
 import { PrevNextPost, Toc } from '@/components/block';
 import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layout.css';
-import { descAllPosts } from '@/utils/posts';
+import { descAllPosts, getTagsOfPost } from '@/utils/posts';
 
 export const dynamic = 'error';
 
@@ -42,7 +41,7 @@ const PostPage = ({ params }: PostPageProps) => {
   const post = allPosts.find(
     (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
   );
-  const sortedPosts = descAllPosts(allPosts);
+  const sortedPosts = descAllPosts();
   if (!post) {
     return (
       <SkipNavContent>
@@ -61,9 +60,11 @@ const PostPage = ({ params }: PostPageProps) => {
     );
   }
 
-  const uniqueTags = [...new Set(post?.tags?.map((tag) => tag.title))];
+  const uniqueTags = getTagsOfPost(post);
   // 현재 글의 인덱스
-  const currentIndex = sortedPosts.findIndex((post) => post._raw.flattenedPath === params.slug);
+  const currentIndex = sortedPosts.findIndex(
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+  );
   // 이전 글과 다음 글의 인덱스
   const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
@@ -106,7 +107,7 @@ const PostPage = ({ params }: PostPageProps) => {
           </Box>
         </Box>
         <Box as={'article'} __minHeight={`calc(100vh - ${space.navigationHeight})`}>
-          <Category category={post.category as PaginationProps['selectedCategory']} />
+          <Category category={post.category as CategoryType} />
           <Box __marginTop={0} __marginBottom={0} as={'h1'} className={postTitle}>
             {post?.title}
           </Box>

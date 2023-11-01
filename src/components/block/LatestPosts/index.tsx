@@ -4,10 +4,10 @@ import { PostCard } from '@/components/block';
 import { format } from 'date-fns';
 import { postsSection } from '@/app/posts/(posts)/layout.css';
 import { descAllPosts } from '@/utils/posts';
-import { allPosts } from '@/contentlayer/generated';
+import { CategoryType } from '@/components/block/PostCard/Category';
 
 export default function LatestPosts() {
-  const sortedPosts = descAllPosts(allPosts);
+  const sortedPosts = descAllPosts();
   return (
     <Box as={'section'} className={postsSection}>
       <h3>최신 포스트</h3>
@@ -17,7 +17,7 @@ export default function LatestPosts() {
           return (
             <PostCard
               key={title}
-              category={category as 'DEV' | 'LIFE' | 'FIRE'}
+              category={category as CategoryType}
               title={title}
               desc={description}
               createdAt={format(new Date(createdAt), 'yyyy년 MM월 dd일')}

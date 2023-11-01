@@ -8,7 +8,6 @@ import { pageNationButtons, pagination } from '@/components/block/Pagination/ind
 
 export interface PaginationProps {
   total: number;
-  selectedCategory?: string;
   page: string;
 }
 
@@ -16,7 +15,7 @@ const Pagination = ({ total, page }: PaginationProps) => {
   const router = useRouter();
 
   const onPageClick = (page: number) => {
-    router.push(`/posts/pages/${page}`);
+    router.push(`${page}`);
   };
 
   const numPages = Math.ceil(total / POSTS_PER_PAGE); // 총 페이지 수

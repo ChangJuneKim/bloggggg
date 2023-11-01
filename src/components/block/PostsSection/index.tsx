@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { Post } from '@/contentlayer/generated';
 import { PostsPageProps } from '@/app/posts/(posts)/pages/[page]/page';
 import { postsSection } from '@/app/posts/(posts)/layout.css';
+import { CategoryType } from '@/components/block/PostCard/Category';
 
 interface PostsSectionProps {
   chunkedPosts: Array<Post>;
@@ -18,7 +19,7 @@ export default function PostsSection({ chunkedPosts }: PostsSectionProps) {
           return (
             <PostCard
               key={title}
-              category={category as 'DEV' | 'LIFE' | 'FIRE'}
+              category={category as CategoryType}
               title={title}
               desc={description}
               createdAt={format(new Date(createdAt), 'yyyy년 MM월 dd일')}

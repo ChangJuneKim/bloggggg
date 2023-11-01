@@ -1,21 +1,26 @@
 import { Box } from '@/components/base';
 import { Pagination, PostsSection } from '@/components/block';
-import { allPosts } from '@/contentlayer/generated';
 import { POSTS_PER_PAGE } from '@/constants/post';
-import { chunkArray, descAllPosts } from '@/utils/posts';
+import { chunkArray, getPostsByCategory } from '@/utils/posts';
+import { CategoryType } from '@/components/block/PostCard/Category';
 
 export const dynamic = 'error';
-export interface PostsPageProps {
+export interface CategoryPostsPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
   params: {
+    category: 'all' | CategoryType;
     page: string;
   };
 }
-export default function CategoryPostsPage({ searchParams, params: { page } }: PostsPageProps) {
-  const sortedPosts = descAllPosts(allPosts);
-  const postCount = sortedPosts.length;
 
-  const chunkedPosts = chunkArray({ items: sortedPosts, perItems: POSTS_PER_PAGE })[
+export default function CategoryPostsPage({
+  searchParams,
+  params: { page, category = 'dev' },
+}: CategoryPostsPageProps) {
+  const postsByCategory = getPostsByCategory()[category] ?? [];
+  const postCount = postsByCategory.length;
+
+  const chunkedPosts = chunkArray({ items: postsByCategory, perItems: POSTS_PER_PAGE })[
     Number(page || 1) - 1
   ];
 
@@ -30,7 +35,7 @@ export default function CategoryPostsPage({ searchParams, params: { page } }: Po
       <PostsSection chunkedPosts={chunkedPosts} searchParams={searchParams} />
       {/*</Suspense>*/}
       {/*<Suspense fallback={<Fallback />}>*/}
-      <Pagination total={sortedPosts.length} page={page} />
+      <Pagination total={postCount} page={page} />
       {/*</Suspense>*/}
     </>
   );
@@ -42,8 +47,21 @@ export async function generateMetadata({ params: { page } }: { params: { page: s
   };
 }
 
+type PathParams = {
+  category: string;
+  page: string;
+};
+
 export const generateStaticParams = async () => {
-  return [
-    ...Array.from({ length: Math.ceil(allPosts.length / POSTS_PER_PAGE) }, (_, i) => i + 1),
-  ].map((v) => ({ page: `${v}` }));
+  const postsByCategory = getPostsByCategory();
+
+  const paths: Array<PathParams> = [];
+
+  Object.keys(postsByCategory).forEach((category) => {
+    const numberOfPages = Math.ceil(postsByCategory[category].length / POSTS_PER_PAGE);
+    const pages = Array.from({ length: numberOfPages }, (_, i) => ({ category, page: `${i + 1}` }));
+    paths.push(...pages);
+  });
+
+  return paths;
 };
