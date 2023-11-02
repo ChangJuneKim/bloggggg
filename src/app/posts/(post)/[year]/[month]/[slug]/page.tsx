@@ -153,6 +153,11 @@ export const generateStaticParams = async () => {
 };
 
 export const generateMetadata = ({ params }: PostPageProps) => {
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-  return { title: post?.title };
+  const post = allPosts.find(
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+  );
+  return {
+    title: post?.title,
+    description: post?.description,
+  };
 };
