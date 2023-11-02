@@ -1,8 +1,9 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { vars } from '@/styles/themes/contract.css';
 import { pseudoSelectors } from '@/styles/selectors';
-import { calc } from '@vanilla-extract/css-utils';
 import { minMediaQuery } from '@/styles/tokens/breakpoints';
+import { zIndices } from '@/styles/tokens/z-indices';
+import { calc } from '@vanilla-extract/css-utils';
 
 export const list = style({
   [pseudoSelectors.notFirst]: {
@@ -27,14 +28,16 @@ export const article = style({
       content: '',
       display: 'block',
       position: 'absolute',
-      width: vars.space['1'],
+      width: vars.space.full,
       height: vars.space.full,
-      background: vars.color.primary,
-      borderRadius: vars.borderRadius.base,
+      background: `linear-gradient(90deg, ${vars.color.primary} 0%, transparent 100%)`,
+      borderRadius: vars.borderRadius['xl'],
       opacity: 0,
+      zIndex: zIndices.hide,
       transform: 'translateX(0px)',
       left: calc.negate(vars.space['0']),
-      transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
+      transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s, filter 0.5s ease 0s',
+      filter: 'blur(0px)',
     },
   },
 
@@ -44,7 +47,8 @@ export const article = style({
   padding: vars.space['1'],
   paddingLeft: vars.space['0'],
   position: 'relative',
-  transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s;',
+  borderRadius: vars.borderRadius.xl,
+  transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s, filter 0.5s ease 0s',
 
   '@media': {
     [minMediaQuery('sm')]: {
@@ -57,7 +61,8 @@ export const article = style({
 });
 
 globalStyle(`${article}:hover:before`, {
-  opacity: 0.6,
+  opacity: 0.2,
+  filter: 'blur(200px)',
 });
 
 export const titleStyle = style({
