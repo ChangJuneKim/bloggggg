@@ -1,6 +1,6 @@
 const SiteConfig = {
   url: `https://www.changjune.com`,
-  title: '김창준',
+  title: '김창준의 블로그',
   copyright: `© ${new Date().getFullYear()} by ChangJuneKim. All rights reserved.`,
 
   postsPerPage: 5, // 페이지당 포스트 수

@@ -38,7 +38,8 @@ export default function PostsPage({ searchParams, params: { page } }: PostsPageP
 
 export async function generateMetadata({ params: { page } }: { params: { page: string } }) {
   return {
-    title: `김창준 | Posts Page ${page}`,
+    title: `Posts ${page} 페이지`,
+    description: `블로그 전체 카테고리의 ${page} 페이지 입니다.`,
   };
 }
 
