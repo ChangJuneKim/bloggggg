@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${siteConfig.url}/posts`,
+      url: `${siteConfig.url}/posts/pages/1`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
     ...allCategory.map((category) => {
       return {
-        url: `${siteConfig.url}/posts/categories/${category}`,
+        url: `${siteConfig.url}/posts/categories/${category}/pages/1`,
       };
     }),
   ];
