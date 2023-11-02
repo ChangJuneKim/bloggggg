@@ -5,12 +5,14 @@ import { CategoryType } from '@/components/block/PostCard/Category';
 import siteConfig from '@/site.config';
 
 export const dynamic = 'error';
+
+type Params = {
+  category: 'all' | CategoryType;
+  page: string;
+};
 export interface CategoryPostsPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
-  params: {
-    category: 'all' | CategoryType;
-    page: string;
-  };
+  params: Params;
 }
 
 export default function CategoryPostsPage({ searchParams, params }: CategoryPostsPageProps) {
@@ -35,9 +37,28 @@ export default function CategoryPostsPage({ searchParams, params }: CategoryPost
   );
 }
 
-export async function generateMetadata({ params: { page } }: { params: { page: string } }) {
+export async function generateMetadata({ params: { page, category } }: { params: Params }) {
+  let cate;
+  switch (category) {
+    case 'dev':
+      cate = '개발';
+      break;
+    case 'life':
+      cate = '일상';
+      break;
+    case 'fire':
+      cate = '삽질';
+      break;
+    case 'all':
+      cate = '전체';
+      break;
+    default:
+      cate = '전체';
+  }
+
   return {
-    title: `김창준 | Posts Page ${page}`,
+    title: `Posts ${cate} ${page} 페이지`,
+    description: `블로그 ${cate} 카테고리의 ${page} 페이지 입니다.`,
   };
 }
 
