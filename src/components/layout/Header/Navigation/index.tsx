@@ -4,14 +4,9 @@ import { Box, MyLink } from '@/components/base';
 import ThemeButton from '@/components/layout/Header/ThemeButton';
 import { navi } from '@/components/layout/Header/index.css';
 import { usePathname } from 'next/navigation';
+import siteConfig from '@/site.config';
 
-/**
- * Navigation component containing the primary links + Darkmode toggle
- */
-const links = [
-  { name: 'Posts', link: '/posts/pages/1' },
-  { name: 'Resume', link: '/resume' },
-];
+const links = [...siteConfig.nav];
 export const Navigation = () => {
   const pathname = usePathname();
 

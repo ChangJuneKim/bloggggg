@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { PAGES_PER_GROUP, POSTS_PER_PAGE } from '@/constants/post';
 import { useRouter } from 'next/navigation';
 import ArrowIcons from '@/components/block/Pagination/ArrowIcons';
 import { pageNationButtons, pagination } from '@/components/block/Pagination/index.css';
+import siteConfig from '@/site.config';
 
 export interface PaginationProps {
   total: number;
@@ -18,12 +18,12 @@ const Pagination = ({ total, page }: PaginationProps) => {
     router.push(`${page}`);
   };
 
-  const numPages = Math.ceil(total / POSTS_PER_PAGE); // 총 페이지 수
+  const numPages = Math.ceil(total / siteConfig.postsPerPage); // 총 페이지 수
   const currentPage = Number(page);
-  const currentPageGroup = Math.ceil(currentPage / PAGES_PER_GROUP); // 한 그룹에 PAGES_PER_GROUP 개의 페이지를 표시
+  const currentPageGroup = Math.ceil(currentPage / siteConfig.pagesPerGroup); // 한 그룹에 PAGES_PER_GROUP 개의 페이지를 표시
 
-  const startPage = (currentPageGroup - 1) * PAGES_PER_GROUP + 1;
-  const endPage = Math.min(startPage + PAGES_PER_GROUP - 1, numPages);
+  const startPage = (currentPageGroup - 1) * siteConfig.pagesPerGroup + 1;
+  const endPage = Math.min(startPage + siteConfig.pagesPerGroup - 1, numPages);
 
   const handlePageClick = (pageNumber: number) => {
     onPageClick(pageNumber);
@@ -42,7 +42,7 @@ const Pagination = ({ total, page }: PaginationProps) => {
         <button
           className={pageNationButtons}
           type="button"
-          onClick={() => handlePageClick(startPage - PAGES_PER_GROUP)}
+          onClick={() => handlePageClick(startPage - siteConfig.pagesPerGroup)}
           disabled={currentPageGroup === 1}
         >
           <ArrowIcons name={'leftDouble'} />
@@ -81,8 +81,8 @@ const Pagination = ({ total, page }: PaginationProps) => {
         <button
           className={pageNationButtons}
           type="button"
-          onClick={() => handlePageClick(startPage + PAGES_PER_GROUP)}
-          disabled={currentPageGroup === Math.ceil(numPages / PAGES_PER_GROUP)}
+          onClick={() => handlePageClick(startPage + siteConfig.pagesPerGroup)}
+          disabled={currentPageGroup === Math.ceil(numPages / siteConfig.pagesPerGroup)}
         >
           <ArrowIcons name={'rightDouble'} />
         </button>

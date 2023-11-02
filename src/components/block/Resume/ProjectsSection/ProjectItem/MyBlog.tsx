@@ -1,12 +1,12 @@
 import ProjectItem, {
   ProjectResult,
 } from '@/components/block/Resume/ProjectsSection/ProjectItem/index';
-import { links } from '@/constants/links';
+import siteConfig from '@/site.config';
 
 const blogTechStacks = ['TypeScript', 'NextJS(App)', 'ContentLayer', 'Vanilla-Extract'];
 
 const blogLinks: Array<ProjectResult> = [
-  { href: links.myBlog.projectGit, title: '개인 블로그 (깃허브)', type: 'github' },
+  { href: siteConfig.links.myBlog.projectGit, title: '개인 블로그 (깃허브)', type: 'github' },
 ];
 
 const blogFunctions = [
@@ -30,7 +30,7 @@ export default function MyBlog() {
         alt: '김창준의 블로그 프로젝트',
       }}
       title={'개인 블로그'}
-      projectLink={links.myBlog.website}
+      projectLink={siteConfig.links.myBlog.website}
       members={'개인'}
       position={''}
       period={'2023.10.09 ~'}

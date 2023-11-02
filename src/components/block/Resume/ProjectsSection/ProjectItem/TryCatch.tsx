@@ -1,7 +1,7 @@
 import ProjectItem, {
   ProjectResult,
 } from '@/components/block/Resume/ProjectsSection/ProjectItem/index';
-import { links } from '@/constants/links';
+import siteConfig from '@/site.config';
 
 const tryCatchTechStacks = [
   'TypeScript',
@@ -14,7 +14,7 @@ const tryCatchTechStacks = [
 ];
 
 const zippyLinks: Array<ProjectResult> = [
-  { href: links.tryCatch.projectGit, title: 'tryCatch (깃허브)', type: 'github' },
+  { href: siteConfig.links.tryCatch.projectGit, title: 'tryCatch (깃허브)', type: 'github' },
 ];
 
 const zippyFunctions = [
@@ -33,7 +33,7 @@ export default function TryCatch() {
     <ProjectItem
       imageProps={{ type: 'svg', src: 'tryCatch' }}
       title={'트라이캐치'}
-      projectLink={links.tryCatch.projectNotion}
+      projectLink={siteConfig.links.tryCatch.projectNotion}
       members={'6명 (프론트3 / 백3)'}
       position={'프론트엔드 리더'}
       period={'2023.01.03 ~ 2023.02.17 (총 7주)'}

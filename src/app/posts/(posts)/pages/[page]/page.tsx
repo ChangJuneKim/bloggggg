@@ -1,8 +1,8 @@
 import { Box } from '@/components/base';
 import { Pagination, PostsSection } from '@/components/block';
 import { allPosts } from '@/contentlayer/generated';
-import { POSTS_PER_PAGE } from '@/constants/post';
 import { chunkArray, descAllPosts } from '@/utils/posts';
+import siteConfig from '@/site.config';
 
 export const dynamic = 'error';
 export interface PostsPageProps {
@@ -15,7 +15,7 @@ export default function PostsPage({ searchParams, params: { page } }: PostsPageP
   const sortedPosts = descAllPosts();
   const postCount = sortedPosts.length;
 
-  const chunkedPosts = chunkArray({ items: sortedPosts, perItems: POSTS_PER_PAGE })[
+  const chunkedPosts = chunkArray({ items: sortedPosts, perItems: siteConfig.postsPerPage })[
     Number(page || 1) - 1
   ];
 
@@ -44,6 +44,9 @@ export async function generateMetadata({ params: { page } }: { params: { page: s
 
 export const generateStaticParams = async () => {
   return [
-    ...Array.from({ length: Math.ceil(allPosts.length / POSTS_PER_PAGE) }, (_, i) => i + 1),
+    ...Array.from(
+      { length: Math.ceil(allPosts.length / siteConfig.postsPerPage) },
+      (_, i) => i + 1
+    ),
   ].map((v) => ({ page: `${v}` }));
 };

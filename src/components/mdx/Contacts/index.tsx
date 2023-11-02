@@ -1,7 +1,7 @@
 import { Box, Container, ExternalLink, SVGIcon } from '@/components/base';
 import { iconContainer, iconGrid, label } from '@/components/mdx/Contacts/index.css';
 import { SVGIconNames } from '@/components/base/SVGIcon';
-import { links } from '@/constants/links';
+import siteConfig from '@/site.config';
 
 interface Contact {
   label: string;
@@ -12,9 +12,9 @@ interface Contact {
 type Contacts = Array<Contact>;
 
 const contacts: Contacts = [
-  { label: 'Github', link: links.github, svgId: 'github' },
-  { label: 'Portfolio', link: links.portfolio, svgId: 'notion' },
-  { label: 'kchang6869@gmail.com', link: links.email, svgId: 'email' },
+  { label: 'Github', link: siteConfig.links.github, svgId: 'github' },
+  { label: 'Portfolio', link: siteConfig.links.portfolio, svgId: 'notion' },
+  { label: 'kchang6869@gmail.com', link: siteConfig.links.email, svgId: 'email' },
 ];
 
 export default function Contacts() {

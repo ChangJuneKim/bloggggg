@@ -1,16 +1,16 @@
 import ProjectItem, {
   ProjectResult,
 } from '@/components/block/Resume/ProjectsSection/ProjectItem/index';
-import { links } from '@/constants/links';
+import siteConfig from '@/site.config';
 
 const zippyLinks: Array<ProjectResult> = [
-  { href: links.zippy.website, title: links.zippy.website, type: 'link' },
+  { href: siteConfig.links.zippy.website, title: siteConfig.links.zippy.website, type: 'link' },
   {
-    href: links.zippy.chromeWebStore,
+    href: siteConfig.links.zippy.chromeWebStore,
     title: '크롬 웹스토어',
     type: 'link',
   },
-  { href: links.zippy.projectGit, title: 'zippyziggy-v2 (깃허브)', type: 'github' },
+  { href: siteConfig.links.zippy.projectGit, title: 'zippyziggy-v2 (깃허브)', type: 'github' },
 ];
 
 const zippyTechStacks = [
@@ -39,7 +39,7 @@ export default function ZippyZiggy() {
     <ProjectItem
       imageProps={{ type: 'img', src: '/assets/images/resume/zippy.png', alt: '지피지기 프로젝트' }}
       title={'지피지기'}
-      projectLink={links.zippy.projectNotion}
+      projectLink={siteConfig.links.zippy.projectNotion}
       members={'6명 (프론트3 / 백3)'}
       position={'프론트엔드'}
       period={'2023.04.10 ~ 2023.05.19 (총 6주)'}

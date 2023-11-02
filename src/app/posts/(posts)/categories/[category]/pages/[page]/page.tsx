@@ -1,8 +1,8 @@
 import { Box } from '@/components/base';
 import { Pagination, PostsSection } from '@/components/block';
-import { POSTS_PER_PAGE } from '@/constants/post';
 import { chunkArray, getPostsByCategory } from '@/utils/posts';
 import { CategoryType } from '@/components/block/PostCard/Category';
+import siteConfig from '@/site.config';
 
 export const dynamic = 'error';
 export interface CategoryPostsPageProps {
@@ -20,7 +20,7 @@ export default function CategoryPostsPage({
   const postsByCategory = getPostsByCategory()[category] ?? [];
   const postCount = postsByCategory.length;
 
-  const chunkedPosts = chunkArray({ items: postsByCategory, perItems: POSTS_PER_PAGE })[
+  const chunkedPosts = chunkArray({ items: postsByCategory, perItems: siteConfig.postsPerPage })[
     Number(page || 1) - 1
   ];
 
@@ -58,7 +58,7 @@ export const generateStaticParams = async () => {
   const paths: Array<PathParams> = [];
 
   Object.keys(postsByCategory).forEach((category) => {
-    const numberOfPages = Math.ceil(postsByCategory[category].length / POSTS_PER_PAGE);
+    const numberOfPages = Math.ceil(postsByCategory[category].length / siteConfig.postsPerPage);
     const pages = Array.from({ length: numberOfPages }, (_, i) => ({ category, page: `${i + 1}` }));
     paths.push(...pages);
   });
