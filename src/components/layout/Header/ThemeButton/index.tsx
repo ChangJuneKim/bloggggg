@@ -22,7 +22,7 @@ export default function ThemeButton() {
   if (!mounted) {
     return (
       <button className={themeButton}>
-        <Box as={'span'} width={'4'} height={'4'}>
+        <Box as={'span'} width={'4'} height={'4'} aria-label={'theme button'}>
           <SVGIcon id={'system'} width={'100%'} height={'100%'} color={vars.color.primary} />
         </Box>
       </button>

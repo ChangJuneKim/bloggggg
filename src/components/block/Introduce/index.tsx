@@ -18,7 +18,7 @@ export default function Introduce() {
         </Box>
       </Box>
       <Box className={introduce}>
-        <h3 className={myName}>김창준</h3>
+        <h2 className={myName}>김창준</h2>
         <p className={oneLiner}>
           안녕하세요 웹 기술에 열정을 가진 프론트엔드 개발자입니다.
           <br />
