@@ -29,7 +29,7 @@ export default function LatestPosts() {
         })}
       </Box>
       <Box display={'flex'} justifyContent={'flex-end'} marginTop={'8'} marginBottom={'8'}>
-        <PrimaryButton to={'/posts'}>All Posts</PrimaryButton>
+        <PrimaryButton to={'/posts/pages/1'}>All Posts</PrimaryButton>
       </Box>
     </Box>
   );
