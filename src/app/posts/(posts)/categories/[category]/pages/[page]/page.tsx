@@ -13,10 +13,8 @@ export interface CategoryPostsPageProps {
   };
 }
 
-export default function CategoryPostsPage({
-  searchParams,
-  params: { page, category = 'dev' },
-}: CategoryPostsPageProps) {
+export default function CategoryPostsPage({ searchParams, params }: CategoryPostsPageProps) {
+  const { page = '1', category = 'all' } = params;
   const postsByCategory = getPostsByCategory()[category] ?? [];
   const postCount = postsByCategory.length;
 
@@ -31,12 +29,8 @@ export default function CategoryPostsPage({
           총 <b>{postCount}개</b>의 글이 있습니다.
         </p>
       </Box>
-      {/*<Suspense fallback={<Fallback />}>*/}
       <PostsSection chunkedPosts={chunkedPosts} searchParams={searchParams} />
-      {/*</Suspense>*/}
-      {/*<Suspense fallback={<Fallback />}>*/}
       <Pagination total={postCount} page={page} />
-      {/*</Suspense>*/}
     </>
   );
 }
