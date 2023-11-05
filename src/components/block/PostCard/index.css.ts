@@ -36,8 +36,7 @@ export const article = style({
       zIndex: zIndices.hide,
       transform: 'translateX(0px)',
       left: calc.negate(vars.space['0']),
-      transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s, filter 0.5s ease 0s',
-      filter: 'blur(0px)',
+      transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s',
     },
   },
 
@@ -48,7 +47,7 @@ export const article = style({
   paddingLeft: vars.space['0'],
   position: 'relative',
   borderRadius: vars.borderRadius.xl,
-  transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s, filter 0.5s ease 0s',
+  transition: 'transform 0.5s ease 0s, opacity 0.5s ease 0s',
 
   '@media': {
     [minMediaQuery('sm')]: {
@@ -61,8 +60,7 @@ export const article = style({
 });
 
 globalStyle(`${article}:hover:before`, {
-  opacity: 0.2,
-  filter: 'blur(200px)',
+  opacity: 0.1,
 });
 
 export const titleStyle = style({
