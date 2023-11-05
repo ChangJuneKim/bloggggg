@@ -21,9 +21,8 @@ export default function Giscus() {
     scriptElem.crossOrigin = 'anonymous';
 
     scriptElem.setAttribute('data-repo', 'ChangJuneKim/bloggggg');
-    scriptElem.setAttribute('data-repo-id', '[자동]');
-    scriptElem.setAttribute('data-category', 'General');
-    scriptElem.setAttribute('data-category-id', '[자동]');
+    scriptElem.setAttribute('data-repo-id', 'R_kgDOKeAA1g');
+    scriptElem.setAttribute('data-category-id', 'DIC_kwDOKeAA1s4Cashe');
     scriptElem.setAttribute('data-mapping', 'pathname');
     scriptElem.setAttribute('data-strict', '0');
     scriptElem.setAttribute('data-reactions-enabled', '1');
