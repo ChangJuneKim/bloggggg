@@ -13,7 +13,7 @@ import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
 import Divider from '@/components/extended/Divider';
 import { prevNextFlex } from '@/components/block/PrevNextPost/index.css';
-import { PrevNextPost, Toc } from '@/components/block';
+import { PrevNextPost, ScrollIndicator, Toc } from '@/components/block';
 import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layout.css';
 import { descAllPosts, getTagsOfPost } from '@/utils/posts';
 
@@ -71,6 +71,7 @@ const PostPage = ({ params }: PostPageProps) => {
 
   return (
     <SkipNavContent variant={'fullBleed'}>
+      <ScrollIndicator />
       <Box as={'section'} className={mdxSection}>
         <Box as={'aside'} className={tagsAside}>
           <Box className={tagsAsideSticky}>
