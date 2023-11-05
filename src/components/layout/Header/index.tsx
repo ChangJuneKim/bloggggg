@@ -46,9 +46,9 @@ export default function Header() {
           display={'flex'}
           as={'header'}
           alignItems={'center'}
-          className={`${header} ${pathname === '/' || pathname === '/posts' ? isHomePath : ''} ${
-            isScrolled ? isTopColor : ''
-          } `}
+          className={`${header} ${
+            pathname === '/' || pathname.startsWith('/posts') ? isHomePath : ''
+          } ${isScrolled ? isTopColor : ''} `}
         >
           <Logo />
           <Navigation />
