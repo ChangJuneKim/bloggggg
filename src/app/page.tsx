@@ -5,10 +5,6 @@ import { Introduce } from '@/components/block';
 import LatestPosts from '@/components/block/LatestPosts';
 import Divider from '@/components/extended/Divider';
 
-export const metadata = {
-  other: {},
-};
-
 export default function Home() {
   return (
     <>

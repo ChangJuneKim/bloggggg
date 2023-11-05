@@ -23,7 +23,7 @@ export default function useActiveHash(slugs: Slugs, options: Options = {}) {
           }
         });
       },
-      { rootMargin: `-20% 0px -60% 0px`, threshold: 1, ...options }
+      { rootMargin: `-61px 0px -85% 0px`, threshold: 1, ...options }
     );
 
     const existingElements = slugs.map((id) => document.getElementById(id)).filter(Boolean);
