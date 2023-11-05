@@ -11,11 +11,11 @@ import { postTitle } from '@/app/posts/(post)/[year]/[month]/[slug]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
-import Divider from '@/components/extended/Divider';
 import { prevNextFlex } from '@/components/block/PrevNextPost/index.css';
 import { PrevNextPost, ScrollIndicator, Toc } from '@/components/block';
 import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layout.css';
 import { descAllPosts, getTagsOfPost } from '@/utils/posts';
+import Giscus from '@/components/block/Giscus';
 
 export const dynamic = 'error';
 
@@ -133,7 +133,7 @@ const PostPage = ({ params }: PostPageProps) => {
         <PrevNextPost type={'prev'} post={prevPost} key={'prev'} />
         <PrevNextPost type={'next'} post={nextPost} key={'next'} />
       </Box>
-      <Divider />
+      <Giscus />
     </SkipNavContent>
   );
 };

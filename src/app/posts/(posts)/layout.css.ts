@@ -42,7 +42,7 @@ globalStyle(`${mdxSection} ${tagsAside}`, {
   },
 });
 
-globalStyle(`${mdxSection} article`, {
+globalStyle(`${mdxSection} article, ${mdxSection} .giscus`, {
   gridColumn: '1', // 기본적으로 전체 너비
   '@media': {
     [minMediaQuery('xl')]: {
