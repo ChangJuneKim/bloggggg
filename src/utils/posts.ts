@@ -70,8 +70,6 @@ export const filterPostsByKeyword = (posts: Array<Post>, keyword: string) => {
       tag?.title?.toLowerCase().includes(keyword.toLowerCase())
     );
 
-    console.log(inTitle, inDescription, inTags);
-    console.log(post.description, keyword);
     // 위 조건 중 하나라도 참이면 필터링에 포함
     return inTitle || inDescription || inTags;
   });
