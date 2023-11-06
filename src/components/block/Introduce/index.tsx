@@ -8,13 +8,14 @@ import {
   profileImage,
 } from '@/components/block/Introduce/index.css';
 import Image from 'next/image';
+import profile from '../../../../public/assets/images/profile.jpg';
 
 export default function Introduce() {
   return (
     <Box as={'section'} className={introduceSection}>
       <Box className={profileContainer}>
         <Box className={profileImage}>
-          <Image src={'/assets/images/profile.jpg'} alt={'프로필 사진'} width={100} height={100} />
+          <Image src={profile} alt={'프로필 사진'} width={100} height={100} priority />
         </Box>
       </Box>
       <Box className={introduce}>
