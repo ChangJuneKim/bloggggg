@@ -1,10 +1,14 @@
 import { Box } from '@/components/base';
 import { Pagination, PostsSection } from '@/components/block';
-import { chunkArray, getPostsByCategory } from '@/utils/posts';
+import { chunkArray, filterPostsByKeyword, getPostsByCategory } from '@/utils/posts';
 import { CategoryType } from '@/components/block/PostCard/Category';
 import siteConfig from '@/site.config';
+import CategorySelect from '@/components/pages/posts/CategorySelect';
+import PostSearch from '@/components/pages/posts/PostSearch';
+import { postToolbarStyle } from '@/app/posts/(posts)/categories/[category]/pages/[page]/index.css';
+import { postsSection } from '@/app/posts/(posts)/layout.css';
 
-export const dynamic = 'error';
+// export const dynamic = '';
 
 type Params = {
   category: 'all' | CategoryType;
@@ -17,7 +21,10 @@ export interface CategoryPostsPageProps {
 
 export default function CategoryPostsPage({ searchParams, params }: CategoryPostsPageProps) {
   const { page = '1', category = 'all' } = params;
-  const postsByCategory = getPostsByCategory()[category] ?? [];
+  const postsByCategory = filterPostsByKeyword(
+    getPostsByCategory()[category] ?? [],
+    (searchParams.keyword || '') as string
+  );
   const postCount = postsByCategory.length;
 
   const chunkedPosts = chunkArray({ items: postsByCategory, perItems: siteConfig.postsPerPage })[
@@ -25,15 +32,28 @@ export default function CategoryPostsPage({ searchParams, params }: CategoryPost
   ];
 
   return (
-    <>
-      <Box>
-        <p>
-          총 <b>{postCount}개</b>의 글이 있습니다.
-        </p>
+    <Box>
+      <Box className={postToolbarStyle}>
+        <CategorySelect category={category} />
+        <PostSearch searchParams={searchParams} category={category} />
       </Box>
-      <PostsSection chunkedPosts={chunkedPosts} searchParams={searchParams} />
+      {postCount > 0 ? (
+        <>
+          <Box>
+            <p>
+              총 <b>{postCount}개</b>의 글이 있습니다.
+            </p>
+          </Box>
+          <PostsSection chunkedPosts={chunkedPosts} searchParams={searchParams} />
+        </>
+      ) : (
+        <>
+          <p>😥 조건에 맞는 글이 없습니다.</p>
+          <Box as={'section'} className={postsSection}></Box>
+        </>
+      )}
       <Pagination total={postCount} page={page} />
-    </>
+    </Box>
   );
 }
 

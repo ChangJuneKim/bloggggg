@@ -4,8 +4,3 @@ export { default as PostsSection } from '@/components/block/PostsSection';
 export { default as Introduce } from '@/components/block/Introduce';
 export { default as PrevNextPost } from '@/components/block/PrevNextPost';
 export { default as Toc } from '@/components/block/Toc';
-export { default as AwardsSection } from '@/components/block/Resume/AwardsSection';
-export { default as EducationSection } from '@/components/block/Resume/EducationSection';
-export { default as IntroSection } from '@/components/block/Resume/IntroSection';
-export { default as ProjectsSection } from '@/components/block/Resume/ProjectsSection';
-export { default as TechStackSection } from '@/components/block/Resume/TechStackSection';

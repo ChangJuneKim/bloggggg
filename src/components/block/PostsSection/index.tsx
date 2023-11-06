@@ -2,13 +2,13 @@ import { Box } from '@/components/base';
 import { PostCard } from '@/components/block';
 import { format } from 'date-fns';
 import { Post } from '@/contentlayer/generated';
-import { PostsPageProps } from '@/app/posts/(posts)/pages/[page]/page';
 import { postsSection } from '@/app/posts/(posts)/layout.css';
 import { CategoryType } from '@/components/block/PostCard/Category';
+import { CategoryPostsPageProps } from '@/app/posts/(posts)/categories/[category]/pages/[page]/page';
 
 interface PostsSectionProps {
   chunkedPosts: Array<Post>;
-  searchParams: PostsPageProps['searchParams'];
+  searchParams: CategoryPostsPageProps['searchParams'];
 }
 export default function PostsSection({ chunkedPosts }: PostsSectionProps) {
   return (

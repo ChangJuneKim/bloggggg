@@ -7,7 +7,7 @@ const SiteConfig = {
   pagesPerGroup: 5, // 한 페이지 그룹에 포함될 페이지 수
 
   nav: [
-    { name: 'Posts', link: '/posts/pages/1' },
+    { name: 'Posts', link: '/posts/categories/all/pages/1' },
     { name: 'Resume', link: '/resume' },
   ],
 

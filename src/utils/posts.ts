@@ -24,7 +24,7 @@ export const getTagsOfPost = (post: Post) => {
 };
 
 export const getPostsByCategory = () => {
-  const postsByCategory = allPosts.reduce((postsByCategory, post) => {
+  const postsByCategory = descAllPosts().reduce((postsByCategory, post) => {
     postsByCategory[post.category] = [...(postsByCategory[post.category] || []), post];
     return postsByCategory;
   }, {} as PostsByCategory);
@@ -57,4 +57,20 @@ export const chunkArray = <T>({ items, perItems }: Props<T>): T[][] => {
   }
 
   return results;
+};
+
+export const filterPostsByKeyword = (posts: Array<Post>, keyword: string) => {
+  return posts.filter((post) => {
+    // 제목이나 설명에 키워드가 포함되어 있는지 확인
+    const inTitle = post.title.toLowerCase().includes(keyword.toLowerCase());
+    const inDescription = post.description.toLowerCase().includes(keyword.toLowerCase());
+
+    // 태그 중 하나라도 키워드를 포함하고 있는지 확인
+    const inTags = post?.tags?.some((tag) =>
+      tag?.title?.toLowerCase().includes(keyword.toLowerCase())
+    );
+
+    // 위 조건 중 하나라도 참이면 필터링에 포함
+    return inTitle || inDescription || inTags;
+  });
 };

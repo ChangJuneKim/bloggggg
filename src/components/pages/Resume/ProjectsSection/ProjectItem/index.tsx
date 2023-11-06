@@ -4,9 +4,9 @@ import {
   projectLeftFlexBasis,
   projectRightFlexBasis,
   projectTitle,
-} from '@/components/block/Resume/ProjectsSection/ProjectItem/index.css';
+} from '@/components/pages/Resume/ProjectsSection/ProjectItem/index.css';
 import Alert from '@/components/mdx/Alert';
-import IconTextItem, { ImageProps } from '@/components/block/Resume/TechStackSection/IconTextItem';
+import IconTextItem, { ImageProps } from '@/components/pages/Resume/TechStackSection/IconTextItem';
 import Link from 'next/link';
 import Tag from '@/components/base/Tag';
 

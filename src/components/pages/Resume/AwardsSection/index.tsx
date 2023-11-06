@@ -1,6 +1,6 @@
-import IconTextItem from '@/components/block/Resume/TechStackSection/IconTextItem';
+import IconTextItem from '@/components/pages/Resume/TechStackSection/IconTextItem';
 import { Box } from '@/components/base';
-import ResumeSectionTitle from '@/components/block/Resume/ResumeSectionTitle';
+import ResumeSectionTitle from '@/components/pages/Resume/ResumeSectionTitle';
 import Link from 'next/link';
 
 export default function AwardsSection() {

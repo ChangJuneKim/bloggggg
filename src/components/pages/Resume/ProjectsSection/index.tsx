@@ -1,8 +1,8 @@
 import { Box } from '@/components/base';
-import ResumeSectionTitle from '@/components/block/Resume/ResumeSectionTitle';
-import MyBlog from '@/components/block/Resume/ProjectsSection/ProjectItem/MyBlog';
-import TryCatch from '@/components/block/Resume/ProjectsSection/ProjectItem/TryCatch';
-import ZippyZiggy from '@/components/block/Resume/ProjectsSection/ProjectItem/ZippyZiggy';
+import ResumeSectionTitle from '@/components/pages/Resume/ResumeSectionTitle';
+import MyBlog from '@/components/pages/Resume/ProjectsSection/ProjectItem/MyBlog';
+import TryCatch from '@/components/pages/Resume/ProjectsSection/ProjectItem/TryCatch';
+import ZippyZiggy from '@/components/pages/Resume/ProjectsSection/ProjectItem/ZippyZiggy';
 import Divider from '@/components/extended/Divider';
 
 export default function ProjectsSection() {
