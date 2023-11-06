@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { postsSection } from '@/app/posts/(posts)/layout.css';
 import { descAllPosts } from '@/utils/posts';
 import { CategoryType } from '@/components/block/PostCard/Category';
+import siteConfig from '@/site.config';
 
 export default function LatestPosts() {
   const sortedPosts = descAllPosts();
@@ -29,7 +30,7 @@ export default function LatestPosts() {
         })}
       </Box>
       <Box display={'flex'} justifyContent={'flex-end'} marginTop={'8'} marginBottom={'8'}>
-        <PrimaryButton to={'/posts/pages/1'}>All Posts</PrimaryButton>
+        <PrimaryButton to={siteConfig.nav[0].link}>All Posts</PrimaryButton>
       </Box>
     </Box>
   );

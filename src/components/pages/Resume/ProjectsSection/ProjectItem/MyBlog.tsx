@@ -1,6 +1,6 @@
 import ProjectItem, {
   ProjectResult,
-} from '@/components/block/Resume/ProjectsSection/ProjectItem/index';
+} from '@/components/pages/Resume/ProjectsSection/ProjectItem/index';
 import siteConfig from '@/site.config';
 
 const blogTechStacks = ['TypeScript', 'NextJS(App)', 'ContentLayer', 'Vanilla-Extract'];

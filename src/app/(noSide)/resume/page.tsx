@@ -1,14 +1,14 @@
 import { Box } from '@/components/base';
+import Divider from '@/components/extended/Divider';
+import { resumeStyle } from '@/app/(noSide)/resume/index.css';
+import { Metadata } from 'next';
 import {
   AwardsSection,
   EducationSection,
   IntroSection,
   ProjectsSection,
   TechStackSection,
-} from '@/components/block';
-import Divider from '@/components/extended/Divider';
-import { resumeStyle } from '@/app/(noSide)/resume/index.css';
-import { Metadata } from 'next';
+} from '@/components/pages';
 
 export const metadata: Metadata = {
   title: `Resume`,

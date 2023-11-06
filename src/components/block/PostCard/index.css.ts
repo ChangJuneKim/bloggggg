@@ -61,6 +61,7 @@ export const article = style({
 
 globalStyle(`${article}:hover:before`, {
   opacity: 0.1,
+  filter: 'blur(12px)',
 });
 
 export const titleStyle = style({

@@ -1,7 +1,7 @@
 import { Box } from '@/components/base';
 import { SVGIconNames } from '@/components/base/SVGIcon';
-import ResumeSectionTitle from '@/components/block/Resume/ResumeSectionTitle';
-import IconTextItem from '@/components/block/Resume/TechStackSection/IconTextItem';
+import ResumeSectionTitle from '@/components/pages/Resume/ResumeSectionTitle';
+import IconTextItem from '@/components/pages/Resume/TechStackSection/IconTextItem';
 
 type TechStack = {
   id: SVGIconNames;
