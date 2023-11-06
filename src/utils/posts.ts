@@ -63,13 +63,15 @@ export const filterPostsByKeyword = (posts: Array<Post>, keyword: string) => {
   return posts.filter((post) => {
     // 제목이나 설명에 키워드가 포함되어 있는지 확인
     const inTitle = post.title.toLowerCase().includes(keyword.toLowerCase());
-    const inDescription = post.description.toLowerCase().includes(keyword.toLowerCase());
+    const inDescription = post.description.toLowerCase().includes(keyword.toLowerCase().trim());
 
     // 태그 중 하나라도 키워드를 포함하고 있는지 확인
     const inTags = post?.tags?.some((tag) =>
       tag?.title?.toLowerCase().includes(keyword.toLowerCase())
     );
 
+    console.log(inTitle, inDescription, inTags);
+    console.log(post.description, keyword);
     // 위 조건 중 하나라도 참이면 필터링에 포함
     return inTitle || inDescription || inTags;
   });

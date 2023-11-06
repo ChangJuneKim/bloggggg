@@ -7,7 +7,7 @@ import {
   searchInputContainerStyle,
 } from '@/components/pages/posts/PostSearch/index.css';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import useDebounce from '@/hooks/useDebounce';
 import { CategoryType } from '@/components/block/PostCard/Category';
 
@@ -20,6 +20,7 @@ export default function PostSearch({ searchParams, category }: PostSearchProps) 
   const [keyword, setKeyword] = useState(searchParams.keyword ?? '');
   const debouncedKeyword = useDebounce(keyword, 300);
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -29,9 +30,9 @@ export default function PostSearch({ searchParams, category }: PostSearchProps) 
     if (debouncedKeyword) {
       router.replace(`/posts/categories/${category}/pages/1?keyword=${debouncedKeyword}`);
     } else {
-      router.replace(`/posts/categories/${category}/pages/1`);
+      router.replace(pathname);
     }
-  }, [debouncedKeyword, category, router]);
+  }, [debouncedKeyword, category, router, pathname]);
 
   return (
     <Box className={searchInputContainerStyle} style={{ flexBasis: '50%' }}>
