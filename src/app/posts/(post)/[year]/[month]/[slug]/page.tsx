@@ -81,12 +81,8 @@ const PostPage = ({ params }: PostPageProps) => {
             <Box marginBottom={'4'}>
               {uniqueTags.length ? (
                 uniqueTags.map((tag, index) => (
-                  <Tag
-                    key={index}
-                    type={'link'}
-                    href={`/posts?category=${tag}`}
-                    label={tag || ''}
-                  />
+                  // TODO 태그 필터링 하기
+                  <Tag key={index} type={'link'} href={`#`} label={tag || ''} />
                 ))
               ) : (
                 <p>태그가 없습니다.</p>
