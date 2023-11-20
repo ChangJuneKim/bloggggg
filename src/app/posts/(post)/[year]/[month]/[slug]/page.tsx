@@ -89,7 +89,7 @@ const PostPage = ({ params }: PostPageProps) => {
               )}
             </Box>
             <Box textAlign={'right'} marginRight={'4'}>
-              <Link href={'/posts'}>
+              <Link href={'/posts/categories/all/pages/1'}>
                 목록으로
                 <Box
                   as={'span'}
