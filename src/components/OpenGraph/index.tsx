@@ -9,7 +9,7 @@ export const OpenGraphBackgroundStyle: CSSProperties = {
   width: `${OpenGraphImageSize.width}px`,
   height: `${OpenGraphImageSize.height}px`,
   objectFit: 'cover',
-  filter: 'brightness(80%)',
+  filter: 'brightness(0.6)',
   backgroundColor: 'rgba(0, 0, 255, 0.2)',
 };
 
