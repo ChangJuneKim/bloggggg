@@ -17,6 +17,9 @@ import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layo
 import { descAllPosts, getTagsOfPost } from '@/utils/posts';
 import Giscus from '@/components/block/Giscus';
 import { Metadata, ResolvingMetadata } from 'next';
+import { ImageResponse } from 'next/server';
+import OpenGraph from '@/components/OpenGraph';
+import { size } from '@/app/opengraph-image';
 
 export const dynamic = 'error';
 
@@ -161,28 +164,31 @@ export const generateMetadata = async (
 
   const previousImages = (await parent).openGraph?.images || [];
 
-  // const test = new ImageResponse(
-  //   (
-  //     <OpenGraph
-  //       title="테스트"
-  //       tags={['개발', '삽질']}
-  //       url="https://www.changjune.com/"
-  //       thumbnailSrc="https://changjune.com/assets/images/thumbnails/fire.png"
-  //     />
-  //   ),
-  //   // ImageResponse options
-  //   {
-  //     // For convenience, we can re-use the exported opengraph-image
-  //     // size config to also set the ImageResponse's width and height.
-  //     ...size,
-  //   }
-  // );
+  const ogImage = new ImageResponse(
+    (
+      <OpenGraph
+        title={post?.title || '김창준의 블로그입니다.'}
+        tags={
+          post?.tags && post?.tags?.length > 0
+            ? post?.tags.map((tag) => tag.title!)
+            : ['개발', '일상', '삽질']
+        }
+        url={`https://www.changjune.com/${post?._raw.flattenedPath}`}
+      />
+    ),
+    // ImageResponse options
+    {
+      // For convenience, we can re-use the exported opengraph-image
+      // size config to also set the ImageResponse's width and height.
+      ...size,
+    }
+  );
 
   return {
     title: post?.title,
     description: post?.description,
     openGraph: {
-      images: [post?.thumbnail!, ...previousImages],
+      images: [ogImage, post?.thumbnail!, ...previousImages],
     },
   };
 };
