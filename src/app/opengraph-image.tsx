@@ -1,16 +1,13 @@
 // Route segment config
 import { ImageResponse } from 'next/server';
-import OpenGraph from '@/components/OpenGraph';
+import OpenGraph, { OpenGraphImageSize } from '@/components/OpenGraph';
 import siteConfig from '@/site.config';
 
 export const runtime = 'edge';
 
 // Image metadata
 export const alt = siteConfig.title;
-export const size = {
-  width: 1200,
-  height: 630,
-};
+export const size = OpenGraphImageSize;
 
 export const contentType = 'image/png';
 
