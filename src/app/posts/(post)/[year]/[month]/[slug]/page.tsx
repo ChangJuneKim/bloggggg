@@ -16,6 +16,10 @@ import { PrevNextPost, ScrollIndicator, Toc } from '@/components/block';
 import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layout.css';
 import { descAllPosts, getTagsOfPost } from '@/utils/posts';
 import Giscus from '@/components/block/Giscus';
+import { Metadata, ResolvingMetadata } from 'next';
+import { ImageResponse } from 'next/server';
+import OpenGraph from '@/components/OpenGraph';
+import { size } from '@/app/opengraph-image';
 
 export const dynamic = 'error';
 
@@ -26,6 +30,7 @@ interface PostPageProps {
     slug: string;
   };
 }
+
 const mdxComponents: MDXComponents = {
   ...components,
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
@@ -149,12 +154,38 @@ export const generateStaticParams = async () => {
   });
 };
 
-export const generateMetadata = ({ params }: PostPageProps) => {
+export const generateMetadata = async (
+  { params }: PostPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> => {
   const post = allPosts.find(
     (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
   );
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  const test = new ImageResponse(
+    (
+      <OpenGraph
+        title="테스트"
+        tags={['개발', '삽질']}
+        url="https://www.changjune.com/"
+        thumbnailSrc="https://changjune.com/assets/images/thumbnails/fire.png"
+      />
+    ),
+    // ImageResponse options
+    {
+      // For convenience, we can re-use the exported opengraph-image
+      // size config to also set the ImageResponse's width and height.
+      ...size,
+    }
+  );
+
   return {
     title: post?.title,
     description: post?.description,
+    openGraph: {
+      images: [test, ...previousImages],
+    },
   };
 };
