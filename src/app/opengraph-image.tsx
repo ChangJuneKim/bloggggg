@@ -35,7 +35,7 @@ export default async function OpengraphImage() {
             position: 'absolute',
             top: '25%',
             left: '80px',
-            width: `${OpenGraphImageSize.width - 600}px`,
+            width: `${size.width - 600}px`,
             wordWrap: 'break-word',
             wordBreak: 'break-all',
             color: 'white',
