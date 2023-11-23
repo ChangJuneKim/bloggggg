@@ -12,7 +12,7 @@ export const size = OpenGraphImageSize;
 export const contentType = 'image/png';
 
 // Image generation
-export default async function Image() {
+export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <OpenGraph
