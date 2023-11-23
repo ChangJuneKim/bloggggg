@@ -14,7 +14,7 @@ export default function Home() {
           '저의 블로그에 오신 것을 환영합니다! 🎉',
           '학습하는 개발자, 함께 성장하는 공간입니다.',
         ]}
-        image={{ alt: '홈 배경', filename: 'home.webp' }}
+        image={{ alt: '홈 배경', filename: 'home.png' }}
       />
       <SkipNavContent variant={'hero'}>
         <Introduce />

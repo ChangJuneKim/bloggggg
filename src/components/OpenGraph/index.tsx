@@ -17,7 +17,7 @@ export default function OpenGraph({ title, tags, url, imageSrc, thumbnailSrc }: 
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt={title}
-        src={imageSrc || 'https://changjune.com/assets/images/banner/home.webp'}
+        src={imageSrc || 'https://changjune.com/assets/images/banner/home.png'}
         width={OpenGraphImageSize.width}
         height={OpenGraphImageSize.height}
         style={{
@@ -76,29 +76,22 @@ export default function OpenGraph({ title, tags, url, imageSrc, thumbnailSrc }: 
       >
         {url}
       </span>
-      <div
+      <img
+        alt={'로고'}
+        src={thumbnailSrc || 'https://changjune.com/assets/images/resume/logo.png'}
+        width={1300}
+        height={630}
         style={{
           position: 'absolute',
           top: '65%',
           right: '5%',
           borderRadius: '8px',
-          overflow: 'hidden',
           filter: 'brightness(0.95)',
+          width: `100px`,
+          height: `100px`,
+          objectFit: 'cover',
         }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt={'로고'}
-          src={thumbnailSrc || 'https://changjune.com/assets/images/resume/logo.png'}
-          width={1300}
-          height={630}
-          style={{
-            width: `100px`,
-            height: `100px`,
-            objectFit: 'cover',
-          }}
-        />
-      </div>
+      />
     </>
   );
 }

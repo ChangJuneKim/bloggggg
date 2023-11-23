@@ -10,6 +10,7 @@ import SiteConfig from '@/site.config';
 import { Footer, Header } from '@/components/layout';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://changjune.com'),
   title: {
     default: SiteConfig.title,
     template: `${SiteConfig.title} | %s`,
