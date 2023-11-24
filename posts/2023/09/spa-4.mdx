@@ -1,0 +1,415 @@
+---
+title: '[JavaScript] 프레임워크 없이 SPA 만들기 - 4 (웹 컴포넌트)'
+description: 바닐라 자바스크립트로 SPA 만들기 네 번째 - 웹 컴포넌트
+category: dev
+createdAt: 2023-09-15
+tags:
+- title: "JavaScript"
+thumbnail: /assets/images/thumbnails/js.png
+---
+<Thumbnail filename={"js.png"} alt={'[JavaScript] 프레임워크 없이 SPA 만들기 - 4 (웹 컴포넌트)'} />
+
+<Divider/>
+
+## 들어가며...
+지난 포스팅까지는 SPA 라우터와 동적라우팅을 다루어봤다. 이번 편에서는 "웹 컴포넌트"에 대해서 살펴보자. 이번에 다룰 주요 키워드는 다음과 같다.
+
+1. **캡슐화**: 웹 컴포넌트의 기본 개념
+2. **재사용성**: 컴포넌트가 갖는 효과적인 활용성
+3. **커스텀 엘리먼트**: 웹 컴포넌트의 기본 구성 요소
+4. **Shadow DOM**: 스타일과 구조의 독립적으로 관리하는 메커니즘
+
+그럼 웹 컴포넌트를 파헤쳐보자!
+
+## 캡슐화
+웹 컴포넌트를 캡슐화의 원칙을 따른다. 이는 각 컴포넌트가 독립적으로 작동하고, 외부 환경의 영향을 최소화해서 예측 가능한 동작을 보장하는 것을 의미한다. 캡슐화를 통해서 개발자는 컴포넌트의 내부 로직을 세세하게 알 필요 없이 사용할 수 있다.
+
+### 직접 확인해보자!
+
+빈 html 파일에 `<video>` 태그를 추가해봤다.
+
+그리고 개발자 도구 옵션(설정?) 에서 환경설정 -> 요소 -> 사용자 에이전트 그림자 DOM 표시를 체크해주자.
+
+<Image src={'/assets/images/posts/2023/09/spa-4/1.gif'} alt={"개발자 도구 옵션(크롬)"} />
+<Image src={'/assets/images/posts/2023/09/spa-4/2.png'} alt={"video 태그 내부의 모습"} />
+
+이 처럼 우리는 `<video>` 라는 태그 하나만 써도 내부에는 복잡한 구조의 태그들의 모음이라는 것을 알 수 있다.<br/>
+이 외에도 `<select>` 등 이 있다.
+
+## 재사용성
+
+이건 뭐 리액트나 뷰 등 을 사용해봤다면, 당연히 알고있으리라 생각한다.
+
+## 커스텀 엘리먼트
+
+커스텀 엘리먼트는 웹컴포넌트의 주요 특징 중 하나이다. 기존의 HTML 태그를 확장하거나 완전히 새로운 태그를 생성할 수 있다. 이를 통해서 개발자는 웹페이지에 독특한 기능과 스타일을 추가할 수 있다.
+
+### 기존의 `<button>` 태그를 확장해보자.
+버튼을 눌렀을 때, 간단한 애니메이션이 적용되는 버튼 컴포넌트를 만들어볼것이다.
+
+<CodeSandBoxEmbed src="https://codesandbox.io/embed/x78zml?view=Editor+%2B+Preview&module=%2Findex.html" height="300"/>
+<Collapsible summary={"js 코드"}>
+  ```js
+  class CustomAnimatedButton extends HTMLButtonElement {
+    constructor() {
+      super();
+
+      this.addEventListener('click', () => {
+      this.animate([
+                    { transform: 'scale(1)', opacity: 1 },
+                    { transform: 'scale(1.1)', opacity: 0.5 },
+                    { transform: 'scale(1)', opacity: 1 }
+                  ],{
+        duration: 300
+        });
+      });
+    }
+  }
+
+  customElements.define('custom-animated-button', CustomAnimatedButton, { extends: 'button' });
+  ```
+</Collapsible>
+웹 컴포넌트는 class 문법을 이용해서 생성한다. 특정 태그를 확장해서 사용할 땐, extends 뒤에 HTML특정 Element 를 상속받아야 한다. 그리고 마지막에 define에서도 옵션으로 extends : '태그이름' 을 해줘야 한다.
+
+확장한 컴포넌트를 사용할 때는 `<button is="custom-animated-button">Click me!</button>{:html}` 처럼 태그는 원래대로 쓰고 is 속성에 내가 define에서 지정했던 "custom-animated-button" 을 넣어줘서 사용한다.
+
+### 완전히 새로운 태그 생성해보기
+
+프로필 카드를 나타내는 완전히 새로운 태그를 생성해보자.
+
+<CodeSandBoxEmbed src="https://codesandbox.io/embed/hrq82x?view=Editor+%2B+Preview&module=%2Findex.html" height="300"/>
+<Collapsible summary={"js 코드"}>
+  ```js
+  class ProfileCard extends HTMLElement {
+    constructor() {
+      super();
+
+      const shadow = this.attachShadow({ mode: 'open' });
+
+      const container = document.createElement('div');
+      container.innerHTML = `
+          <img src="${this.getAttribute('image-src')}" alt="Profile Image">
+          <h2>${this.getAttribute('name')}</h2>
+          <p>${this.getAttribute('description')}</p>
+        `;
+
+       shadow.appendChild(container);
+    }
+  }
+
+  customElements.define('profile-card', ProfileCard);
+  ```
+</Collapsible>
+
+새로운 태그를 생성할때는 HTMLElement를 상속받는다. 코드에 보이는 Shadow DOM은 아래에서 설명하겠다.
+
+이렇게 커스텀 엘리먼트를 사용하면, 웹 개발에 더 다양한 가능성과 유연성을 얻을 수 있다.
+
+## Shadow DOM
+쉐도우 돔은 웹페이지의 일부분을 캡슐화해서 그 안의 요소와 스타일이 외부의 영향을 받지 않도록 한다. 확장프로그램 코드를 까보다 보면 심심치않게 볼 수 있는 것 같다..
+
+독립적인 돔 구조를 가지며, 메인 돔과는 별개로 작동한다.
+
+<Image src={'/assets/images/posts/2023/09/spa-4/3.png'} alt={""} width={400}/>
+
+### Shadow DOM의 사용
+Shadow DOM을 생성하려면, 일반적으로 주요 요소에 shadow root 를 붙이고, 이를 통해서 쉐도우 돔에 접근하고 조작한다.
+
+위에 CodeSandBox의 프로필 카드 커스텀 컴포넌트의 코드를 살펴보자
+
+```js
+class ProfileCard extends HTMLElement {
+  constructor() {
+    super();
+
+    const shadow = this.attachShadow({ mode: 'open' }); // 쉐도우 돔 생성
+    // this.attachShadow({ mode: 'open' });
+
+    const container = document.createElement('div');
+    container.innerHTML = `
+      <img src="${this.getAttribute('image-src')}" alt="Profile Image">
+      <h2>${this.getAttribute('name')}</h2>
+      <p>${this.getAttribute('description')}</p>
+    `;
+      shadow.appendChild(container);
+      // this.shadowRoot.appendChild(container);
+    }
+  }
+
+  customElements.define('profile-card', ProfileCard);
+```
+
+**생성할 때 `mode` 는 `open` 또는 `closed`로 설정할 수 있다.**
+  1. `open` : 자바스크립트로 shadow root 에 접근할 수 있다.
+  2. `closed` : 자바스크립트로 shadow root 에 접근할 수 없다. 그리고 `this.attachShadow({ mode: 'closed' }){:js}`는 `null`을 반환한다.
+
+**왜 Shadow DOM을 사용하는가?**
+  1. 스타일 격리 - 스타일과 마크업을 완전히 격리시키기 때문에. 스타일 충돌 없이 외부 환경에서 컴포넌트를 사용할 수 있게 해준다.
+  2. 재사용 가능한 컴포넌트 - 완전히 독립된 컴포넌트를 만들 수 있어서 다른 프로젝트나 페이지에서도 재사용 할 수 있다.
+
+### 스타일 격리 예시 코드
+
+<iframe height="300" style={{width: '100%'}} scrolling="no" title="Untitled" src="https://codepen.io/changjunekim/embed/YzdQEEp?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/changjunekim/pen/YzdQEEp">
+  Untitled</a> by 김창준 (<a href="https://codepen.io/changjunekim">@changjunekim</a>)
+on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+쉐도우 돔을 쓰지않은 컴포넌트는 메인 돔 스타일에 영향을 주고 받지만, 쉐도우 돔은 독립적으로 스타일이 적용된 모습을 볼 수 있다.
+
+❗ css 변수는 예외사항으로 Shadow DOM 스타일에 영향을 줄 수 있다.
+
+  이 외에 :host ::slotted 등을 활용해서 컴포넌트를 만들 수 있다.
+
+<p><ExternalLink href={'https://ko.javascript.info/shadow-dom-style'}>Shadow DOM styling (javascript.info)</ExternalLink></p>
+
+## 우리 SPA 코드에 컴포넌트 적용해보기
+
+간략하게 웹 컴포넌트에 대해서 알아보았으니 우리 소스코드를 컴포넌트로 변경해보자!
+
+우리가 만든 페이지에서 컴포넌트로 추출할만한게 뭐가 있을까? 굉장히 단순한 정적페이지라서 굳이 컴포넌트화 할 필요는 없지만, 헤더 네비게이션과 새로고침이 일어나지 않는 `<a>` 태그 그 자체를 컴포넌트로 추출해보면 좋은 연습이 될 것 같다.
+
+  우선 js 폴더에 components 라는 폴더를 만들어준다.
+
+<Image src={'/assets/images/posts/2023/09/spa-4/4.png'} alt={"우리의 목표"} width={350} />
+
+### 컴포넌트 적용 전 코드 1
+원래 사용하던 `<a>` 태그는 뭔가 분산되어 있는 느낌이었다.
+  ```js title="레이아웃 코드 수정"
+  // layout.js
+export const layout = (content) => {
+  // 나머지 코드...
+
+  paths.forEach((path) => {
+    const navLink = document.createElement("a");
+    navLink.setAttribute("class", "nav__link");
+    navLink.setAttribute("data-link", "nav__link");
+    navLink.setAttribute("href", path.href);
+    navLink.textContent = path.text;
+
+    nav.appendChild(navLink);
+  });
+
+  // 나머지 코드
+};
+
+
+// index.js
+document.addEventListener("DOMContentLoaded", () => {
+  // index.js 에서 이벤트 위임을 이용해서 새로고침이 일어나지 않게 만들었었다.
+  document.body.addEventListener("click", (e) => {
+    if (e.target.matches("[data-link]")) {
+      e.preventDefault();
+      navigateTo(e.target.href);
+    }
+  });
+
+  router();
+});
+  ```
+
+#### `<nav-link>` 커스텀 컴포넌트를 만들어서 관련된 기능을 모아서 관리해보자
+```js title="NavLink/index.js"
+// NavLink/index.js
+import { navigateTo } from "../../router.js";
+import { styles } from "./style.js";
+
+class NavLink extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = styles;
+  }
+
+  // 1)
+  connectedCallback() {
+    this.#render();
+    this.#addEventListeners();
+  }
+
+  // 2)
+  disconnectedCallback() {
+    this.#removeEventListeners();
+  }
+
+  // 3)
+  #handleClick = (e) => {
+    const anchor = e.target.closest("a");
+    if (anchor.matches("[data-link]")) {
+      e.preventDefault();
+      navigateTo(anchor.href);
+    }
+  };
+
+  // 4)
+  #addEventListeners() {
+    this.shadowRoot
+      .querySelector("a")
+      .addEventListener("click", this.#handleClick);
+  }
+
+  #removeEventListeners() {
+    this.shadowRoot
+      .querySelector("a")
+      .removeEventListener("click", this.#handleClick);
+  }
+
+  #render() {
+    const link = this.#createLinkElement();
+    this.shadowRoot.appendChild(link);
+  }
+
+  #createLinkElement() {
+    const link = document.createElement("a");
+    link.className = "nav__link";
+    link.dataset.link = "";
+    link.href = this.getAttribute("href");
+
+    const slotEl = document.createElement("slot");
+    link.appendChild(slotEl);
+
+    this.#applyColorAttribute(link);
+
+    return link;
+  }
+
+  #applyColorAttribute(link) {
+    if (this.hasAttribute("color")) {
+      link.style.color = this.getAttribute("color");
+    }
+  }
+}
+
+customElements.define("nav-link", NavLink);
+
+
+// NavLink/style.js
+export const styles = `<style>
+.nav__link {
+  align-items: center;
+  color: #fff;
+  display: inline-flex;
+  height: 100%;
+  padding: 0 1rem;
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+</style>`;
+```
+
+1. `connectedCallback` 은 웹 컴포넌트가 DOM에 연결될 때 호출되는 메서드다.
+   <br/>리액트 생명주기의 `componentDidMount()나 useEffect(() => {}, []){:js}` 과 비슷한 느낌이라고 이해하면 쉬울 것 같다.
+
+2. `disconnectedCallback`메서드는 `componentWillUnmount`() 나 `useEffect`의 리턴 부분과 비슷하다.
+  <br/>여기서 이벤트 삭제를 해서 메모리 낭비를 줄였다.
+
+3. 컴포넌트 자체에 `<a>` 태그의 기본 동작을 무시하고 navigate 하는 기능을 여기서 구현하고, 이벤트 삭제 메서드도 정의 해줬다.
+
+  #### 이제 우리가 만든 `<nav-link>` 태그를 이용한 네비게이션 컴포넌트를 만들어보자
+```js title="Navigation/index.js"
+import { styles } from "./style.js";
+import "../NavLink/index.js"; // 1) 컴포넌트를 사용하기 위해 js파일을 import 해줘야 한다.
+
+class Navigation extends HTMLElement {
+  #paths = []; // 2) 네비게이션 경로 옵션을 받을 배열
+  #template = document.createElement("template");
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.#initTemplate();
+  }
+
+  // private 변수인 paths를 조작하기 위한 setter 메서드
+  set paths(val) {
+    this.#paths = val;
+    this.#render();
+  }
+
+  #initTemplate() {
+    this.#template.innerHTML = `
+${styles}
+<nav></nav>
+  `;
+    this.shadowRoot.appendChild(this.#template.content.cloneNode(true));
+  }
+
+    #render() {
+      const nav = this.shadowRoot.querySelector("nav");
+
+      while (nav.firstChild) {
+        nav.removeChild(nav.firstChild);
+      }
+
+      this.#paths.forEach((path) => {
+        // 여기서 우리가 만든 커스텀 nav-link를 이용한다.
+        // nav-link에는 이미 data-link와 class이름이 추가되어 있어서 href와 표시될 text만 입력받음
+        const navLink = document.createElement("nav-link");
+        navLink.setAttribute("href", path.href);
+        navLink.textContent = path.text;
+        nav.appendChild(navLink);
+      });
+    }
+  }
+
+  customElements.define("navigation-menu", Navigation);
+```
+
+우리는 이 `<navigation-menu>`을 이용해서 `layout.js`를 개선해볼것이다.
+
+<Image src={'/assets/images/posts/2023/09/spa-4/5.png'} alt={"전 후 비교"}/>
+
+```js
+import "../components/Navigation/index.js"; // 컴포넌트 import
+
+export const layout = (content) => {
+  const fragment = document.createDocumentFragment();
+
+  const header = document.createElement("header");
+  // const nav = document.createElement("nav"); // 이제 nav를 만들지 않아도 된다.
+
+  const paths = [
+    { href: "/", text: "홈" },
+    { href: "/posts", text: "게시글" },
+    { href: "/settings", text: "설정" },
+  ];
+
+
+  /*
+  paths.forEach((path) => {
+    const navLink = document.createElement("a");
+    navLink.setAttribute("class", "nav__link");
+    navLink.setAttribute("data-link", "nav__link");
+    navLink.setAttribute("href", path.href);
+    navLink.textContent = path.text;
+
+    nav.appendChild(navLink);
+  });
+  */
+  //header.appendChild(nav);
+
+  const navComponent = document.createElement("custom-nav"); // 커스텀 컴포넌트를 만들고
+  navComponent.paths = paths; // paths 설정만 해주면 간편하게 네비게이션을 생성해서 사용할 수 있다.
+  header.appendChild(navComponent);
+
+  fragment.appendChild(header);
+  fragment.appendChild(content);
+
+  return fragment;
+};
+```
+
+이 부분 말고도 `일반 <a>` 태그를 사용하는 부분이 몇 군데 있는데 그건 깃에 `<nav-link>`를 사용하는 코드로 수정해서 올려두었다.
+
+  ## 마치며
+바닐라JS로 웹 컴포넌트를 구성해보았다. 무척 흥미로웠다. 여러 라이브러리나 프레임워크의 내부 역시 이와 같은 원리로 구현되어 있을까? 라는 궁금증이 생겼다. 이렇게 직접 기본부터 다루어보니 웹 개발에 대한 깊은 이해를 얻을 수 있었고, 다양한 도구를 사용할 때도 그 기반이 어떻게 동작하는지에 대한 호기심이 생겼다. 바닐라JS의 순수함을 다시 한번 느껴볼 수 있는 유익한 시간이었다. 리액트로 먼저 컴포넌트를 접해서 리액트에 비유하게 되는 것도 재미있었다. 순서가 바뀐 기분??
+
+(ps. 위에서 설명한 메서드들 말고도 정말 다양한 메서드들이 있다. static 메서드인 `observedAttributes` 와 `attributeChagedCallback` 메서드를 함께 쓰면 `useEffect`와 비슷하게 사용할 수도 있다.)
+
+## 참고자료
+<p><ExternalLink href="https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM">shadow DOM 사용하기 - Web API | MDN (mozilla.org)</ExternalLink></p>
+<p><ExternalLink href="https://www.youtube.com/watch?v=2I7uX8m0Ta0">(1) Learn Web Components In 25 Minutes - YouTube</ExternalLink></p>
+<p><ExternalLink href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/template">`<template>`: 콘텐츠 템플릿 요소 - HTML: Hypertext Markup Language | MDN (mozilla.org)</ExternalLink></p>
+<p><ExternalLink href="https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_custom_elements">사용자 정의 요소 사용하기 - Web API | MDN (mozilla.org)</ExternalLink></p>

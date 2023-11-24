@@ -15,8 +15,8 @@ thumbnail: /assets/images/thumbnails/tip.png
 
 ## 라이브 템플릿
 ### 부모 폴더의 이름을 컴포넌트명으로 하고 싶을 때
-<Image src={"/assets/images/posts/webstorm-live-templates/1.png"} alt="부모 폴더의 이름을 컴포넌트명으로 하고 싶을 때"/>
-<Image src={"/assets/images/posts/webstorm-live-templates/2.png"} alt="웹스톰 설정"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/1.png"} alt="부모 폴더의 이름을 컴포넌트명으로 하고 싶을 때"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/2.png"} alt="웹스톰 설정"/>
 - 이름: `$PARENT_DIR$`
 - 표현식: `capitalize(camelCase(groovyScript("new File(_1).parentFile.name", filePath())))`
 
@@ -32,7 +32,7 @@ export default function $PARENT_DIR$(){
 <Divider/>
 
 ### 파일 이름으로 컴포넌트를 생성 하고 싶을 때
-<Image src={"/assets/images/posts/webstorm-live-templates/3.png"} alt="파일 이름으로 컴포넌트를 생성 하고 싶을 때"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/3.png"} alt="파일 이름으로 컴포넌트를 생성 하고 싶을 때"/>
 - 이름: `$FILENAME_BASE$`
 - 표현식: `capitalize(camelCase(fileNameWithoutExtension()))`
 
@@ -50,7 +50,7 @@ export default function $FILENAME_BASE$(){
 ## 파일 및 코드 템플릿
 
 ### MDX 파일 기본 구조를 잡아서 생성하기
-<Image src={"/assets/images/posts/webstorm-live-templates/4.png"} alt="mdx 파일을 생성할 때 편리하게 만들어보자"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/4.png"} alt="mdx 파일을 생성할 때 편리하게 만들어보자"/>
 `에디터 > 코드 스타일 > 파일 및 코드 템플릿` 에서 위 이미지 처럼 설정해주자.
 처음에 mdx파일을 위한 코드 템플릿은 없기 때문에 + 버튼을 눌러서 추가해줘야한다.
 
@@ -81,13 +81,13 @@ export default function $FILENAME_BASE$(){
 나는 파일을 만들 때, 제목, 설명, 썸네일 파일 이름을 입력하면 자동으로 썸네일 이미지와,
 커스텀 mdx 컴포넌트인 `<Divider/>`, 그리고 h1 제목이 입력되게 만들어보았다.
 
-<Image src={"/assets/images/posts/webstorm-live-templates/5.png"} alt="파일을 생성할 때"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/5.png"} alt="파일을 생성할 때"/>
 이제 새로운 파일을 생성하려고 할 때, mdx 파일이 생기고
-<Image src={"/assets/images/posts/webstorm-live-templates/6.png"} alt="변수 입력 창"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/6.png"} alt="변수 입력 창"/>
 우리가 지정했던 변수를 입력하는 창이 생긴다.
 
 #### 결과물
-<Image src={"/assets/images/posts/webstorm-live-templates/7.png"} alt="파일 생성과 동시에 자동으로 기본 구조가 잡힌 모습"/>
+<Image src={"/assets/images/posts/2023/10/webstorm-live-templates/7.png"} alt="파일 생성과 동시에 자동으로 기본 구조가 잡힌 모습"/>
 
 
 
