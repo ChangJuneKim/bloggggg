@@ -156,8 +156,8 @@ const createPostsDetailContent = () => {
 export const postsDetail = createView("상세 페이지", createPostsDetailContent);
 ```
 
-<Image src={`/assets/images/posts/spa-3/1.png`} alt={"아."} />
-<Image src={`/assets/images/posts/spa-3/2.png`} alt={""} width={400}/>
+<Image src={`/assets/images/posts/2023/09/spa-3/1.png`} alt={"아."} />
+<Image src={`/assets/images/posts/2023/09/spa-3/2.png`} alt={""} width={400}/>
 
 뭐 때문인지 모르겠어서 서버에 요청이 들어오는걸 콘솔에 추가해봤다.
 
@@ -179,12 +179,12 @@ app.use((req, res, next) => {
 
 posts 페이지를 요청했을 땐 우리가 필요한 파일을 알맞은 경로로 잘 찾아갔지만
 
-<Image src={`/assets/images/posts/spa-3/3.png`} alt={"http://localhost:3000/posts 페이지 요청"} />
+<Image src={`/assets/images/posts/2023/09/spa-3/3.png`} alt={"http://localhost:3000/posts 페이지 요청"} />
 
 <br/>
 문제가 됐던 `posts/1` 페이지로 요청을 했더니 이유를 알 수 있었다.
 
-<Image src={`/assets/images/posts/spa-3/4.png`} alt={"http://localhost:3000/posts/1 페이지 요청"} />
+<Image src={`/assets/images/posts/2023/09/spa-3/4.png`} alt={"http://localhost:3000/posts/1 페이지 요청"} />
 <br/>
 
 `/static/js` 가 아닌 `/posts/static/js` 로 요청이 가는 걸 보니 html에서 js를 요청할때 상대경로로 요청한 것 같다. 절대 경로로 바꿔주자!
@@ -216,9 +216,9 @@ posts 페이지를 요청했을 땐 우리가 필요한 파일을 알맞은 경�
 </html>
 ```
 
-<Image src={`/assets/images/posts/spa-3/5.png`} alt={""} />
+<Image src={`/assets/images/posts/2023/09/spa-3/5.png`} alt={""} />
 
-<Image src={`/assets/images/posts/spa-3/6.png`} alt={"편안"} width={400}/>
+<Image src={`/assets/images/posts/2023/09/spa-3/6.png`} alt={"편안"} width={400}/>
 
 `posts/:id` 에 대한 경로도 잘 동작하는걸 확인했으니 우리가 `route.js`에서 매치된 view 함수를 호출할 때 매개변수로 `getParmas(match)` 의 결과값인 `paramsObj`를 넘겨줬었다. 이제 그걸 활용해서, 상세페이지마다 다른 `params`를 사용해보자.
 
@@ -266,7 +266,7 @@ export const createView = (title, content) => (params) => {
 <br/>
 <br/>
 
-<Image src={`/assets/images/posts/spa-3/8.gif`} alt={"다이나믹 라우팅이 잘 동작하는 모습 posts/:id/:another 에 대한 경로는 없어서 404가 나온다"} />
+<Image src={`/assets/images/posts/2023/09/spa-3/8.gif`} alt={"다이나믹 라우팅이 잘 동작하는 모습 posts/:id/:another 에 대한 경로는 없어서 404가 나온다"} />
 
 ## 마치며
 
