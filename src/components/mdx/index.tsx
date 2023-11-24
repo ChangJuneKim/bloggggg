@@ -7,8 +7,10 @@ import Contacts from '@/components/mdx/Contacts';
 import Collapsible from '@/components/mdx/Collapsible';
 import Divider from '@/components/extended/Divider';
 import Thumbnail from '@/components/mdx/Thumbnail';
+import CodeSandBoxEmbed from '@/components/mdx/CodeSandBoxEmbed';
 
 export const components = {
+  CodeSandBoxEmbed,
   Alert,
   Image,
   Button,
