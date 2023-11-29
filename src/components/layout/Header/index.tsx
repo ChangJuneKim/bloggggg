@@ -47,7 +47,7 @@ export default function Header() {
           as={'header'}
           alignItems={'center'}
           className={`${header} ${
-            pathname === '/' || pathname.startsWith('/posts') ? isHomePath : ''
+            pathname === '/' || pathname.startsWith('/posts/categories') ? isHomePath : ''
           } ${isScrolled ? isTopColor : ''} `}
         >
           <Logo />
