@@ -67,9 +67,13 @@ globalStyle(`code[data-line-numbers-max-digits='3'] > [data-line]::before`, {
 
 globalStyle(`[data-rehype-pretty-code-fragment] pre`, {
   borderRadius: vars.borderRadius.base,
-  padding: vars.space[2],
   overflow: 'auto',
   scrollbarWidth: 'none',
+});
+
+globalStyle(`[data-rehype-pretty-code-fragment] code > span`, {
+  paddingLeft: vars.space['2'],
+  paddingRight: vars.space['2'],
 });
 
 globalStyle(`pre::-webkit-scrollbar`, {
