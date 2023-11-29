@@ -63,6 +63,10 @@ globalStyle(`${mdxSection} ul`, {
   listStylePosition: 'inside',
 });
 
+globalStyle(`${mdxSection} ul ul, ${mdxSection} ol ol`, {
+  paddingLeft: '1rem',
+});
+
 globalStyle(`${mdxSection} aside`, {
   display: 'none',
   '@media': {
