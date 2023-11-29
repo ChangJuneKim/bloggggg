@@ -6,9 +6,15 @@ import { CSSProperties } from 'react';
 interface ThumbnailProps {
   background?: CSSProperties['backgroundColor'];
   alt: string;
+  path: string;
   filename: string;
 }
-export default function Thumbnail({ filename, background = 'transparent', alt }: ThumbnailProps) {
+export default function Thumbnail({
+  path = 'thumbnails',
+  filename,
+  background = 'transparent',
+  alt,
+}: ThumbnailProps) {
   let backg;
 
   switch (filename.split('.')[0]) {
@@ -28,7 +34,7 @@ export default function Thumbnail({ filename, background = 'transparent', alt }:
   return (
     <Box className={ThumbnailStyle}>
       <Image
-        src={`/assets/images/thumbnails/${filename}`}
+        src={`/assets/images/${path}/${filename}`}
         style={{
           width: '100%',
           height: '45vh',
