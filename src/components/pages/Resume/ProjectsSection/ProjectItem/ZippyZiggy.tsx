@@ -4,12 +4,13 @@ import ProjectItem, {
 import siteConfig from '@/site.config';
 
 const zippyLinks: Array<ProjectResult> = [
-  { href: siteConfig.links.zippy.website, title: siteConfig.links.zippy.website, type: 'link' },
-  {
-    href: siteConfig.links.zippy.chromeWebStore,
-    title: '크롬 웹스토어',
-    type: 'link',
-  },
+  // { href: siteConfig.links.zippy.website, title: siteConfig.links.zippy.website, type: 'link' },
+  // {
+  //   href: siteConfig.links.zippy.chromeWebStore,
+  //   title: '크롬 웹스토어',
+  //   type: 'link',
+  // },
+  { href: '#지피지기', title: '2023-11-28 서비스 종료', type: 'link' },
   { href: siteConfig.links.zippy.projectGit, title: 'zippyziggy-v2 (깃허브)', type: 'github' },
 ];
 
