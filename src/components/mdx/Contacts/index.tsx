@@ -15,6 +15,7 @@ const contacts: Contacts = [
   { label: 'Github', link: siteConfig.links.github, svgId: 'github' },
   { label: 'Portfolio', link: siteConfig.links.portfolio, svgId: 'notion' },
   { label: 'kchang6869@gmail.com', link: siteConfig.links.email, svgId: 'email' },
+  { label: 'rss.xml', link: siteConfig.links.rss, svgId: 'rss' },
 ];
 
 export default function Contacts() {

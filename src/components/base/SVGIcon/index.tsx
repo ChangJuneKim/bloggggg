@@ -38,7 +38,8 @@ export type SVGIconNames =
   | 'sun'
   | 'moon'
   | 'system'
-  | 'tryCatch';
+  | 'tryCatch'
+  | 'rss';
 
 export type SVGIconProps = {
   id: SVGIconNames;

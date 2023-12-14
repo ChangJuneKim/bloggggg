@@ -12,6 +12,7 @@ const SiteConfig = {
   ],
 
   links: {
+    rss: `https://www.changjune.com/rss.xml`,
     github: 'https://github.com/ChangJuneKim',
     portfolio: 'https://right-longship-995.notion.site/ef3c5c9f65524f119c7bea33a8c95fcb?pvs=4',
     email: 'mailto:kchang6869@gmail.com',
