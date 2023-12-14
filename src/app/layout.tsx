@@ -36,6 +36,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ko" suppressHydrationWarning>
       <head>
         <meta name="naver-site-verification" content="c758199201ad8d709bff4424fcfddf12c298b478" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="changjune.com rss feed"
+          href="/rss.xml"
+        />
       </head>
       <body className={pretendard.className}>
         <SkipNavLink />
