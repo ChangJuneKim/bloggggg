@@ -28,6 +28,30 @@ interface PostPageProps {
   };
 }
 
+export const generateStaticParams = async () => {
+  return allPosts.map((post) => {
+    const date = new Date(post.createdAt);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    return {
+      year: year.toString(),
+      month: month.toString(),
+      slug: post._raw.sourceFileName.replace('.mdx', ''),
+    };
+  });
+};
+
+export const generateMetadata = async ({ params }: PostPageProps): Promise<Metadata> => {
+  const post = allPosts.find(
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+  );
+
+  return {
+    title: post?.title,
+    description: post?.description,
+  };
+};
+
 const mdxComponents: MDXComponents = {
   ...components,
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
@@ -137,27 +161,3 @@ const PostPage = ({ params }: PostPageProps) => {
 };
 
 export default PostPage;
-
-export const generateStaticParams = async () => {
-  return allPosts.map((post) => {
-    const date = new Date(post.createdAt);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    return {
-      year: year.toString(),
-      month: month.toString(),
-      slug: post._raw.sourceFileName.replace('.mdx', ''),
-    };
-  });
-};
-
-export const generateMetadata = async ({ params }: PostPageProps): Promise<Metadata> => {
-  const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
-  );
-
-  return {
-    title: post?.title,
-    description: post?.description,
-  };
-};
