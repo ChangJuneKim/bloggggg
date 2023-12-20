@@ -4,8 +4,19 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   experimental: {
     scrollRestoration: true,
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/posts/pages/:page',
+        destination: '/posts/categories/all/pages/:page',
+        permanent: true,
+      },
+    ];
   },
 };
 
