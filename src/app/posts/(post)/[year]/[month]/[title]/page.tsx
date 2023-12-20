@@ -7,7 +7,7 @@ import { SkipNavContent } from '@/components/a11y';
 import { Box, SVGIcon, Tag } from '@/components/base';
 import { space } from '@/styles/tokens/space';
 import Category, { CategoryType } from '@/components/block/PostCard/Category';
-import { postTitle } from '@/app/posts/(post)/[year]/[month]/[slug]/index.css';
+import { postTitle } from '@/app/posts/(post)/[year]/[month]/[title]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
@@ -24,7 +24,7 @@ interface PostPageProps {
   params: {
     year: string;
     month: string;
-    slug: string;
+    title: string;
   };
 }
 
@@ -36,15 +36,19 @@ export const generateStaticParams = async () => {
     return {
       year: year.toString(),
       month: month.toString(),
-      slug: post._raw.sourceFileName.replace('.mdx', ''),
+      title: post._raw.sourceFileName.replace('.mdx', ''),
     };
   });
 };
 
 export const generateMetadata = async ({ params }: PostPageProps): Promise<Metadata> => {
   const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.title}`
   );
+
+  if (!post) {
+    return {};
+  }
 
   return {
     title: post?.title,
@@ -65,7 +69,7 @@ const Mdx = ({ post }: { post?: Post }) => {
 
 const PostPage = ({ params }: PostPageProps) => {
   const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.title}`
   );
   const sortedPosts = descAllPosts();
   if (!post) {
@@ -89,7 +93,7 @@ const PostPage = ({ params }: PostPageProps) => {
   const uniqueTags = getTagsOfPost(post);
   // 현재 글의 인덱스
   const currentIndex = sortedPosts.findIndex(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.slug}`
+    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.title}`
   );
   // 이전 글과 다음 글의 인덱스
   const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
