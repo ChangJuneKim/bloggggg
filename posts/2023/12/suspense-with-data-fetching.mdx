@@ -5,11 +5,12 @@ category: dev
 createdAt: 2023-12-21
 tags:
 - title: "React"
-thumbnail: /assets/images/thumbnails/js.png
+thumbnail: /assets/images/thumbnails/react.png
 ---
-<Thumbnail filename={"js.png"} alt={'React Suspense를 파헤쳐보자'}/>
+<Thumbnail filename={"react.png"} alt={'React Suspense를 파헤쳐보자'}/>
 
 <Divider/>
+
 
 ## 들어가며
 
@@ -190,6 +191,7 @@ export default Countries;
 `Suspense`를 사용한 `Render as You Fetch` 또는 `Render while Fetch` 라고 불리는 패턴은 `Fetch on Render`와 `Fetch then Render`의 장점을 결합했다. 이 패턴에서는 **컴포넌트가 렌더링되면서 동시에 데이터를 페칭**한다. `Suspense`는 데이터가 준비되지 않은 경우 대체 UI를 보여주며, 데이터가 준비되면 주 UI로 전환된다. 이 방식은 `waterfall` 문제를 해결하고 사용자 경험을 향상시킬 수 있다.
 
 <Image src={'/assets/images/posts/2023/12/suspense-with-data-fetching/4.png'} alt={"Render as You Fetch"} />
+
 <Alert>
   🤔 어떻게 컴포넌트가 렌더링되면서 동시에 데이터를 페칭할 수 있죠?
 
@@ -209,8 +211,9 @@ export default Countries;
   </Collapsible>
 </Alert>
 
-## Suspense와 ErrorBoundary로 우아하게 비동기 다루기
+## Suspense와 Error Boundary로 우아하게 비동기 다루기
 
+<Image src={'/assets/images/posts/2023/12/suspense-with-data-fetching/5.png'} alt={"Suspense and ErrorBoundary"} />
 ### 기존의 useEffect 사용
 ```jsx
 import React, { useEffect, useState } from 'react';
@@ -307,7 +310,84 @@ const CountryList = () => {
 처음 `Countries` 컴포넌트가 마운트되면 `Time`과 `CountryList`를 실행하고 이는 `resource.read()` 를 실행하게 된다.
 이때 요청이 아직 resolve 되지 않으면 `Suspense`의 `fallback`을 렌더링 하게 된다. 만약 에러가 발생하면 가장 가까운 `ErrorBoundary`의 `fallback`을 렌더링 한다.
 
+### fetchData (wrapPromise) 중요!
 
+```js title="wrapPromise.js"
+function wrapPromise(promise) {
+  let status = 'pending'; // 인수의 상태
+  let response; // Promise의 결과 저장
+
+  const suspender = promise.then(
+    res => {
+      status = 'success';
+      response = res;
+    },
+    err => {
+      status = 'error';
+      response = err;
+    },
+  );
+
+  const read = () => {
+    switch (status) {
+      case 'pending':
+        throw suspender;
+      case 'error':
+        throw response;
+      default:
+        return response;
+    }
+  };
+
+  return { read };
+}
+```
+이 함수는 프로미스를 감싸서, `Suspense`가 비동기 데이터를 처리할 수 있도록 하는 역할을 한다.
+프로미스의 상태(대기, 성공, 실패)에 따라 다르게 동작하며, 데이터가 준비되지 않았을 경우 `Suspense`에 의해 처리된다.
+- 대기 -> promise throw
+- 성공 -> resolve된 데이터 반환
+- 실패 -> 에러 throw
+
+
+
+<br/>
+<br/>
+
+`fetchData` 함수는 API에서 데이터를 가져오는 네트워크 요청을 수행하고, 이를 `wrapPromise`로 감싸서 `Suspense`가 처리할 수 있는 형태로 만드는 역할을 한다. 구현 방법은 다음과 같다.
+
+
+```js
+import wrapPromise from './wrapPromise';
+
+function fetchData(url) {
+  const promise = fetch(url)
+    .then(response => response.json())
+    .catch(error => {
+      throw error;
+    });
+
+  return wrapPromise(promise);
+}
+
+export default fetchData;
+```
+
+1. **네트워크 요청 수행:** `fetchData` 함수는 주어진 URL로부터 데이터를 가져오는 네트워크 요청을 수행한다. 이를 위해 `fetch API` 또는 `axios`와 같은 라이브러리를 사용할 수 있다.
+
+2. **Promise 처리:** 네트워크 요청은 `Promise`를 반환한다. 이 `Promise`는 데이터의 로드가 완료되었을 때 결과를 반환하거나, 오류가 발생했을 때 오류를 반환한다.
+
+3. **wrapPromise 함수 사용:** `fetchData` 함수는 이 `Promise`를 `wrapPromise` 함수에 전달한다. `wrapPromise` 함수는 이 `Promise`를 처리하여 `Suspense`가 이해할 수 있는 형태로 변환한다.
+
+4. **응답 객체 반환:** `fetchData` 함수는 최종적으로 `wrapPromise` 함수에서 반환된 객체를 반환한다. 이 객체는 `read` 메서드를 통해 데이터를 동기적으로 읽을 수 있게 해준다.
+
+이렇게 구현된 `fetchData` 함수는 `React` 컴포넌트에서 `Suspense`와 함께 사용될 수 있다. 데이터가 준비되지 않았을 때는 `Suspense`의 `fallback`이 표시되고, 에러가 발생했을 때는 가장 가까운 `ErrorBoundary`의 `fallback`이 표시된다.
+
+## 마치며
+
+이전에는 `Suspense`를 단순히 로딩 처리를 위한 도구로만 인식했지만, 이제는 그 이상의 것으로 인식하게 되었다.
+마치 `JavaScript`의 `Promise`가 복잡한 비동기 로직을 간결하고 선언적으로 다루도록 도와주는 것처럼,
+`Suspense`는 `React`에서 데이터 로딩과 관련된 UI 표현을 보다 명확하고 효과적으로 관리할 수 있게 만들어 주는 것 같다.
+`Suspense`와 `ErrorBoundary`를 통해 우리는 컴포넌트의 로딩 상태와 에러 상태를 더 직관적으로 처리하고, 코드를 더 간결하게 처리할 수 있었다.
 
 
 

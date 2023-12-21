@@ -27,6 +27,9 @@ export default function Thumbnail({
     case 'fire':
       backg = '#FAFBE4';
       break;
+    case 'react':
+      backg = '#222222';
+      break;
     default:
       backg = null;
   }
