@@ -12,8 +12,23 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/posts/:page',
+        destination: '/posts/categories/all/pages/1',
+        permanent: true,
+      },
+      {
+        source: '/posts/pages/((?!\\d).*)',
+        destination: '/posts/categories/all/pages/1',
+        permanent: true,
+      },
+      {
         source: '/posts/pages/:page',
         destination: '/posts/categories/all/pages/:page',
+        permanent: true,
+      },
+      {
+        source: '/posts/categories/all',
+        destination: '/posts/categories/all/pages/1',
         permanent: true,
       },
     ];

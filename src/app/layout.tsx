@@ -11,10 +11,7 @@ import { Footer, Header } from '@/components/layout';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://changjune.com'),
-  title: {
-    default: SiteConfig.title,
-    template: `${SiteConfig.title} | %s`,
-  },
+  title: SiteConfig.title,
   description: '학습하는 개발자, 함께 성장하는 공간입니다.',
   robots: {
     index: true,
