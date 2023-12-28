@@ -248,6 +248,8 @@ function DataFetchingComponent() {
 }
 ```
 
+이 방식에서는 데이터 로딩, 에러 처리, 그리고 실제 데이터 렌더링이 같은 컴포넌트 안에서 이루어진다. 관리하는 데이터가 많아 질수록 이 코드의 가독성과 재사용성에 영향을 미칠 수 있다.
+
 
 ### Suspense와 ErrorBoundary를 사용
 
@@ -381,6 +383,19 @@ export default fetchData;
 4. **응답 객체 반환:** `fetchData` 함수는 최종적으로 `wrapPromise` 함수에서 반환된 객체를 반환한다. 이 객체는 `read` 메서드를 통해 데이터를 동기적으로 읽을 수 있게 해준다.
 
 이렇게 구현된 `fetchData` 함수는 `React` 컴포넌트에서 `Suspense`와 함께 사용될 수 있다. 데이터가 준비되지 않았을 때는 `Suspense`의 `fallback`이 표시되고, 에러가 발생했을 때는 가장 가까운 `ErrorBoundary`의 `fallback`이 표시된다.
+
+## Note - 알아두기
+<Alert status="info">
+아직 데이터 페칭에 `Suspense`를 도입하는 공식적인 방법은 지원되지 않는다. **데이터 소스를 `Suspense`와 통합하기 위한 `React` 공식 API는 미래에 출시할 계획**이라고 한다.
+공식문서에서도 `Suspense`가 지원하는 데이터 소스를 사용하는 것을 추천한다. 현재 `Suspense`는 다음과 같은 경우에 활성화된다.
+<br/>
+1. **Suspense를 지원하는 프레임워크나 라이브러리를 이용하자**: `Relay`나 `Next.js`와 같은 프레임워크에서 `Suspense`를 활용한 데이터 페칭을 지원한다.
+`React Router Dom(v6)`이나 `ReactQuery(v4)` 에서는 실험적 기능으로 `suspense: boolean` 옵션을 켜주면 사용할 수 있고 5버전에서는 그 옵션이 사라지고 `useSuspenseQuery` 등을 이용하면 된다.
+
+2. **`Suspense`는 `Effect`나 이벤트 핸들러 내부에서 페칭하는 경우를 감지하지 않는다.**
+
+</Alert>
+
 
 ## 마치며
 
