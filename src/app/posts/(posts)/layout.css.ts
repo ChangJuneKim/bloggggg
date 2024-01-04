@@ -70,7 +70,7 @@ globalStyle(`${mdxSection} ul ul, ${mdxSection} ol ol`, {
 globalStyle(`${mdxSection} aside`, {
   display: 'none',
   '@media': {
-    [minMediaQuery('xl')]: {
+    [`screen and (min-width: 1380px)`]: {
       gridColumn: '3',
       display: 'block',
     },

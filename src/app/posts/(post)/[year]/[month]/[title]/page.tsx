@@ -7,7 +7,7 @@ import { SkipNavContent } from '@/components/a11y';
 import { Box, SVGIcon, Tag } from '@/components/base';
 import { space } from '@/styles/tokens/space';
 import Category, { CategoryType } from '@/components/block/PostCard/Category';
-import { postTitle } from '@/app/posts/(post)/[...slug]/index.css';
+import { postTitle } from '@/app/posts/(post)/[year]/[month]/[title]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
@@ -22,12 +22,15 @@ export const dynamic = 'error';
 
 interface PostPageProps {
   params: {
-    slug: string[];
+    year: string;
+    month: string;
+    title: string;
   };
 }
 
 async function getPostFromParams(params: PostPageProps['params']) {
-  const slug = params?.slug?.join('/');
+  const slug = `${params?.year}/${params.month}/${params.title}`;
+
   const post = allPosts.find((post) => post.slugAsParams === slug);
 
   if (!post) {
@@ -39,8 +42,11 @@ async function getPostFromParams(params: PostPageProps['params']) {
 
 export const generateStaticParams = async () => {
   return allPosts.map((post) => {
+    const [year, month, title] = post.slugAsParams.split('/');
     return {
-      slug: post.slugAsParams.split('/'),
+      year,
+      month,
+      title,
     };
   });
 };
@@ -93,8 +99,10 @@ const PostPage = async ({ params }: PostPageProps) => {
 
   const uniqueTags = getTagsOfPost(post);
   // 현재 글의 인덱스
-  const currentIndex = sortedPosts.findIndex((post) => post.slugAsParams === params.slug.join('/'));
-  // 이전 글과 다음 글의 인덱스
+  const currentIndex = sortedPosts.findIndex(
+    (post) => post.slugAsParams === `${params?.year}/${params.month}/${params.title}`
+  );
+  // 이전 글과 다음 글의 인덱스const
   const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
