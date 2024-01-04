@@ -54,9 +54,11 @@ export const Post = defineDocumentType(() => ({
   computedFields: {
     url: {
       type: 'string',
-      resolve: (doc) => {
-        return `/posts/${doc._raw.flattenedPath}`;
-      },
+      resolve: (doc) => `/posts/${doc._raw.flattenedPath}`,
+    },
+    slugAsParams: {
+      type: 'string',
+      resolve: (doc) => doc._raw.flattenedPath.split('/').join('/'),
     },
     readingTime: {
       type: 'json',

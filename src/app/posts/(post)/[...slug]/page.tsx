@@ -7,7 +7,7 @@ import { SkipNavContent } from '@/components/a11y';
 import { Box, SVGIcon, Tag } from '@/components/base';
 import { space } from '@/styles/tokens/space';
 import Category, { CategoryType } from '@/components/block/PostCard/Category';
-import { postTitle } from '@/app/posts/(post)/[year]/[month]/[title]/index.css';
+import { postTitle } from '@/app/posts/(post)/[...slug]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
@@ -22,29 +22,31 @@ export const dynamic = 'error';
 
 interface PostPageProps {
   params: {
-    year: string;
-    month: string;
-    title: string;
+    slug: string[];
   };
+}
+
+async function getPostFromParams(params: PostPageProps['params']) {
+  const slug = params?.slug?.join('/');
+  const post = allPosts.find((post) => post.slugAsParams === slug);
+
+  if (!post) {
+    return null;
+  }
+
+  return post;
 }
 
 export const generateStaticParams = async () => {
   return allPosts.map((post) => {
-    const date = new Date(post.createdAt);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
     return {
-      year: year.toString(),
-      month: month.toString(),
-      title: post._raw.sourceFileName.replace('.mdx', ''),
+      slug: post.slugAsParams.split('/'),
     };
   });
 };
 
 export const generateMetadata = async ({ params }: PostPageProps): Promise<Metadata> => {
-  const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.title}`
-  );
+  const post = await getPostFromParams(params);
 
   if (!post) {
     return {};
@@ -67,11 +69,10 @@ const Mdx = ({ post }: { post?: Post }) => {
   return <Content components={mdxComponents} />;
 };
 
-const PostPage = ({ params }: PostPageProps) => {
-  const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.title}`
-  );
+const PostPage = async ({ params }: PostPageProps) => {
+  const post = await getPostFromParams(params);
   const sortedPosts = descAllPosts();
+
   if (!post) {
     return (
       <SkipNavContent>
@@ -92,9 +93,7 @@ const PostPage = ({ params }: PostPageProps) => {
 
   const uniqueTags = getTagsOfPost(post);
   // 현재 글의 인덱스
-  const currentIndex = sortedPosts.findIndex(
-    (post) => post._raw.flattenedPath === `${params.year}/${params.month}/${params.title}`
-  );
+  const currentIndex = sortedPosts.findIndex((post) => post.slugAsParams === params.slug.join('/'));
   // 이전 글과 다음 글의 인덱스
   const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
