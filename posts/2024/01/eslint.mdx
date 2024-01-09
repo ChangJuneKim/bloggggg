@@ -1,0 +1,323 @@
+---
+title: '[JavaScript] ESLint 한 입'
+description: 🤔 근데 ESLint는 어떻게 틀린 코드인걸 알아채는거죠?
+category: dev
+createdAt: 2024-01-09
+tags:
+- title: "JavaScript"
+thumbnail: /assets/images/posts/2024/01/eslint/1.png
+---
+<Thumbnail path={"posts/2024/01/eslint"} filename={"1.png"} alt={'ESLint로 코드를 깨끗하게 해봅시다.'} background="#fff"/>
+<Divider/>
+
+## 들어가며
+
+안써본 사람은 있지만, 한 번만 써본 사람은 없다는 `ESLint`에 대해서 알아보자.
+개인 프로젝트에서는 크게 필요성을 느끼지 못하지만, 협업 환경에서는 개발자들의 코딩 스타일이 다양하기 때문에
+코드의 일관성을 유지하는 것이 중요하다. 이런 문제를 해결하는 효과적인 방법 중 하나가 `ESLint`다.
+`Prettier`와 함께 사용하면 더 강력하다! 하지만 이번 포스팅에서는 `ESLint`가 뭔지, 여태 잘 적용해서 사용해왔지만
+어떻게 린트가 동작하는지에 대해 알아볼 예정이다.
+
+## ESLint 란?
+<Alert>
+  <ExternalLink href={'https://eslint.org/'}>ESLint</ExternalLink><br/>
+  ESLint statically analyzes your code to quickly find problems. It is built into most text editors and you can run ESLint as part of your continuous integration pipeline.
+
+  `ESLint`는 코드를 정적으로 분석하여 문제를 빠르게 찾아내는 도구라고 한다.
+</Alert>
+
+
+`ESLint`(정적 분석 도구)는 코드를 정적으로 분석해서 문법 오류나 오타 등의 잠재적 에러를 찾아내고, 코딩 컨벤션 검증을 자동화할 수 있다. 대형회사인 `Airbnb`나 `Naver` 등 에서는
+자기들의 `ESLint` 설정을 공개해놓기도 한다. 그만큼 신뢰할 수 있는 도구이다. 그럼 어떤 방법으로 코드를 정적 분석할 수 있는 걸까? `ESLint`는 자바스크립트 구문 분석기인
+<ExternalLink href={'https://github.com/eslint/espree'}>Espree</ExternalLink>를 이용해서 코드를 문자열로 읽은 뒤 코드를 구조화 한다. 여기서 구조화한 트리를
+<ExternalLink href={'https://ko.wikipedia.org/wiki/%EC%B6%94%EC%83%81_%EA%B5%AC%EB%AC%B8_%ED%8A%B8%EB%A6%AC'}>AST(Abstract Syntax Tree)</ExternalLink>라고 하고, 이 트리를 가지고 여러가지 `eslint rule`과 대조해서 경고를 통해 코드를 작성하는 개발자에게 알려준다.
+
+### Espree
+`Espree`는 자바스크립트 코드를 어떻게 파싱하는걸까? <ExternalLink href={'https://astexplorer.net/'}>AST Explorer</ExternalLink>에서 코드가 어떤 형태로 구조화 되는지
+직접 눈으로 확인할 수 있다. (우측 결과 화면에서 `Tree`형태, `JSON`형태로 토글 할 수 있다.)
+
+```js
+const a = 1;
+```
+이 코드를 파싱한 결과를 보면
+
+```json {5-30}
+{
+  "type": "Program",
+  "start": 0,
+  "end": 12,
+  "body": [ // 프로그램의 본문을 구성하는 요소들, 지금은 const a = 1; 하나만 있다.
+    {
+      "type": "VariableDeclaration",
+      "start": 0,
+      "end": 12,
+      "declarations": [
+        {
+          "type": "VariableDeclarator", // 변수 선언
+          "start": 6,
+          "end": 11,
+          "id": {
+            "type": "Identifier", // 변수 이름
+            "start": 6,
+            "end": 7,
+            "name": "a" // 변수 a 는
+          },
+          "init": { // 변수 초기화
+            "type": "Literal", // 리터럴 값
+            "start": 10,
+            "end": 11,
+            "value": 1, // 1으로 초기화 된다.
+            "raw": "1"
+          }
+        }
+      ],
+      "kind": "const" // 변수 선언의 종류 const인지 let인지 var인지
+    }
+  ],
+  "sourceType": "module"
+}
+```
+
+간단하게 변수 a에 1을 할당하는 코드임에도 굉장히 자세하고 다양한 정보가 담겨있는 것을 확인할 수 있다.
+코드의 시작점과 끝, 변수인지 함수인지(화살표 함수인지) 등등 아주 상세한 정보가 담겨있다. 타입스크립트인 경우에도 `espree` 기반 파서가 존재해서,
+분석할 수 있다. `AST Explorer`에서 결과물을 보면 자바스크립트를 구조화 했을 때 나온 결과에 더해서 `type`에 관한 정보도 추가적으로 결과에 보여진다.
+
+<Image src={'/assets/images/posts/2024/01/eslint/2.png'} alt={"typescript 코드 결과"} />
+
+`ESLint`는 이 `espree`가 코드를 분석한 결과를 가지고 검사를 수행하고, 지정해놓은 규칙에 따라 어디가 잘못됐는지 그리고 어떻게 수정해야하는 지 개선 방법을 제시해준다.
+이 규칙에 대해서 알아보자.
+
+### ESLint Plugin과 Config
+
+ESLint 설정을 할때 `eslint-plugin-` 이나 `eslint-config-` 으로 시작하는 다양한 npm 패키지가 존재한다. `plugin`과 `config`의 역할과 차이점을 살펴보자.
+
+#### Plugin
+플러그인은 새로운 규칙들을 `ESLint`에 추가한다. 이런 플러그인들은 특정 프로그래밍 패턴, 라이브러리, 프레임워크에 대한 추가적인 검사 규칙을 제공한다.
+예를 들어 `eslint-plugin-react`는 `useEffect` 의 의존성 배열을 체크해주거나, 컴포넌트에 `key` 속성을 주지 않은 경우 등 다양한 부분을 체크해준다.
+
+#### Config
+Config로 시작하는 패키지는 앞서 말했던 `Plugin`들과 `rules`를 묶어서 제공하는 설정파일로 생각하면 된다. 대표적으로 `eslint-config-airbnb`, `eslint-config-prettier`, `eslint-config-naver` 등 다양한 패키지가 존재한다.
+<Image src={'/assets/images/posts/2024/01/eslint/3.png'} alt={"config 커다란 설정파일"} />
+<Image src={'/assets/images/posts/2024/01/eslint/4.png'} alt={"eslint-config-next의 내부 코드"} />
+
+#### **.eslintrc 설정 파일에서**
+**.eslintrc 설정 파일에서** `extends`는 다른 설정파일을 상속(extends)받아서 사용하기 위해 사용된다. `plugins`는 추가적인 규칙이나 기능을 제공하는 플러그인을 추가할 때 사용된다.
+`rules`에는 그 플러그인을 어겼을 때 동작하고픈걸 입력해주면 된다.(활성화, 비활성화, 에러, 경고 등등)
+
+## 나만의 Custom ESLint Rule 만들기
+프로젝트를 진행하다보면, 팀 내에서 코딩 컨벤션을 유지하는 것이 중요하다. 그걸 위해서 `ESLint`의 도움을 받는데, 가끔 팀이 정한 특정한 규칙을 코드에 반영하고 싶어도 기존에 제공되는
+`ESLint` 설정이나 플러그인으로는 충분히 대응할 수 없는 상황이 발생하는 경우가 있다. 이 때, 사용자가 직접 규칙을 만들어서 적용할 수 있다. 이미 존재하는 규칙을 커스터마이징 해서 사용하는 방법과
+아예 새로운 규칙을 만드는 방법이 있는데 여기서는 후자의 방법을 예시로 들어서 설명한다.
+
+예를 들어 변수의 길이는 최소 2글자 이상만 허용하고 싶은 `ESLint` 규칙을 생성한다고 해보자. 규칙을 생성하기 위해서는
+먼저 변수를 선언했을 때, `AST`가 어떻게 생성됐는 지 확인해야한다.
+
+```js
+const a = "1234"
+```
+변수명의 길이가 1인 코드를 작성했다.
+
+```json {11, 18, 20, 35}
+{
+  "type": "Program",
+  "start": 0,
+  "end": 17,
+  "range": [
+    0,
+    17
+  ],
+  "body": [
+    {
+      "type": "VariableDeclaration", // 1) 변수선언 전체를 나타냄
+      "start": 0,
+      "end": 17,
+      "range": [
+        0,
+        17
+      ],
+      "declarations": [ // 2) 변수 선언 목록
+        {
+          "type": "VariableDeclarator", // 3) const를 제외한 a = "1234";
+          "start": 6,
+          "end": 16,
+          "range": [
+            6,
+            16
+          ],
+          "id": {
+            "type": "Identifier",
+            "start": 6,
+            "end": 7,
+            "range": [
+              6,
+              7
+            ],
+            "name": "a" // 4) 우리가 필요한 것
+          },
+          "init": {
+            "type": "Literal",
+            "start": 10,
+            "end": 16,
+            "range": [
+              10,
+              16
+            ],
+            "value": "1234",
+            "raw": "\"1234\""
+          }
+        }
+      ],
+      "kind": "const"
+    }
+  ],
+  "sourceType": "module"
+}
+```
+
+1) **VariableDeclaration**: 변수 선언 전체를 나타낸다. `const a = "1234"{:js}`
+2) **declarations**: 변수 선언 목록을 나타낸다. 여기서는 `const a = "1234"{:js}` 라서 배열에 하나밖에 없지만,
+`const a = "1234", b = "56";{:js}` 이런 식으로 선언하면 `declarations` 배열에 요소가 추가된다.
+3) **VariableDeclarator**: `const`를 제외한 `a = "1234"{:js}` 부분을 의미한다.
+4) **name**: 변수명을 의미하는데, 우리는 이 `name`의 길이를 체크해서 2보다 작다면 경고를 해주는 린트 룰을 생성할 수 있을 것이다.
+
+## ESLint Rule(Plugin) 프로젝트 생성하기
+
+ESLint 규칙을 작성하기 위해, 앱 프로젝트와 별개로 플러그인 프로젝트를 생성해야한다. 플러그인은 무조건 `eslint-plugin-` 으로 시작해야 하기 때문에
+컨벤션에 맞춰서 생성해주자.
+
+```bash
+mkdir eslint-plugin-my
+cd eslint-plugin-my
+npm init --y
+touch index.js
+```
+<br/>
+`index.jx` 파일을 생성하고 규칙을 작성한다.
+
+```js
+module.exports.rules = {
+  // ... meta 필드
+
+  // 룰 이름을 선언한다.
+  "variable-length": {
+    create: function (context) {
+      return {
+        // VariableDeclarator 노드가 발견될 때 실행되는 함수
+        VariableDeclarator: (node) => {
+          // node.id.name은 변수의 이름을 가지고 있다. (위쪽 json 참고)
+          // 여기서는 변수 이름의 길이를 검사합니다.
+          if (node.id.name.length < 2) {
+            context.report({
+              node,
+              message: "Variable names should be longer than 1 character"
+            });
+          }
+        }
+      };
+    }
+  }
+};
+```
+
+생략한 `meta` 필드는 룰에 대한 정보를 나타내는 필드다. 실제로 규칙이 동작하기 위한 코드와는 관련이 없기 때문에 생략했다.
+
+`create` 함수는 객체를 반환한다. 이 객체에서는 코드 스멜을 감지할 선택자나 이벤트명을 선언할 수 있다. 이 코드의 핵심은
+`VariableDeclarator` 노드에 대한 콜백함수인데 이 함수는 각 변수 선언자 노드(`VariableDeclarator`)가 발견될 때 마다 호출된다.
+함수 내부에서는 `node.id.name`을 통해 변수 이름에 접근하고, 이 이름의 길이가 2보다 작은지 검사한다. 만약 작다면
+`context.report` 메서드로 `ESLint`에게 경고를 보고한다.
+
+만약 `meta` 필드에서 메세지를 작성해놨다면 `meta.messages` 가져올 `messageId`를 `report`에 전달해주면 그 메세지를 사용할 수 도 있고,
+`fix`를 통해서 자동으로 수정할 수 있는 코드를 넣어 줄 수도 있다. (예, `useEffect`의 의존성 배열을 자동으로 넣어주는 그런 코드)
+
+### 앱에 커스텀 규칙 적용하기
+플러그인 프로젝트를 작성했으니 앱 프로젝트로 돌아가서 우리가 만든 린트 규칙을 적용해보자.
+
+플러그인을 우리 프로젝트에서 적용하기 위해서는 플러그인 프로젝트를 npm에 등록하고, 앱에서 설치해야 하는데 플러그인을 publish 하지 않고
+로컬에서 연결하는 방법도 있다.
+
+플러그인 프로젝트에서 아래의 명령어로 링크를 생성한다.
+```bash
+cd eslint-plugin-my
+npm link
+```
+<br/>
+
+그 다음 앱 프로젝트에서 연결해주자
+```bash
+cd my-app
+npm link eslint-plugin-my
+```
+
+<Alert status="warning">VSCode든 웹스톰이든 이렇게 해주고 나서 IDE를 껐다 켜야 인식을 하는 버그? 같은게 존재하더라.</Alert>
+
+<Image src={'/assets/images/posts/2024/01/eslint/5.png'} alt={"연결된 모습"} />
+
+연결이 잘 됐다면, 앱 프로젝트의 `ESLint` 설정 파일에서
+```js {3, 10}
+module.exports = {
+  // ...
+  plugins: ['react-refresh', 'my'], // <-
+  rules: {
+    'react-refresh/only-export-components': [
+      'warn',
+      {allowConstantExport: true},
+    ],
+    'react/prop-types': 'warn',
+    'my/variable-length': 'warn' // <-
+  }
+};
+```
+플러그인 배열에 우리가 만든 `eslint-plugin-my` 에서의 `my`를 입력하고, `rules` 를 설정할 땐, 우리 `my(rules)` 내부의 `variable-length`를 어떻게 제어할 것인지 작성해주면 된다.
+
+이제 앱에서 `const a = 1;{:js}` 처럼 변수명이 한 글자라면 경고를 발생시킬 것이다.
+<Image src={'/assets/images/posts/2024/01/eslint/6.png'} alt={"변수명 길이가 1인 경우"} />
+
+<Collapsible summary={"map((_, index) => ) 처럼 `_`는 제외하고 싶은 경우"}>
+  ```js {4-6, 8}
+  module.exports = {
+      'var-length': (context) => ({
+        VariableDeclarator: (node) => {
+          const { options } = context
+          const allowedList = options.find((opt) => 'allowed' in opt)
+          const allowed = allowedList.allowed || []
+
+          if (node.id.name.length < 2 && !allowed.includes(node.id.name)) { // 조건 추가
+            context.report(
+              node,
+              `Variable names should be longer than 1 character ${node.type}`,
+            )
+          }
+        },
+      }),
+    },
+  }
+  ```
+
+  ```js {8}
+  module.exports = {
+  // ...
+  rules: {
+    // ...
+    {allowConstantExport: true},
+      ],
+      'react/prop-types': 'warn',
+      'my/variable-length': ['warn', { allowed: ['_'] }] // <-
+    }
+  };
+  ```
+  <Image src={'/assets/images/posts/2024/01/eslint/7.png'} alt={"_ 는 경고가 발생하지 않는다."} />
+</Collapsible>
+
+## 마치며
+그냥 에어비엔비 때려박고 `rules` 검색해서 `warn` 으로 바꿔가면서 `ESLint`를 사용했었지만, 이번 포스팅을 작성하면서
+단순히 규칙을 적용하는 것을 넘어서, 그 규칙들이 왜 중요하고 어떻게 작동하는지를 이해하게 되었다.
+
+## 참고자료
+<p><ExternalLink href={'https://yceffort.kr/2022/06/how-to-write-my-own-eslint-rules'}>나만의 eslint 룰 만들어보기 - yceffort</ExternalLink></p>
+<p><ExternalLink href={'https://wikibook.co.kr/react-deep-dive/'}>모던 리액트 Deep Dive</ExternalLink></p>
+<p><ExternalLink href={'https://essem-dev.medium.com/%EC%BB%A4%EC%8A%A4%ED%85%80-eslint-%EA%B7%9C%EC%B9%99-%EB%A7%8C%EB%93%A4%EA%B8%B0-79626f908f9e'}>커스텀 ESLint 규칙 만들기 - essem</ExternalLink></p>
+
+
+
+
+
