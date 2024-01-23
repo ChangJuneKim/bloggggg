@@ -128,3 +128,22 @@ thumbnail: /assets/images/thumbnails/js.png
 #### ISR의 단점
 - **초기 요청 지연**: 캐시되지 않은 페이지에 대한 첫 요청은 생성 시간이 필요하므로 약간의 지연이 발생할 수 있습니다.
 - **데이터 일관성 문제**: 설정된 갱신 주기에 따라 최신 데이터가 반영되기까지 지연될 수 있습니다.
+
+## 각 렌더링 방식 특성표
+| 기술 | 렌더링 위치 | 초기 로딩 성능 | SEO | 실시간 데이터 | 보안 |
+| --- | --- | --- | --- | --- | --- |
+| CSR | 브라우저 | 느림 (모든 자바스크립트 로딩) | 비교적 불리 | 가능  | 클라이언트 측 렌더링으로 인한 취약성 |
+| SSR | 서버 | 빠름 (미리 렌더링된 페이지) | 유리 | 가능 | 서버 측 렌더링으로 인한 강화 |
+| SSG | 서버(빌드 시간) | 매우 빠름 (미리 생성된 정적 파일) | 매우 유리 | 불가능 | .. |
+| ISR | 요청 시 + 빌드 시간 | 빠름 (인기 있는 페이지 미리 생성 후 요청에 따라 생성) | 유리 (설정에 따라 최적화 가능) | 가능 (재생성 시 최신 데이터 반영) | .. |
+
+## 마치며
+이번 포스팅에서는 다양한 웹 렌더링 기술들 - `CSR`, `SSR`, `SSG`, `ISR`에 대해 알아봤습니다.
+각각의 기술이 가진 고유의 특성과 장단점을 비교하면서, 어떤 상황에 어떤 렌더링 방식을 선택해야 하는가에 대한 이해를 돕고자 했습니다.
+글을 쭉 읽으면서 느끼셨겠지만 ***"완벽한 렌더링 솔루션은 없다."***고 할 수 있겠습니다. 프로젝트의 특성과 요구사항에 맞게 최적의 렌더링 방식을
+선택하는 것이 중요할 것 같습니다.
+
+## 참고자료
+
+<p><ExternalLink href={'https://www.seowebdesignllc.com/a-complete-guide-to-incremental-static-regeneration-isr-with-next-js/'}>A Complete Guide To Incremental Static Regeneration (ISR) With Next.Js</ExternalLink></p>
+<p><ExternalLink href={'https://bootcamp.uxdesign.cc/understanding-csr-ssr-ssg-and-isr-a-next-js-perspective-fcaf36686de6'}>Understanding CSR, SSR, SSG, and ISR: A Next.js Perspective</ExternalLink></p>
