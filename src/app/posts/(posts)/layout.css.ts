@@ -130,3 +130,31 @@ globalStyle(`${postsSection} li`, {
 // globalStyle(`${mdxSection} article`, {
 //   maxWidth: '1200px',
 // });
+
+globalStyle(`${mdxSection} table`, {
+  borderRadius: vars.borderRadius.base,
+  fontSize: '12px',
+  fontWeight: 'normal',
+  border: 'none',
+  borderCollapse: 'collapse',
+  backgroundColor: 'white',
+});
+
+globalStyle(`${mdxSection} table thead`, {
+  textAlign: 'center',
+});
+
+globalStyle(`${mdxSection} table th`, {
+  color: '#ffffff',
+  background: '#4FC3A1',
+  fontSize: vars.fontSize.md,
+  padding: '4px',
+});
+
+globalStyle(`${mdxSection} table td`, {
+  textAlign: 'center',
+  padding: '8px',
+  fontSize: vars.fontSize.sm,
+  color: vars.color.text,
+  background: vars.color.mutedAsBg,
+});
