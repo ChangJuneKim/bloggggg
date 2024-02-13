@@ -1,0 +1,100 @@
+---
+title: '[삽질] CLI로 웹스톰을 실행해보자'
+description: wst [경로] 명령어로 실행해보기
+category: fire
+createdAt: 2024-02-13
+tags:
+thumbnail: /assets/images/thumbnails/fire.png
+---
+<Thumbnail filename={"fire.png"} alt={'CLI로 웹스톰을 실행해보자'}/>
+
+<Divider/>
+
+## 들어가며
+개발 환경을 `Visual Studio Code`에서 `WebStorm`으로 전환하고 나서, 불편함이 있었습니다.
+`VSCode`를 사용할 때는 터미널에서 `code [경로]` 명령어로 간편하게 프로젝트를 열곤 했는데, `WebStorm`에서는 항상 프로젝트를 열 때 실행 아이콘을 클릭해야 했습니다.
+(`VSCode` 내에서 간단하게 설정이 가능했음.. 명령 팔레트를 열어서 `code` 라고 검색해서 `Shell Command: Install 'code' command in PATH` 라는 옵션을 찾아서 설치하면 됐다.)
+`WebStorm`에서는 ~~문서를 찾아봐도 그런 명령어가 없는 것 같길래, 해결책을 찾아보기로 했습니다.~~
+
+<Image src={'/assets/images/posts/2024/02/open-ide-cli/1.jpg'} alt={""} />
+<ExternalLink href={'https://www.jetbrains.com/help/webstorm/opening-reopening-and-closing-projects.html#ws_open_project'}>공식문서 커맨드라인 명령어</ExternalLink> 있네..?
+
+아무튼 `webstorm` 을 다 쳐서 실행하긴 귀찮아서 `wst` 라는 명령어로 실행해보기로 했습니다.
+
+## Bash에서 명령어 실행하기
+`Git Bash` 사용자라면 `.bashrc` 파일에 직접 별칭을 설정해야 한다.
+
+1. `.bashrc` 파일 열기
+```bash
+nano ~/.bashrc
+```
+<br/>
+2. 별칭 설정하기
+저는 wst=경로 로 했습니다.
+```bash
+alias 명령어=실행파일경로
+```
+3. Ctrl + O, Ctrl + X로 저장하고 나오기
+4. Git Bash 재실행
+
+## Cmder에서 명령어 실행하기
+`Cmder` 사용자라면  `cmder\config\user-aliases.cmd` 파일을 통해 설정할 수 있습니다.
+
+1. `cmder\config\user-aliases.cmd` 파일 열기
+`cmder`가 설치된 경로에서 메모장으로 열어주거나, 아래 명령어를 `cmd`에서 실행합니다.
+```bash
+```bash
+notepad cmder\config\user-aliases.cmd
+```
+2. 별칭 설정하기
+파일에 `wst="경로" $*` (따옴표 빼먹지 마세요!) 라고 입력해줍니다.
+`$*` 부분은 웹스톰에게 전달할 인자들을 의미한다고 합니다. `wst .` 이나 `wst desktop` 에서 `.`과 `desktop` 부분을 의미하는 것 같습니다.
+
+## 파워쉘에서 명령어 실행하기
+
+### 임시 설정
+~~1. 파워쉘을 열고 아래 명령어를 입력합니다.~~
+```bash
+Set-Alias wst "경로"
+```
+~~2. Get-Alias 명령어로 확인합니다.~~
+```bash
+Get-Alias wst
+```
+
+위 방법은 파워쉘을 종료하면 설정이 사라집니다. 파워쉘을 프로필 파일을 통해서 매번 실행 시 초기 설정을 불러오는데 이 파일을 수정하면 영구적으로 설정할 수 있습니다.
+
+### 영구 설정
+1. Profile 파일 경로 찾기
+아래 명령어를 입력하면 프로필 파일의 경로를 알 수 있습니다. 혹시 경로가 나오지 않는다면 직접 생성해도 됩니다.
+```bash
+$profile
+```
+<br/>
+2. 프로필 파일 열기
+파일 탐색기에서 경로를 입력하거나, 아래 명령어로 메모장으로 파일을 열어줍니다.
+```bash
+notepad $profile
+```
+<br/>
+3. Profile 파일을 열어서 alias 설정하기
+파일에 `Set-Alias wst "경로"` 라고 입력해줍니다.
+```bash
+Set-Alias wst "경로"
+```
+
+이 외에도 `notepad`를 `note`로 하는 등 다양한 별칭을 설정할 수 있습니다.
+<Image src={'/assets/images/posts/2024/02/open-ide-cli/2.png'} alt={"get-alias"} />
+<Image src={'/assets/images/posts/2024/02/open-ide-cli/3.png'} alt={"set-alias"} />
+
+실제로 `get-alias`(축약어 리스트들을 보여주는 명령어)도 `gal` 으로 이미 설정되어 있는 것을 확인할 수 있습니다.
+
+## 마치며
+이제 `wst` 명령어로 웹스톰을 실행할 수 있게 되었습니다. 이제 터미널에서 `wst` 명령어로 쉽게 프로젝트를 열 수 있게 되었습니다.
+굿..!
+
+## 참고자료
+<p><ExternalLink href={'https://stackoverflow.com/questions/38644316/opening-webstorm-from-powershell#comment64672825_38644316'}>PowerShell에서 WebStorm 열기 - CODE 해결 된 문제 (stackoverflow.com)</ExternalLink></p>
+<p><ExternalLink href={'https://www.clien.net/service/board/kin/15154108'}>'인수를 허용하는 위치 매개변수를 찾을 수 없습니다' 에러가 뭔가요? : 클리앙 (clien.net)</ExternalLink></p>
+
+
