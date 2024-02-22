@@ -82,21 +82,21 @@ export async function generateMetadata({ params: { page, category } }: { params:
   };
 }
 
-type PathParams = {
-  category: string;
-  page: string;
-};
+// type PathParams = {
+//   category: string;
+//   page: string;
+// };
 
-export const generateStaticParams = async () => {
-  const postsByCategory = getPostsByCategory();
-
-  const paths: Array<PathParams> = [];
-
-  Object.keys(postsByCategory).forEach((category) => {
-    const numberOfPages = Math.ceil(postsByCategory[category].length / siteConfig.postsPerPage);
-    const pages = Array.from({ length: numberOfPages }, (_, i) => ({ category, page: `${i + 1}` }));
-    paths.push(...pages);
-  });
-
-  return paths;
-};
+// export const generateStaticParams = async () => {
+//   const postsByCategory = getPostsByCategory();
+//
+//   const paths: Array<PathParams> = [];
+//
+//   Object.keys(postsByCategory).forEach((category) => {
+//     const numberOfPages = Math.ceil(postsByCategory[category].length / siteConfig.postsPerPage);
+//     const pages = Array.from({ length: numberOfPages }, (_, i) => ({ category, page: `${i + 1}` }));
+//     paths.push(...pages);
+//   });
+//
+//   return paths;
+// };
