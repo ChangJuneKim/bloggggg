@@ -22,7 +22,7 @@ const SiteConfig = {
     },
     zippy: {
       projectNotion:
-        'https://right-longship-995.notion.site/ZippyZiggy-ChatGPT-d46d259c1bb4405796cdd69b10952408?pvs=4',
+        'https://right-longship-995.notion.site/ZippyZiggy-ChatGPT-a1dd7fcee99a4d38a2d1af21c437e5fd',
       website: 'https://zippyziggy.kr',
       chromeWebStore:
         'https://chrome.google.com/webstore/detail/zippyziggy-chatgpt-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%EB%A5%BC/gcinlhaphmofekpjjjcnbiigbgnffokc?hl=ko',
