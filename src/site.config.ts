@@ -18,6 +18,7 @@ const SiteConfig = {
     email: 'mailto:kchang6869@gmail.com',
     myBlog: {
       website: `https://www.changjune.com`,
+      projectNotion: `https://right-longship-995.notion.site/d46d259c1bb4405796cdd69b10952408`,
       projectGit: 'https://github.com/ChangJuneKim/bloggggg',
     },
     zippy: {

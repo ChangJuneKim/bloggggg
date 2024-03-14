@@ -9,11 +9,11 @@ export default function ProjectsSection() {
   return (
     <Box as={'section'} marginTop={'16'}>
       <ResumeSectionTitle title={'✨ Project'} desc={'프로젝트'} />
-      <MyBlog />
-      <Divider />
       <ZippyZiggy />
       <Divider />
       <TryCatch />
+      <Divider />
+      <MyBlog />
     </Box>
   );
 }

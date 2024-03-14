@@ -34,13 +34,12 @@ const techStacks: Array<TechStack> = [
     description: [
       'Next.js와 Contentlayer를 사용하여 정적 블로그를 개발, 파일 기반 라우팅',
       'SSR과 SSG의 기본 원리를 이해하고 있음',
-      '다양한 API 경로를 활용하여 필요에 따라 데이터를 처리하고 표시하는 데 익숙함',
     ],
   },
 ];
 
 const etc = [
-  'vue.js(2)',
+  'vue2',
   'vanilla-extract',
   'Storybook',
   'Spring-Boot',

@@ -39,10 +39,17 @@ export default function TryCatch() {
       period={'2023.01.03 ~ 2023.02.17 (총 7주)'}
       techStacks={tryCatchTechStacks}
       description={
-        <p>
-          트라이캐치는 깃허브 정보를 바탕으로 기술 블로그 글을 추천해주고, 소통할 수 있는 공간이
-          있는 개발자 커뮤니티 서비스 입니다.
-        </p>
+        <>
+          <p>
+            트라이캐치는 깃허브 정보를 바탕으로 기술 블로그 글을 추천해주고, 소통할 수 있는 공간이
+            있는 개발자 커뮤니티 서비스 입니다.
+          </p>
+          <p>
+            이 서비스는 개발자들이 자기 기술 스택과 관심사에 맞는 정보를 쉽게 찾을 수 있도록
+            도와주는 개발자 커뮤니티 서비스를 목표로 했습니다. 프로젝트를 진행하면서 개발자들이
+            편리하게 사용할 수 있는가에 중점을 두었습니다.
+          </p>
+        </>
       }
       projectResults={zippyLinks}
       implementations={zippyFunctions}

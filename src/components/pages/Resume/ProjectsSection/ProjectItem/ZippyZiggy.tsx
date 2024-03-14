@@ -46,10 +46,18 @@ export default function ZippyZiggy() {
       period={'2023.04.10 ~ 2023.05.19 (총 6주)'}
       techStacks={zippyTechStacks}
       description={
-        <p>
-          ZippyZiggy는 <b>ChatGPT 프롬프트</b>를 쉽고 빠르게 사용할 수 있게 도와주는 서비스입니다.
-          다양한 플랫폼(웹, 앱, 브라우저 확장프로그램)에서 사용할 수 있습니다.
-        </p>
+        <>
+          <p>
+            ZippyZiggy는 <b>ChatGPT 프롬프트</b>를 쉽고 빠르게 사용할 수 있게 도와주는 서비스입니다.
+            다양한 플랫폼(웹, 앱, 브라우저 확장프로그램)에서 사용할 수 있습니다.
+          </p>
+          <p>
+            ChatGPT가 출시된 초기 단계에서 사용자 경험을 개선하고자 하는 목표로 기존의 불편한 UI를
+            개선하고, 새로운 기능, 번역 기능, 그리고 미리 작성된 프롬프트 적용 기능을 추가하는 데
+            초점을 맞췄습니다. 이 서비스는 다양한 플랫폼에서 ChatGPT의 접근성을 높이는 것을 목표로
+            삼았습니다.
+          </p>
+        </>
       }
       projectResults={zippyLinks}
       implementations={zippyFunctions}

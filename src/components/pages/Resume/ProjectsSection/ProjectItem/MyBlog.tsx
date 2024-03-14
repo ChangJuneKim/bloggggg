@@ -15,9 +15,9 @@ const blogFunctions = [
   '- Vanilla-Extract를 사용한 CSS-in-TS 스타일링',
   '- 반응형 디자인 구현',
   '- 다크 모드 구현',
-  // '- 검색 기능 구현',
-  // '- 댓글 시스템 통합 (예: Disqus, Utterances)',
-  // '- SEO 최적화',
+  '- 검색 기능 구현',
+  '- 댓글 시스템 통합 (예: Disqus, Utterances)',
+  '- SEO 최적화',
   // '- 성능 최적화 (이미지 최적화, 코드 스플리팅 등)',
 ];
 
@@ -30,7 +30,7 @@ export default function MyBlog() {
         alt: '김창준의 블로그 프로젝트',
       }}
       title={'개인 블로그'}
-      projectLink={siteConfig.links.myBlog.website}
+      projectLink={siteConfig.links.myBlog.projectNotion}
       members={'개인'}
       position={''}
       period={'2023.10.09 ~'}
