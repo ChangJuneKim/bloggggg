@@ -27,12 +27,20 @@ export default function PostSearch({ searchParams, category }: PostSearchProps) 
   };
 
   useEffect(() => {
-    if (debouncedKeyword) {
-      router.replace(`/posts/categories/${category}/pages/1?keyword=${debouncedKeyword}`);
-    } else {
-      router.replace(pathname);
+    const hasKeywordChanged = debouncedKeyword !== searchParams.keyword;
+    const hasKeywordBeenRemoved = searchParams.keyword && debouncedKeyword === '';
+
+    if (hasKeywordChanged || hasKeywordBeenRemoved) {
+      // 검색어가 변경되었거나 검색어가 있었다가 제거된 경우
+      const newPage = hasKeywordBeenRemoved ? '1' : '1'; // 검색어가 제거되었든, 변경되었든 첫 페이지로 이동
+      const newPath =
+        hasKeywordBeenRemoved || debouncedKeyword
+          ? `/posts/categories/${category}/pages/${newPage}?keyword=${debouncedKeyword}`
+          : pathname; // 검색어가 완전히 제거된 경우 현재 경로를 유지
+
+      router.replace(newPath);
     }
-  }, [debouncedKeyword, category, router, pathname]);
+  }, [debouncedKeyword, category, router, pathname, searchParams.keyword]);
 
   return (
     <Box className={searchInputContainerStyle} style={{ flexBasis: '50%' }}>

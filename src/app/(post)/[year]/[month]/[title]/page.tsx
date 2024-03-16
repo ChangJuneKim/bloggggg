@@ -7,7 +7,6 @@ import { SkipNavContent } from '@/components/a11y';
 import { Box, SVGIcon, Tag } from '@/components/base';
 import { space } from '@/styles/tokens/space';
 import Category, { CategoryType } from '@/components/block/PostCard/Category';
-import { postTitle } from '@/app/posts/(post)/[year]/[month]/[title]/index.css';
 import { readingTimeStyle } from '@/components/block/PostCard/index.css';
 import IconSpan from '@/components/extended/IconSpan';
 import { format } from 'date-fns';
@@ -17,6 +16,7 @@ import { mdxSection, tagsAside, tagsAsideSticky } from '@/app/posts/(posts)/layo
 import { descAllPosts, getTagsOfPost } from '@/utils/posts';
 import Giscus from '@/components/block/Giscus';
 import { Metadata } from 'next';
+import { postTitle } from '@/app/(post)/[year]/[month]/[title]/index.css';
 
 export const dynamic = 'error';
 

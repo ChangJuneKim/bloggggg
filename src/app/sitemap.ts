@@ -19,7 +19,7 @@ const resumeEntry: SitemapEntry = {
 
 const postEntries = allPosts.map((post) => {
   return {
-    url: `${siteConfig.url}/posts/${post._raw.flattenedPath}`,
+    url: `${siteConfig.url}/${post._raw.flattenedPath}`,
     lastModified: new Date(post.createdAt),
   };
 });
