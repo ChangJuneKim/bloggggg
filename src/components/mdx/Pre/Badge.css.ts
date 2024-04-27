@@ -1,4 +1,3 @@
-// CSS 변수를 생성하기 위한 함수를 임포트합니다.
 import { createVar, style } from '@vanilla-extract/css';
 import { THEMES } from '@/constants/themes';
 import { CSSProperties } from 'react';
@@ -173,6 +172,10 @@ const badgeStyles: SelectorMap = {
   "&[data-lang='svelte']": {
     background: { light: `rgb(255, 62, 0)`, dark: `rgba(255, 62, 0, ${displayOpacityVar})` },
     color: { light: `white`, dark: `rgb(255, 221, 211)` },
+  },
+  "&[data-lang='dockerfile']": {
+    background: { light: `#2684FF`, dark: `#2684FF` },
+    color: { light: `white`, dark: `white` },
   },
 };
 
