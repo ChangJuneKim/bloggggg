@@ -119,7 +119,7 @@ const PostPage = async ({ params }: PostPageProps) => {
               {uniqueTags.length ? (
                 uniqueTags.map((tag, index) => (
                   // TODO 태그 필터링 하기
-                  <Tag key={index} type={'link'} href={`#`} ㅇlabel={tag || ''} />
+                  <Tag key={index} type={'link'} href={`#`} label={tag || ''} />
                 ))
               ) : (
                 <p>태그가 없습니다.</p>

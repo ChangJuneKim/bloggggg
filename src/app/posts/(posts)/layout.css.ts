@@ -90,7 +90,7 @@ globalStyle(`${mdxSection} *:not(${headingStyle} a)`, {
   lineHeight: 1.7,
 });
 
-globalStyle(`${mdxSection} p`, {
+globalStyle(`${mdxSection} p:not(li p)`, {
   textIndent: vars.space['3'],
 });
 
@@ -98,6 +98,7 @@ globalStyle(
   `${mdxSection} h1, ${mdxSection} h2, ${mdxSection} h3, ${mdxSection} h4, ${mdxSection} h5, ${mdxSection} h6, ${mdxSection}p`,
   {
     marginTop: vars.space['8'],
+    marginBottom: vars.space['0'],
     scrollMarginTop: '70px',
   }
 );

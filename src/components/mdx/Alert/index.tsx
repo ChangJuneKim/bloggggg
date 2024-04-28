@@ -38,7 +38,7 @@ export default function Alert({ title, status = 'default', children }: AlertProp
         display="flex"
         flexDirection="row"
         alignItems="center"
-        marginBottom={`${status === 'default' && title === undefined ? '0' : '4'}`}
+        marginBottom={`${status === 'default' && title === undefined ? '0' : '1'}`}
       >
         {status !== 'default' && (
           <Box className={alertIconStyle}>
