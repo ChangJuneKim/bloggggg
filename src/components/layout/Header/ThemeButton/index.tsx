@@ -21,7 +21,7 @@ export default function ThemeButton() {
 
   if (!mounted) {
     return (
-      <button className={themeButton}>
+      <button className={themeButton} aria-label={'Change theme'}>
         <Box as={'span'} width={'4'} height={'4'} aria-label={'theme button'}>
           <SVGIcon id={'system'} width={'100%'} height={'100%'} color={vars.color.primary} />
         </Box>
@@ -32,6 +32,7 @@ export default function ThemeButton() {
   return (
     <button
       className={themeButton}
+      aria-label={'Change theme'}
       onClick={() =>
         setTheme(resolvedTheme === 'dark' || resolvedTheme === 'system' ? 'light' : 'dark')
       }
