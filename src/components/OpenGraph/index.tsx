@@ -82,7 +82,7 @@ export default function OpenGraph({ title, tags, url, imageSrc, thumbnailSrc }: 
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt={title}
-        src={imageSrc || 'https://changjune.com/assets/images/banner/home.png'}
+        src={imageSrc || 'https://changjune.com/assets/images/banner/home.webp'}
         width={OpenGraphImageSize.width}
         height={OpenGraphImageSize.height}
         style={OpenGraphBackgroundStyle}

@@ -312,8 +312,8 @@ export const nullColors = {
 export type Colors = keyof typeof nullColors;
 
 export const lightThemeColors: typeof nullColors = {
-  primary: colorPalette.blue[500],
-  primaryHover: colorPalette.blue[600],
+  primary: colorPalette.blue[600],
+  primaryHover: colorPalette.blue[500],
   primaryAsBg: colorPalette.blue[500],
   bg: colorPalette.lightBlue[50],
   text: colorPalette.blueGray[800],

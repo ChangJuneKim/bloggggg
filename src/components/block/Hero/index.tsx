@@ -28,7 +28,14 @@ export default function Hero({ title, desc, image }: HeroProps) {
           placeholder={'blur'}
           blurDataURL={`/assets/images/banner/${image.filename}`}
           priority={true}
-          fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+            width: '100%',
+            height: '100%',
+          }}
+          width={1792}
+          height={200}
         />
       </Box>
       <Box className={backdrop}></Box>
