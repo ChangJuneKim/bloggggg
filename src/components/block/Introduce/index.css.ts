@@ -24,6 +24,7 @@ export const profileContainer = style({
   background: vars.color.wordHighlight,
   backdropFilter: 'blur(3px)',
   padding: vars.space['1'],
+  aspectRatio: '1 / 1',
 
   '@media': {
     [minMediaQuery('md')]: {
